@@ -16,9 +16,7 @@ public class Trip {
     private Long id;
     private String name;
     private BigDecimal price;
-    @Temporal(TemporalType.DATE)
     private LocalDate startDate;
-    @Temporal(TemporalType.DATE)
     private LocalDate endDate;
     @ManyToMany
     private List<Flight> flights;

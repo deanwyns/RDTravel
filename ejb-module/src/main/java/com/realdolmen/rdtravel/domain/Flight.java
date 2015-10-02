@@ -13,9 +13,7 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime departureTime;
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime arrivalTime;
     private BigDecimal price;
     private int maxSeats;
@@ -25,7 +23,7 @@ public class Flight {
     @ManyToOne
     private Airport departure;
 
-    protected Flight(){}
+    public Flight(){}
 
     public Long getId() {
         return id;

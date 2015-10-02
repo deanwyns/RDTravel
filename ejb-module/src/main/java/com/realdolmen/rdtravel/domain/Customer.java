@@ -3,6 +3,7 @@ package com.realdolmen.rdtravel.domain;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
 @Entity
 public class Customer extends User {
     @OneToMany
-    private List<TripOrder> tripOrders = new ArrayList<>();
+    private Collection<TripOrder> tripOrders = new ArrayList<>();
 
-    public List<TripOrder> getTripOrders() {
+    public Collection<TripOrder> getTripOrders() {
         return tripOrders;
     }
 }
