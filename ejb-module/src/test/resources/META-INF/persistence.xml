@@ -55,6 +55,9 @@
         <class>com.realdolmen.rdtravel.domain.TripOrder</class>
         <class>com.realdolmen.rdtravel.domain.User</class>
 
+        <class>com.realdolmen.rdtravel.util.LocalDatePersistenceConverter</class>
+        <class>com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter</class>
+
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
             <property name="hibernate.hbm2ddl.auto" value="create" />

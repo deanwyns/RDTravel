@@ -1,5 +1,7 @@
 package com.realdolmen.rdtravel.domain;
 
+import com.realdolmen.rdtravel.util.LocalDatePersistenceConverter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +18,9 @@ public class Trip {
     private Long id;
     private String name;
     private BigDecimal price;
+    @Convert(converter = LocalDatePersistenceConverter.class)
     private LocalDate startDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
     private LocalDate endDate;
     @ManyToMany
     private List<Flight> flights;
