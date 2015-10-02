@@ -1,9 +1,16 @@
 package com.realdolmen.rdtravel.domain;
 
+import javax.persistence.*;
+
 /**
  * Created by JSTAX29 on 2/10/2015.
+ * A user of the system.
  */
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;

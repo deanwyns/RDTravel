@@ -1,9 +1,18 @@
 package com.realdolmen.rdtravel.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Created by JSTAX29 on 2/10/2015.
+ * An airport where flights me depart from or arrive in.
  */
+@Entity
 public class Airport {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String city;

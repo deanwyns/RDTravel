@@ -1,19 +1,28 @@
 package com.realdolmen.rdtravel.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
+ * A flight which is used in a trip.
  */
+@Entity
 public class Flight {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime departureTime;
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime arrivalTime;
     private BigDecimal price;
     private int maxSeats;
     private int occupiedSeats;
+    @ManyToOne
     private Airport destination;
+    @ManyToOne
     private Airport departure;
 
     protected Flight(){}

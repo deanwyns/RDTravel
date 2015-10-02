@@ -1,18 +1,26 @@
 package com.realdolmen.rdtravel.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
+ * The trip that customers can book.
  */
+@Entity
 public class Trip {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private BigDecimal price;
+    @Temporal(TemporalType.DATE)
     private LocalDate startDate;
+    @Temporal(TemporalType.DATE)
     private LocalDate endDate;
+    @ManyToMany
     private List<Flight> flights;
 
     protected Trip(){}
