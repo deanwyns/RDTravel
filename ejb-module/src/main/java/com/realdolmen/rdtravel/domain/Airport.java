@@ -21,6 +21,7 @@ public class Airport {
     private String icao;
     private double latitude;
     private double longitude;
+    private double altitude;
     private double timezone;
     private char daylightSavingsTime;
     private String timezoneTzFormat;
@@ -87,6 +88,14 @@ public class Airport {
         this.longitude = longitude;
     }
 
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
     public double getTimezone() {
         return timezone;
     }
@@ -109,5 +118,24 @@ public class Airport {
 
     public void setTimezoneTzFormat(String timezoneTzFormat) {
         this.timezoneTzFormat = timezoneTzFormat;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Airport{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", country='").append(country).append('\'');
+        sb.append(", iataFaa='").append(iataFaa).append('\'');
+        sb.append(", icao='").append(icao).append('\'');
+        sb.append(", latitude=").append(latitude);
+        sb.append(", longitude=").append(longitude);
+        sb.append(", altitude=").append(altitude);
+        sb.append(", timezone=").append(timezone);
+        sb.append(", daylightSavingsTime=").append(daylightSavingsTime);
+        sb.append(", timezoneTzFormat='").append(timezoneTzFormat).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
