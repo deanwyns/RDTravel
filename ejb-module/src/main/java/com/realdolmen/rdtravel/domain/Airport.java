@@ -1,15 +1,17 @@
 package com.realdolmen.rdtravel.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
  * An airport where flights me depart from or arrive in.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "airport.findByCountry", query = "SELECT a FROM Airport a WHERE a.country = :country ORDER BY a.name"),
+        @NamedQuery(name = "airport.getCountries", query = "SELECT DISTINCT(a.country) FROM Airport a ORDER BY a.country")
+})
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,5 +139,29 @@ public class Airport {
         sb.append(", timezoneTzFormat='").append(timezoneTzFormat).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport = (Airport) o;
+        return Objects.equals(latitude, airport.latitude) &&
+                Objects.equals(longitude, airport.longitude) &&
+                Objects.equals(altitude, airport.altitude) &&
+                Objects.equals(timezone, airport.timezone) &&
+                Objects.equals(daylightSavingsTime, airport.daylightSavingsTime) &&
+                Objects.equals(id, airport.id) &&
+                Objects.equals(name, airport.name) &&
+                Objects.equals(city, airport.city) &&
+                Objects.equals(country, airport.country) &&
+                Objects.equals(iataFaa, airport.iataFaa) &&
+                Objects.equals(icao, airport.icao) &&
+                Objects.equals(timezoneTzFormat, airport.timezoneTzFormat);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, city, country, iataFaa, icao, latitude, longitude, altitude, timezone, daylightSavingsTime, timezoneTzFormat);
     }
 }

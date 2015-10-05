@@ -7,7 +7,7 @@ import java.util.List;
  * Created by JSTAX29 on 4/10/2015.
  * A generic DAO for CRUD operations.
  */
-public interface GenericDao<T, PK extends Serializable> {
+public interface GenericDao<T, PK extends Serializable>  {
     /**
      * Persist the newInstance object into database
      */

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:rd="http://java.sun.com/jsf/composite/realdolmen">
+<h:head>
+    <title>Create flight</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:panel header="Flight information">
+
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="availableSeats" value="Available seats" />
+                <p:inputText id="availableSeats" value="#{createFlightController.viewModel.availableSeats}" />
+                <p:messages for="availableSeats" />
+
+                <p:outputLabel for="price" value="Price" />
+                <p:inputText id="price" value="#{createFlightController.viewModel.price}" />
+                <p:messages for="price" />
+            </h:panelGrid>
+
+            <rd:airportSelector airportOut="#{createFlightController.viewModel.departureAirport}" />
+
+            <rd:airportSelector airportOut="#{createFlightController.viewModel.destinationAirport}" />
+
+            <p:commandButton value="Submit" icon="ui-icon-check" action="#{createFlightController.create}" update="@form" />
+        </p:panel>
+    </h:form>
+</h:body>
+
+</html>

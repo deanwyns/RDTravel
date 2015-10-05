@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+<composite:interface>
+    <composite:attribute name="airportOut" type="com.realdolmen.rdtravel.domain.Airport" />
+</composite:interface>
+
+<composite:implementation>
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="country" value="Country" />
+        <p:selectOneMenu id="country" value="#{airportSelectionView.country}">
+            <p:ajax listener="#{airportSelectionView.onCountryChange()}" update="airport" />
+            <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
+            <f:selectItems value="#{airportSelectionView.countries}" />
+        </p:selectOneMenu>
+
+        <p:outputLabel for="airport" value="Airport" />
+        <p:selectOneMenu id="airport" value="#{cc.attrs.airportOut}" converter="#{airportConverter}">
+            <f:selectItems value="#{airportSelectionView.airports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+        </p:selectOneMenu>
+        <p:messages for="airport" />
+    </h:panelGrid>
+</composite:implementation>
+</html>

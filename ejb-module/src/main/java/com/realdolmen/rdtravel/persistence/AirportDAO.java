@@ -5,6 +5,7 @@ import com.realdolmen.rdtravel.domain.Airport;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -26,4 +27,13 @@ public class AirportDAO extends GenericDaoImpl<Airport, Long> {
         return em;
     }
 
+    public List<Airport> findByCountry(String country) {
+        TypedQuery<Airport> query = em.createNamedQuery("airport.findByCountry", Airport.class).setParameter("country", country);
+        return query.getResultList();
+    }
+
+    public List<String> findCountries() {
+        TypedQuery<String> query = em.createNamedQuery("airport.getCountries", String.class);
+        return query.getResultList();
+    }
 }
