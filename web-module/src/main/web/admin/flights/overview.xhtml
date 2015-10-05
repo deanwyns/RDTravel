@@ -6,25 +6,41 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<p:link value="Create flight" outcome="create" />
+<h:head>
 
-<p:dataTable var="flight" value="#{flightController.findAll()}">
-    <p:column headerText="Id">
-        <h:outputText value="#{flight.id}" />
-    </p:column>
-    <p:column headerText="Departure Time">
-        <h:outputText value="#{flight.departureTime}" />
-    </p:column>
-    <p:column headerText="Arrival Time">
-        <h:outputText value="#{flight.arrivalTime}" />
-    </p:column>
-    <p:column headerText="Seats">
-        <h:outputText value="#{flight.occupiedSeats}/#{flight.maxSeats}" />
-    </p:column>
-    <p:column headerText="Price">
-        <h:outputText value="#{flight.price}">
-            <f:convertNumber />
-        </h:outputText>
-    </p:column>
-</p:dataTable>
+</h:head>
+<h:body>
+    <p:link value="Create flight" outcome="flight" />
+
+    <p:dataTable var="flight" value="#{flightController.flights}">
+        <p:column headerText="Id">
+            <h:outputText value="#{flight.id}" />
+        </p:column>
+        <p:column headerText="Departure Time">
+            <h:outputText value="#{flight.departureTime}" />
+        </p:column>
+        <p:column headerText="Arrival Time">
+            <h:outputText value="#{flight.arrivalTime}" />
+        </p:column>
+        <p:column headerText="Seats">
+            <h:outputText value="#{flight.occupiedSeats}/#{flight.maxSeats}" />
+        </p:column>
+        <p:column headerText="Price">
+            <h:outputText value="#{flight.price}">
+                <f:convertNumber />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <h:link outcome="flight" value="Edit">
+                <f:param name="id" value="#{flight.id}" />
+            </h:link>
+
+            <h:form>
+                <h:commandLink action="#{flightController.delete(flight)}" value="Delete">
+                    <f:param name="id" value="#{flight.id}" />
+                </h:commandLink>
+            </h:form>
+        </p:column>
+    </p:dataTable>
+</h:body>
 </html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:viewParam name="id" value="#{flightController.selectedFlight}" converter="#{flightConverter}" />
+</f:metadata>
+<h:head>
+    <title>Create flight</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:panel header="Flight information">
+
+            <p:panelGrid columns="2" cellpadding="5" border="1">
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="availableSeats" value="Available seats" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="availableSeats" value="#{flightController.viewModel.availableSeats}" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:messages for="availableSeats" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="price" value="Price" />
+                    <p:inputText id="price" value="#{flightController.viewModel.price}" />
+                </p:row>
+                <p:row>
+                    <p:messages for="price" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="departureTime" value="Departure time" />
+                    <p:calendar id="departureTime" value="#{flightController.viewModel.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="calendarDateTimeConverter" />
+                </p:row>
+                <p:row>
+                    <p:messages for="departureTime" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="arrivalTime" value="Arrival time" />
+                    <p:calendar id="arrivalTime" value="#{flightController.viewModel.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="calendarDateTimeConverter" />
+                </p:row>
+                <p:row>
+                    <p:messages for="arrivalTime" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="departureCountry" value="Country" />
+                    <p:selectOneMenu id="departureCountry" value="#{flightController.airportSelectionView.country1}">
+                        <p:ajax listener="#{flightController.airportSelectionView.onCountryChange1}" update="departureAirport" />
+                        <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{flightController.airportSelectionView.countries}" />
+                    </p:selectOneMenu>
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="departureAirport" value="Airport" />
+                    <p:selectOneMenu id="departureAirport" value="#{flightController.viewModel.departureAirport}" converter="#{airportConverter}">
+                        <f:selectItems value="#{flightController.airportSelectionView.airports1}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                    </p:selectOneMenu>
+                </p:row>
+                <p:row>
+                    <p:messages for="departureAirport" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="destinationCountry" value="Country" />
+                    <p:selectOneMenu id="destinationCountry" value="#{flightController.airportSelectionView.country2}">
+                        <p:ajax listener="#{flightController.airportSelectionView.onCountryChange2}" update="destinationAirport" />
+                        <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{flightController.airportSelectionView.countries}" />
+                    </p:selectOneMenu>
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="destinationAirport" value="Airport" />
+                    <p:selectOneMenu id="destinationAirport" value="#{flightController.viewModel.destinationAirport}" converter="#{airportConverter}">
+                        <f:selectItems value="#{flightController.airportSelectionView.airports2}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                    </p:selectOneMenu>
+                </p:row>
+                <p:row>
+                    <p:messages for="destinationAirport" />
+                </p:row>
+
+            </p:panelGrid>
+
+            <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" action="#{flightController.save()}" update="@form" />
+        </p:panel>
+    </h:form>
+</h:body>
+
+</html>

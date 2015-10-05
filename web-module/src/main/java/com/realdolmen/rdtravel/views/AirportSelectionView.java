@@ -4,21 +4,15 @@ import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by DWSAX40 on 5/10/2015.
  */
-@Named
 @ViewScoped
 public class AirportSelectionView implements Serializable {
     @Inject

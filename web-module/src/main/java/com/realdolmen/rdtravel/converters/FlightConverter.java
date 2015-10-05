@@ -1,7 +1,7 @@
 package com.realdolmen.rdtravel.converters;
 
-import com.realdolmen.rdtravel.domain.Airport;
-import com.realdolmen.rdtravel.persistence.AirportDAO;
+import com.realdolmen.rdtravel.domain.Flight;
+import com.realdolmen.rdtravel.persistence.FlightDAO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -17,9 +17,9 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class AirportConverter implements Converter {
+public class FlightConverter implements Converter {
     @Inject
-    private AirportDAO airportDAO;
+    private FlightDAO flightDAO;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -28,7 +28,7 @@ public class AirportConverter implements Converter {
         }
 
         long id = Long.parseLong(value);
-        return airportDAO.read(id);
+        return flightDAO.read(id);
     }
 
     @Override
@@ -37,11 +37,11 @@ public class AirportConverter implements Converter {
             return "";
         }
 
-        if(value instanceof Airport) {
-            Airport airport = (Airport)value;
-            return airport.getId().toString();
+        if(value instanceof Flight) {
+            Flight flight = (Flight)value;
+            return flight.getId().toString();
         }
 
-        throw new ConverterException(new FacesMessage("Could not convert " + value.toString() + " to an Airport"));
+        throw new ConverterException(new FacesMessage("Could not convert " + value.toString() + " to a Flight"));
     }
 }
