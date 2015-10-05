@@ -4,9 +4,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-<h:head>
-    <title>Login to RDTravel</title>
-</h:head>
 <h:body>
     <h:form id="formLogin" prependId="false" onsubmit="document.getElementById('formLogin').action = 'j_security_check';">
         <h:panelGrid columns="2">
@@ -26,6 +23,7 @@
             </f:facet>
         </h:panelGrid>
     </h:form>
+    <h:link value="Register" outcome="/register" />
 </h:body>
 
 </html>

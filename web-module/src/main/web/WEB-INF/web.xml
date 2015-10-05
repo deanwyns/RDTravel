@@ -19,7 +19,7 @@
 
     <!--BEGIN LOGIN AND SECURITY-->
     <security-role>
-        <role-name>CUSTOMER</role-name>
+        <role-name>Customer</role-name>
     </security-role>
     <security-role>
         <role-name>ADMIN</role-name>
@@ -31,7 +31,7 @@
             <url-pattern>/customer/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>CUSTOMER</role-name>
+            <role-name>Customer</role-name>
         </auth-constraint>
     </security-constraint>
 

@@ -4,26 +4,29 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-<h:head>
-    <title>Login to RDTravel</title>
-</h:head>
 <h:body>
-    <h:form id="formLogin" prependId="false" onsubmit="document.getElementById('formLogin').action = 'j_security_check';">
-        <h:panelGrid columns="2">
+    <h:form id="registerForm">
+        <h:panelGrid columns="3">
+            <h:outputLabel value="First name:"/>
+            <h:inputText required="true" id="c_fname" value="#{customerController.customer.firstName}"/>
+            <h:message for="c_fname"/>
 
-            <f:facet name="header">
-                Login
-            </f:facet>
+            <h:outputLabel value="Last name:"/>
+            <h:inputText required="true" id="c_lname" value="#{customerController.customer.lastName}"/>
+            <h:message for="c_lname"/>
 
-            <h:outputLabel for="j_username" value="Username: "/>
-            <h:inputText id="j_username" required="true"/>
+            <h:outputLabel value="Email:"/>
+            <h:inputText required="true" id="c_email" value="#{customerController.customer.email}"/>
+            <h:message for="c_email"/>
 
-            <h:outputLabel for="j_password" value="Password: "/>
-            <h:inputSecret id="j_password" required="true"/>
+            <h:outputLabel value="Password:"/>
+            <h:inputSecret required="true" id="c_pw" value="#{customerController.customer.password}"/>
+            <h:message for="c_pw"/>
 
-            <f:facet name="footer">
-                <h:commandButton value="Login" type="submit"/>
-            </f:facet>
+            <h:commandButton value="Register" action="#{customerController.createCustomer}">
+                <f:ajax render="@form"
+                        execute="@form"/>
+            </h:commandButton>
         </h:panelGrid>
     </h:form>
 </h:body>
