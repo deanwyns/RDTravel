@@ -6,7 +6,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
-    <h:link value="click For Customer Page" outcome="/customer/customeronlytestpage" />
+    <f:view>
+        <h:outputLabel value="Hello, customer"/>
 
+        <h:form onsubmit="#{request.logout()}">
+            <h:commandButton value="Logout" type="submit"/>
+        </h:form>
+    </f:view>
 </h:body>
 </html>
