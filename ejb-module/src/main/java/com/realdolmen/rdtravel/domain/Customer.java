@@ -18,4 +18,11 @@ public class Customer extends User {
     public Collection<TripOrder> getTripOrders() {
         return tripOrders;
     }
+
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email, password);
+    }
 }
