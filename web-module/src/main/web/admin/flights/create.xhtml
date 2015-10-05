@@ -24,11 +24,39 @@
                 <p:messages for="price" />
             </h:panelGrid>
 
-            <rd:airportSelector airportOut="#{createFlightController.viewModel.departureAirport}" />
+            <!--<rd:airportSelector airportOut="#{createFlightController.viewModel.departureAirport}" />
 
-            <rd:airportSelector airportOut="#{createFlightController.viewModel.destinationAirport}" />
+            <rd:airportSelector airportOut="#{createFlightController.viewModel.destinationAirport}" />-->
 
-            <p:commandButton value="Submit" icon="ui-icon-check" action="#{createFlightController.create}" update="@form" />
+            <p:outputLabel for="departureCountry" value="Country" />
+            <p:selectOneMenu id="departureCountry" value="#{airportSelectionView.country1}">
+                <p:ajax listener="#{airportSelectionView.onCountryChange1}" update="departureAirport" />
+                <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{airportSelectionView.countries}" />
+            </p:selectOneMenu>
+            <h:outputText />
+
+            <p:outputLabel for="departureAirport" value="Airport" />
+            <p:selectOneMenu id="departureAirport" value="#{createFlightController.viewModel.departureAirport}" converter="#{airportConverter}">
+                <f:selectItems value="#{airportSelectionView.airports1}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+            </p:selectOneMenu>
+            <p:messages for="departureAirport" />
+
+            <p:outputLabel for="destinationCountry" value="Country" />
+            <p:selectOneMenu id="destinationCountry" value="#{airportSelectionView.country2}">
+                <p:ajax listener="#{airportSelectionView.onCountryChange2}" update="destinationAirport" />
+                <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{airportSelectionView.countries}" />
+            </p:selectOneMenu>
+            <h:outputText />
+
+            <p:outputLabel for="destinationAirport" value="Airport" />
+            <p:selectOneMenu id="destinationAirport" value="#{createFlightController.viewModel.destinationAirport}" converter="#{airportConverter}">
+                <f:selectItems value="#{airportSelectionView.airports2}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+            </p:selectOneMenu>
+            <p:messages for="destinationAirport" />
+
+            <p:commandButton value="Submit" icon="ui-icon-check" actionListener="#{createFlightController.create()}" update="@form" />
         </p:panel>
     </h:form>
 </h:body>

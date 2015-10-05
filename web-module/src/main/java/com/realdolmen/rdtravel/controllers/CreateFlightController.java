@@ -16,7 +16,10 @@ public class CreateFlightController implements Serializable {
     private CreateFlightViewModel viewModel = this.new CreateFlightViewModel();
 
     public String create() {
-        return "overview";
+        System.out.println("///////////////////////////////////////////////////////");
+        System.out.println(viewModel.departureAirport.toString());
+        System.out.println(viewModel.destinationAirport.toString());
+        return "/overview.xhtml";
     }
 
     public CreateFlightViewModel getViewModel() {
