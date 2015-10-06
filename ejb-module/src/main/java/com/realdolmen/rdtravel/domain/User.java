@@ -1,10 +1,13 @@
 package com.realdolmen.rdtravel.domain;
 
+import com.realdolmen.rdtravel.util.HashGeneratorUtils;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.jboss.security.*;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -33,17 +36,18 @@ public abstract class User {
     private String email;
 
     @NotNull
-    @Column(length = 50, nullable = false)
-    @Size(max = 50, min = 1)
+    @Column(length = 64, nullable = false)
+    @Size(max = 64, min = 1)
     private String password;
 
-    protected User(){}
+    protected User() {
+    }
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        setPassword(password);
     }
 
     public Long getId() {
@@ -79,6 +83,6 @@ public abstract class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = HashGeneratorUtils.generateSHA256(password);
     }
 }

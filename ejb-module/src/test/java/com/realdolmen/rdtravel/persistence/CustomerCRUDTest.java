@@ -1,6 +1,7 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.Customer;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,5 +63,12 @@ public class CustomerCRUDTest extends PersistenceTest {
     public void testCreateCustomerPasswordNull() {
         customer.setPassword(null);
         entityManager().persist(customer);
+    }
+
+    @Test
+    public void testPasswordIsHashed(){
+        String password = "P@55Word";
+        customer.setPassword(password);
+        Assert.assertNotEquals(password, customer.getPassword());
     }
 }

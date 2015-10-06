@@ -7,11 +7,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <f:view>
-        <h:outputLabel value="Hello, customer"/>
+        <h:outputLabel value="Hello, #{request.remoteUser}"/>
 
-        <h:form onsubmit="#{request.logout()}">
-            <h:commandButton value="Logout" type="submit"/>
-        </h:form>
+        <h:form ><h:commandLink rendered="#{not empty request.remoteUser}" value="Logout" type="submit" action="#{loginController.logout()}"/> </h:form>
+
     </f:view>
 </h:body>
 </html>
