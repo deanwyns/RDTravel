@@ -54,6 +54,7 @@
         <class>com.realdolmen.rdtravel.domain.Trip</class>
         <class>com.realdolmen.rdtravel.domain.Booking</class>
         <class>com.realdolmen.rdtravel.domain.User</class>
+        <class>com.realdolmen.rdtravel.domain.Partner</class>
 
         <class>com.realdolmen.rdtravel.util.LocalDatePersistenceConverter</class>
         <class>com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter</class>

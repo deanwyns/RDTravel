@@ -16,13 +16,19 @@ import java.time.LocalDateTime;
  */
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
+@NamedQueries({
+        @NamedQuery(name = Flight.FIND_ALL_WITH_IDS, query = "select f from Flight f where f.id in :idList")
+})
 public class Flight {
+    public static final String FIND_ALL_WITH_IDS = "Flight.findAllWithIds";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlSchemaType(name="long")
     @XmlID
     @XmlJavaTypeAdapter(JAXBLongAdapter.class)
-    private Long id = new Long(1);
+    private Long id;
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     private LocalDateTime departureTime;
