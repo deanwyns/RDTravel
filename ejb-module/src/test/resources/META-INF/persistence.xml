@@ -46,13 +46,13 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.realdolmen.rdtravel.domain.Administrator</class>
-        <class>com.realdolmen.rdtravel.domain.AirlineAdmin</class>
+        <class>com.realdolmen.rdtravel.domain.PartnerAdmin</class>
         <class>com.realdolmen.rdtravel.domain.Airport</class>
         <class>com.realdolmen.rdtravel.domain.Customer</class>
         <class>com.realdolmen.rdtravel.domain.Flight</class>
         <class>com.realdolmen.rdtravel.domain.RDTravelAdmin</class>
         <class>com.realdolmen.rdtravel.domain.Trip</class>
-        <class>com.realdolmen.rdtravel.domain.TripOrder</class>
+        <class>com.realdolmen.rdtravel.domain.Booking</class>
         <class>com.realdolmen.rdtravel.domain.User</class>
 
         <class>com.realdolmen.rdtravel.util.LocalDatePersistenceConverter</class>

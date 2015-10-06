@@ -17,6 +17,7 @@ public class LoginController {
     private String username;
     private String password;
 
+
     public String getUsername() {
         return this.username;
     }
@@ -43,9 +44,7 @@ public class LoginController {
             context.addMessage(null, new FacesMessage("Login failed."));
             return "error";
         }
-        String uri = (String) request.getAttribute("javax.servlet.forward.request_uri");
-        String urijsf = (String) context.getExternalContext().getRequestMap().get("javax.servlet.forward.request_uri");
-        //todo: figure out why it doesn't work by returning a value.
+
         FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
 
         return "index";

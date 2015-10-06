@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -13,10 +12,10 @@ import java.util.List;
 @Entity
 public class Customer extends User {
     @OneToMany
-    private Collection<TripOrder> tripOrders = new ArrayList<>();
+    private Collection<Booking> bookings = new ArrayList<>();
 
-    public Collection<TripOrder> getTripOrders() {
-        return tripOrders;
+    public Collection<Booking> getBookings() {
+        return bookings;
     }
 
     public Customer() {
