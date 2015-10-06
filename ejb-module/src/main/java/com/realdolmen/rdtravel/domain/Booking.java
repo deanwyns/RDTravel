@@ -7,7 +7,7 @@ import javax.persistence.*;
  * An order of a trip.
  */
 @Entity
-public class TripOrder {
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,7 +15,7 @@ public class TripOrder {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    protected TripOrder(){}
+    protected Booking(){}
 
     public Long getId() {
         return id;

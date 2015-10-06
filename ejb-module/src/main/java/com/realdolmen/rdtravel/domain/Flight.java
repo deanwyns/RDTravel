@@ -1,9 +1,12 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.util.LocalDatePersistenceConverter;
+import com.realdolmen.rdtravel.util.JAXBLocalDateTimeAdapter;
+import com.realdolmen.rdtravel.util.JAXBLongAdapter;
 import com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,13 +15,19 @@ import java.time.LocalDateTime;
  * A flight which is used in a trip.
  */
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @XmlSchemaType(name="long")
+    @XmlID
+    @XmlJavaTypeAdapter(JAXBLongAdapter.class)
+    private Long id = new Long(1);
     @Convert(converter = LocalDateTimePersistenceConverter.class)
+    @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     private LocalDateTime departureTime;
     @Convert(converter = LocalDateTimePersistenceConverter.class)
+    @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     private LocalDateTime arrivalTime;
     private BigDecimal price;
     private int maxSeats;
@@ -27,6 +36,8 @@ public class Flight {
     private Airport destination;
     @ManyToOne
     private Airport departure;
+    @ManyToOne
+    private Partner partner;
 
     public Flight(){}
 
@@ -88,5 +99,28 @@ public class Flight {
 
     public void setDeparture(Airport departure) {
         this.departure = departure;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Flight{");
+        sb.append("id=").append(id);
+        sb.append(", departureTime=").append(departureTime);
+        sb.append(", arrivalTime=").append(arrivalTime);
+        sb.append(", price=").append(price);
+        sb.append(", maxSeats=").append(maxSeats);
+        sb.append(", occupiedSeats=").append(occupiedSeats);
+        sb.append(", destination=").append(destination);
+        sb.append(", departure=").append(departure);
+        sb.append('}');
+        return sb.toString();
     }
 }

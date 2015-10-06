@@ -1,6 +1,10 @@
 package com.realdolmen.rdtravel.domain;
 
+import com.realdolmen.rdtravel.util.JAXBLongAdapter;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
@@ -29,6 +33,20 @@ public class Airport {
     private String timezoneTzFormat;
 
     protected Airport(){}
+
+    public Airport(String name, String city, String country, String iataFaa, String icao, double latitude, double longitude, double altitude, double timezone, char daylightSavingsTime, String timezoneTzFormat) {
+        this.name = name;
+        this.city = city;
+        this.country = country;
+        this.iataFaa = iataFaa;
+        this.icao = icao;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.timezone = timezone;
+        this.daylightSavingsTime = daylightSavingsTime;
+        this.timezoneTzFormat = timezoneTzFormat;
+    }
 
     public Long getId() {
         return id;

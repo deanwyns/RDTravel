@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.jboss.security.*;
-
 /**
  * Created by JSTAX29 on 2/10/2015.
  * A user of the system.
