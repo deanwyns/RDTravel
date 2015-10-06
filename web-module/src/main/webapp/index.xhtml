@@ -9,6 +9,21 @@
 <ui:composition template="container.xhtml">
     <ui:define name="pageContent">
         <h1>Welcome to RDTravel</h1>
+
+        <h:form>
+            <p:outputLabel for="departureDate" />
+            <p:calendar id="departureDate" />
+            <p:messages for="departureDate" />
+
+            <p:outputLabel for="returnDate" />
+            <p:calendar id="returnDate" />
+            <p:messages for="returnDate" />
+
+            <p:selectOneMenu id="continent" value="#{bookTripView.selectedContinent}">
+                <p:ajax listener="#{bookTripView.onContinentChange}" update="destination" />
+                <f:selectItems value="#{bookTripView.continents}" />
+            </p:selectOneMenu>
+        </h:form>
     </ui:define>
 </ui:composition>
 

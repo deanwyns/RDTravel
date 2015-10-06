@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-    <f:viewParam name="id" value="#{flightController.selectedFlight}" converter="#{flightConverter}" />
+    <f:viewParam name="id" value="#{flightView.selectedFlight}" converter="#{flightConverter}" />
 </f:metadata>
 <h:head>
     <title>Create flight</title>
@@ -16,13 +16,13 @@
     <h:form>
         <p:panel header="Flight information">
 
-            <p:panelGrid columns="2" cellpadding="5" border="1">
+            <p:panelGrid columns="2" cellpadding="5">
                 <p:row>
                     <p:column>
                         <p:outputLabel for="availableSeats" value="Available seats" />
                     </p:column>
                     <p:column>
-                        <p:inputText id="availableSeats" value="#{flightController.viewModel.availableSeats}" />
+                        <p:inputText id="availableSeats" value="#{flightView.viewModel.availableSeats}" />
                     </p:column>
                 </p:row>
                 <p:row>
@@ -31,7 +31,7 @@
 
                 <p:row>
                     <p:outputLabel for="price" value="Price" />
-                    <p:inputText id="price" value="#{flightController.viewModel.price}" />
+                    <p:inputText id="price" value="#{flightView.viewModel.price}" />
                 </p:row>
                 <p:row>
                     <p:messages for="price" />
@@ -39,7 +39,7 @@
 
                 <p:row>
                     <p:outputLabel for="departureTime" value="Departure time" />
-                    <p:calendar id="departureTime" value="#{flightController.viewModel.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="calendarDateTimeConverter" />
+                    <p:calendar id="departureTime" value="#{flightView.viewModel.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.CalendarDateTimeConverter" />
                 </p:row>
                 <p:row>
                     <p:messages for="departureTime" />
@@ -47,7 +47,7 @@
 
                 <p:row>
                     <p:outputLabel for="arrivalTime" value="Arrival time" />
-                    <p:calendar id="arrivalTime" value="#{flightController.viewModel.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="calendarDateTimeConverter" />
+                    <p:calendar id="arrivalTime" value="#{flightView.viewModel.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.CalendarDateTimeConverter" />
                 </p:row>
                 <p:row>
                     <p:messages for="arrivalTime" />
@@ -55,17 +55,17 @@
 
                 <p:row>
                     <p:outputLabel for="departureCountry" value="Country" />
-                    <p:selectOneMenu id="departureCountry" value="#{flightController.airportSelectionView.country1}">
-                        <p:ajax listener="#{flightController.airportSelectionView.onCountryChange1}" update="departureAirport" />
+                    <p:selectOneMenu id="departureCountry" value="#{flightView.airportSelectionView.country1}">
+                        <p:ajax listener="#{flightView.airportSelectionView.onCountryChange1}" update="departureAirport" />
                         <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{flightController.airportSelectionView.countries}" />
+                        <f:selectItems value="#{flightView.airportSelectionView.countries}" />
                     </p:selectOneMenu>
                 </p:row>
 
                 <p:row>
-                    <p:outputLabel for="departureAirport" value="Airport" />
-                    <p:selectOneMenu id="departureAirport" value="#{flightController.viewModel.departureAirport}" converter="#{airportConverter}">
-                        <f:selectItems value="#{flightController.airportSelectionView.airports1}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                    <p:outputLabel for="departureAirport" value="Departure airport" />
+                    <p:selectOneMenu id="departureAirport" value="#{flightView.viewModel.departureAirport}" converter="#{airportConverter}">
+                        <f:selectItems value="#{flightView.airportSelectionView.airports1}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                     </p:selectOneMenu>
                 </p:row>
                 <p:row>
@@ -74,17 +74,17 @@
 
                 <p:row>
                     <p:outputLabel for="destinationCountry" value="Country" />
-                    <p:selectOneMenu id="destinationCountry" value="#{flightController.airportSelectionView.country2}">
-                        <p:ajax listener="#{flightController.airportSelectionView.onCountryChange2}" update="destinationAirport" />
+                    <p:selectOneMenu id="destinationCountry" value="#{flightView.airportSelectionView.country2}">
+                        <p:ajax listener="#{flightView.airportSelectionView.onCountryChange2}" update="destinationAirport" />
                         <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{flightController.airportSelectionView.countries}" />
+                        <f:selectItems value="#{flightView.airportSelectionView.countries}" />
                     </p:selectOneMenu>
                 </p:row>
 
                 <p:row>
-                    <p:outputLabel for="destinationAirport" value="Airport" />
-                    <p:selectOneMenu id="destinationAirport" value="#{flightController.viewModel.destinationAirport}" converter="#{airportConverter}">
-                        <f:selectItems value="#{flightController.airportSelectionView.airports2}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                    <p:outputLabel for="destinationAirport" value="Destination airport" />
+                    <p:selectOneMenu id="destinationAirport" value="#{flightView.viewModel.destinationAirport}" converter="#{airportConverter}">
+                        <f:selectItems value="#{flightView.airportSelectionView.airports2}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                     </p:selectOneMenu>
                 </p:row>
                 <p:row>
@@ -93,7 +93,7 @@
 
             </p:panelGrid>
 
-            <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" action="#{flightController.save()}" update="@form" />
+            <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" action="#{flightView.save()}" update="@form" />
         </p:panel>
     </h:form>
 </h:body>
