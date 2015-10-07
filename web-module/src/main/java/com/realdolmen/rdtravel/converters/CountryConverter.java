@@ -38,7 +38,8 @@ public class CountryConverter implements Converter {
 
         if(value instanceof Country) {
             Country country = (Country)value;
-            return country.getId().toString();
+            if(country.getId() != null)
+                return country.getId().toString();
         }
 
         throw new ConverterException(new FacesMessage("Could not convert " + value.toString() + " to a Continent"));

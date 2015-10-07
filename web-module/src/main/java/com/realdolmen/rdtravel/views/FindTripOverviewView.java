@@ -6,10 +6,13 @@ import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.TripService;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +27,15 @@ public class FindTripOverviewView implements Serializable {
     private LocalDate departureDate;
     private LocalDate returnDate;
 
-    public List<Trip> getTrips() {
-        return tripService.findByDateAndCountry(departureDate, returnDate, country);
+    public List<Trip> getTrips() throws IOException {
+        try {
+            return tripService.findByDateAndCountry(departureDate, returnDate, country);
+        } catch (IllegalArgumentException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.getExternalContext().redirect("index.xhtml");
+        }
+
+        return new ArrayList<>();
     }
 
     public Country getCountry() {

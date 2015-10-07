@@ -9,6 +9,8 @@ import com.realdolmen.rdtravel.persistence.ContinentDAO;
 import com.realdolmen.rdtravel.persistence.TripDAO;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,8 +20,8 @@ import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by DWSAX40 on 6/10/2015.
@@ -37,6 +39,8 @@ public class FindTripView implements Serializable {
 
     private LocalDate departureDate;
     private LocalDate returnDate;
+
+    private LocalDate today = LocalDate.now();
 
     @PostConstruct
     public void init() {
@@ -97,5 +101,9 @@ public class FindTripView implements Serializable {
 
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public Date today() {
+        return new Date();
     }
 }

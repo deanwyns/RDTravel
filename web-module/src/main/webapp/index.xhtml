@@ -11,9 +11,9 @@
     <ui:define name="pageContent">
         <h1>Welcome to RDTravel</h1>
 
-        <h:form>
+        <h:form id="findTripForm">
             <p:outputLabel for="departureDate" />
-            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" converter="com.realdolmen.LocalDateConverter" />
+            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" mindate="#{findTripView.today()}" converter="com.realdolmen.LocalDateConverter" />
             <p:messages for="departureDate" />
 
             <p:outputLabel for="returnDate" />

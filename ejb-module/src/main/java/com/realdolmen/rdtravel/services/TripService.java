@@ -20,6 +20,10 @@ public class TripService {
     @Inject private TripDAO tripDAO;
 
     public List<Trip> findByDateAndCountry(LocalDate departureDate, LocalDate returnDate, Country country) {
+        if(departureDate.isAfter(returnDate)) {
+            throw new IllegalArgumentException("Departure date can't be after return date.");
+        }
+
         return tripDAO.findByCountry(country).stream().filter(
                 trip -> departureDate.isBefore(trip.getStartDate()) && returnDate.isAfter(trip.getEndDate())
         ).collect(Collectors.toList());

@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-    <f:viewParam name="id" value="#{flightView.selectedFlight}" converter="#{flightConverter}" />
+    <f:viewParam name="id" value="#{flightView.flight}" converter="#{flightConverter}" />
 </f:metadata>
 <h:head>
     <title>Create flight</title>
@@ -22,7 +22,7 @@
                         <p:outputLabel for="availableSeats" value="Available seats" />
                     </p:column>
                     <p:column>
-                        <p:inputText id="availableSeats" value="#{flightView.viewModel.availableSeats}" />
+                        <p:inputText id="availableSeats" value="#{flightView.flight.maxSeats}" />
                     </p:column>
                 </p:row>
                 <p:row>
@@ -31,7 +31,7 @@
 
                 <p:row>
                     <p:outputLabel for="price" value="Price" />
-                    <p:inputText id="price" value="#{flightView.viewModel.price}" />
+                    <p:inputText id="price" value="#{flightView.flight.price}" />
                 </p:row>
                 <p:row>
                     <p:messages for="price" />
@@ -39,7 +39,7 @@
 
                 <p:row>
                     <p:outputLabel for="departureTime" value="Departure time" />
-                    <p:calendar id="departureTime" value="#{flightView.viewModel.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
+                    <p:calendar id="departureTime" value="#{flightView.flight.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
                 </p:row>
                 <p:row>
                     <p:messages for="departureTime" />
@@ -47,7 +47,7 @@
 
                 <p:row>
                     <p:outputLabel for="arrivalTime" value="Arrival time" />
-                    <p:calendar id="arrivalTime" value="#{flightView.viewModel.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
+                    <p:calendar id="arrivalTime" value="#{flightView.flight.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
                 </p:row>
                 <p:row>
                     <p:messages for="arrivalTime" />
@@ -64,7 +64,7 @@
 
                 <p:row>
                     <p:outputLabel for="departureAirport" value="Departure airport" />
-                    <p:selectOneMenu id="departureAirport" value="#{flightView.viewModel.departureAirport}" converter="#{airportConverter}">
+                    <p:selectOneMenu id="departureAirport" value="#{flightView.flight.departure}" converter="#{airportConverter}">
                         <f:selectItems value="#{flightView.airportSelectionView.departureAirports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                     </p:selectOneMenu>
                 </p:row>
@@ -83,7 +83,7 @@
 
                 <p:row>
                     <p:outputLabel for="destinationAirport" value="Destination airport" />
-                    <p:selectOneMenu id="destinationAirport" value="#{flightView.viewModel.destinationAirport}" converter="#{airportConverter}">
+                    <p:selectOneMenu id="destinationAirport" value="#{flightView.flight.destination}" converter="#{airportConverter}">
                         <f:selectItems value="#{flightView.airportSelectionView.destinationAirports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                     </p:selectOneMenu>
                 </p:row>
