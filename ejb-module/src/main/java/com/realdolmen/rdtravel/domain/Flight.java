@@ -28,7 +28,7 @@ public class Flight {
     @XmlSchemaType(name="long")
     @XmlID
     @XmlJavaTypeAdapter(JAXBLongAdapter.class)
-    private Long id = new Long(1);
+    private Long id;
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     private LocalDateTime departureTime;
@@ -38,11 +38,11 @@ public class Flight {
     private BigDecimal price;
     private int maxSeats;
     private int occupiedSeats;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     private Airport destination;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     private Airport departure;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     private Partner partner;
 
     @Version

@@ -70,8 +70,8 @@ public class MarshallingTest {
         Trip trip = new Trip();
 
         Flight flight = new Flight();
-        flight.setDeparture(new Airport("Heathrow", "London", "United Kingdom", "LHR", "EGLL", 51.4775, -0.461389, 83, 0, 'E', "Europe/London"));
-        flight.setDestination(new Airport("Pokhara", "Pokhara", "Nepal", "PKR", "VNPK", 28.200881, 83.982056, 2712, 5.75, 'N', "Asia/Katmandu"));
+//        flight.setDeparture(new Airport("Heathrow", "London", "United Kingdom", "LHR", "EGLL", 51.4775, -0.461389, 83, 0, 'E', "Europe/London"));
+//        flight.setDestination(new Airport("Pokhara", "Pokhara", "Nepal", "PKR", "VNPK", 28.200881, 83.982056, 2712, 5.75, 'N', "Asia/Katmandu"));
         flight.setDepartureTime(LocalDateTime.now());
         flight.setArrivalTime(LocalDateTime.now());
         flight.setPrice(BigDecimal.valueOf(51.25));

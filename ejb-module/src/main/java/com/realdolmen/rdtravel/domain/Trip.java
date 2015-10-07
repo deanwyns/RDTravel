@@ -41,7 +41,7 @@ public class Trip {
     @XmlJavaTypeAdapter(JAXBLocalDateAdapter.class)
     private LocalDate endDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @XmlIDREF
     @XmlSchemaType(name = "long")
     @XmlElement(name = "flightId")

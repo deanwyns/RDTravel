@@ -12,6 +12,7 @@ import java.util.Objects;
         @NamedQuery(name = "airport.findByCountryName", query = "SELECT a FROM Airport a WHERE a.country.name = :country ORDER BY a.country.name")
 })
 public class Airport {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
