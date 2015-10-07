@@ -13,11 +13,15 @@
 
         <h:form id="findTripForm">
             <p:outputLabel for="departureDate" />
-            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" mindate="#{findTripView.today()}" converter="com.realdolmen.LocalDateConverter" />
+            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
+                <p:ajax event="dateSelect" update="returnDate" />
+            </p:calendar>
             <p:messages for="departureDate" />
 
             <p:outputLabel for="returnDate" />
-            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy" converter="com.realdolmen.LocalDateConverter" />
+            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy" mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
+                <p:ajax event="dateSelect" update="departureDate" />
+            </p:calendar>
             <p:messages for="returnDate" />
 
             <p:selectOneMenu id="continent" value="#{findTripView.selectedContinent}" converter="#{continentConverter}">

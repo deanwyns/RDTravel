@@ -32,6 +32,8 @@ public class FindTripView implements Serializable {
     @Inject private AirportDAO airportDAO;
     @Inject private ContinentDAO continentDAO;
 
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private List<Continent> continents;
     private Continent selectedContinent;
     private Country selectedCountry;
@@ -39,8 +41,6 @@ public class FindTripView implements Serializable {
 
     private LocalDate departureDate;
     private LocalDate returnDate;
-
-    private LocalDate today = LocalDate.now();
 
     @PostConstruct
     public void init() {
@@ -103,7 +103,18 @@ public class FindTripView implements Serializable {
         this.returnDate = returnDate;
     }
 
-    public Date today() {
-        return new Date();
+    public String departureDateRestriction() {
+        if(returnDate == null)
+            return LocalDate.now().format(formatter);
+        else
+            return returnDate.format(formatter);
+    }
+
+    public String returnDateRestriction() {
+        if(departureDate != null) {
+            return departureDate.format(formatter);
+        }
+
+        return null;
     }
 }
