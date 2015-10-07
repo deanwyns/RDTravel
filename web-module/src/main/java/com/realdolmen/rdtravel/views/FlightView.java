@@ -69,10 +69,10 @@ public class FlightView implements Serializable {
         viewModel.setDestinationAirport(selectedFlight.getDestination());
         viewModel.setPrice(selectedFlight.getPrice());
 
-        airportSelectionView.setCountry1(selectedFlight.getDeparture().getCountry());
-        airportSelectionView.setCountry2(selectedFlight.getDestination().getCountry());
-        airportSelectionView.onCountryChange1();
-        airportSelectionView.onCountryChange2();
+        airportSelectionView.setDepartureCountry(selectedFlight.getDeparture().getCountry().getName());
+        airportSelectionView.setDestinationCountry(selectedFlight.getDestination().getCountry().getName());
+        airportSelectionView.onDepartureCountryChange();
+        airportSelectionView.onDestinationCountryChange();
     }
 
     public AirportSelectionView getAirportSelectionView() {

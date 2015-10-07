@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
+import java.io.FileNotFoundException;
 
 /**
  * Created by JSTAX29 on 5/10/2015.
@@ -23,7 +23,7 @@ public class CustomerCRUDTest extends PersistenceTest {
     }
 
     @Test
-    public void testCreateCustomer() {
+    public void testCreateCustomer() throws FileNotFoundException {
         entityManager().persist(customer);
         assertNotNull(customer.getId());
     }

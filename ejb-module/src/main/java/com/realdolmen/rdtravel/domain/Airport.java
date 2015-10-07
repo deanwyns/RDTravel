@@ -13,8 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "airport.findByCountry", query = "SELECT a FROM Airport a WHERE a.country = :country ORDER BY a.name"),
-        @NamedQuery(name = "airport.getCountries", query = "SELECT DISTINCT(a.country) FROM Airport a ORDER BY a.country")
+        @NamedQuery(name = "airport.findByCountryName", query = "SELECT a FROM Airport a WHERE a.country.name = :country ORDER BY a.country.name")
 })
 public class Airport {
     @Id
@@ -22,7 +21,6 @@ public class Airport {
     private Long id;
     private String name;
     private String city;
-    private String country;
     private String iataFaa;
     private String icao;
     private double latitude;
@@ -32,9 +30,12 @@ public class Airport {
     private char daylightSavingsTime;
     private String timezoneTzFormat;
 
+    @ManyToOne
+    private Country country;
+
     protected Airport(){}
 
-    public Airport(String name, String city, String country, String iataFaa, String icao, double latitude, double longitude, double altitude, double timezone, char daylightSavingsTime, String timezoneTzFormat) {
+    public Airport(String name, String city, Country country, String iataFaa, String icao, double latitude, double longitude, double altitude, double timezone, char daylightSavingsTime, String timezoneTzFormat) {
         this.name = name;
         this.city = city;
         this.country = country;
@@ -68,11 +69,11 @@ public class Airport {
         this.city = city;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

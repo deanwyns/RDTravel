@@ -1,9 +1,6 @@
 package com.realdolmen.rdtravel;
 
-import com.realdolmen.rdtravel.domain.Airport;
-import com.realdolmen.rdtravel.domain.Flight;
-import com.realdolmen.rdtravel.domain.Partner;
-import com.realdolmen.rdtravel.domain.Trip;
+import com.realdolmen.rdtravel.domain.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,7 +17,7 @@ import java.util.Arrays;
  */
 public class MarshallingTest {
     public static void main(String[] args) {
-        createXML();
+        //createXML();
 //        readXML();
     }
 
@@ -42,8 +39,8 @@ public class MarshallingTest {
         Trip trip = new Trip();
 
         Flight flight = new Flight();
-        flight.setDeparture(new Airport("Heathrow", "London", "United Kingdom", "LHR", "EGLL", 51.4775, -0.461389, 83, 0, 'E', "Europe/London"));
-        flight.setDestination(new Airport("Pokhara", "Pokhara", "Nepal", "PKR", "VNPK", 28.200881, 83.982056, 2712, 5.75, 'N', "Asia/Katmandu"));
+        //flight.setDeparture(new Airport("Heathrow", "London", "United Kingdom", "LHR", "EGLL", 51.4775, -0.461389, 83, 0, 'E', "Europe/London"));
+        //flight.setDestination(new Airport("Pokhara", "Pokhara", "Nepal", "PKR", "VNPK", 28.200881, 83.982056, 2712, 5.75, 'N', "Asia/Katmandu"));
         flight.setDepartureTime(LocalDateTime.now());
         flight.setArrivalTime(LocalDateTime.now());
         flight.setPrice(BigDecimal.valueOf(51.25));

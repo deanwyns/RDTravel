@@ -55,8 +55,8 @@
 
                 <p:row>
                     <p:outputLabel for="departureCountry" value="Country" />
-                    <p:selectOneMenu id="departureCountry" value="#{flightView.airportSelectionView.country1}">
-                        <p:ajax listener="#{flightView.airportSelectionView.onCountryChange1}" update="departureAirport" />
+                    <p:selectOneMenu id="departureCountry" value="#{flightView.airportSelectionView.departureCountry}">
+                        <p:ajax listener="#{flightView.airportSelectionView.onDepartureCountryChange}" update="departureAirport" />
                         <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{flightView.airportSelectionView.countries}" />
                     </p:selectOneMenu>
@@ -65,7 +65,7 @@
                 <p:row>
                     <p:outputLabel for="departureAirport" value="Departure airport" />
                     <p:selectOneMenu id="departureAirport" value="#{flightView.viewModel.departureAirport}" converter="#{airportConverter}">
-                        <f:selectItems value="#{flightView.airportSelectionView.airports1}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                        <f:selectItems value="#{flightView.airportSelectionView.departureAirports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                     </p:selectOneMenu>
                 </p:row>
                 <p:row>
@@ -74,8 +74,8 @@
 
                 <p:row>
                     <p:outputLabel for="destinationCountry" value="Country" />
-                    <p:selectOneMenu id="destinationCountry" value="#{flightView.airportSelectionView.country2}">
-                        <p:ajax listener="#{flightView.airportSelectionView.onCountryChange2}" update="destinationAirport" />
+                    <p:selectOneMenu id="destinationCountry" value="#{flightView.airportSelectionView.destinationCountry}">
+                        <p:ajax listener="#{flightView.airportSelectionView.onDestinationCountryChange}" update="destinationAirport" />
                         <f:selectItem itemLabel="Select country" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{flightView.airportSelectionView.countries}" />
                     </p:selectOneMenu>
@@ -84,7 +84,7 @@
                 <p:row>
                     <p:outputLabel for="destinationAirport" value="Destination airport" />
                     <p:selectOneMenu id="destinationAirport" value="#{flightView.viewModel.destinationAirport}" converter="#{airportConverter}">
-                        <f:selectItems value="#{flightView.airportSelectionView.airports2}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                        <f:selectItems value="#{flightView.airportSelectionView.destinationAirports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                     </p:selectOneMenu>
                 </p:row>
                 <p:row>
