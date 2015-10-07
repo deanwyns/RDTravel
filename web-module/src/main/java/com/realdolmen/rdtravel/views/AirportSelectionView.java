@@ -3,6 +3,7 @@ package com.realdolmen.rdtravel.views;
 import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
+import com.realdolmen.rdtravel.persistence.CountryDAO;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -16,8 +17,8 @@ import java.util.List;
  */
 @ViewScoped
 public class AirportSelectionView implements Serializable {
-    @Inject
-    private AirportDAO airportDAO;
+    @Inject private AirportDAO airportDAO;
+    @Inject private CountryDAO countryDAO;
 
     private String departureCountry, destinationCountry;
 
@@ -28,7 +29,7 @@ public class AirportSelectionView implements Serializable {
 
     @PostConstruct
     public void init() {
-        countries = airportDAO.findCountries();
+        countries = countryDAO.findAll();
     }
 
     public List<Country> getCountries() {

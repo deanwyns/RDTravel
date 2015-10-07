@@ -70,8 +70,8 @@ public class TripController {
             List<Trip> tripList = MarshallerUtil.unmarshal(jaxbUnmarshaller, Trip.class, xmlStreamReader);
             //Find the flight ID's from the XML that could not be processed by JAXB
 
-//            for (int i = 0; i < tripList.size(); i++) {
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < tripList.size(); i++) {
+//            for (int i = 0; i < 1; i++) {
                 Trip trip = tripList.get(i);
                 List<Long> flightIdList = getIdsFromXml(fileContentAsString, (i + 1));
 

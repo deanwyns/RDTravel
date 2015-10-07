@@ -33,7 +33,7 @@
             <p:column headerText="Departure Time" filterBy="#{flight.departureTime}"
                       filterFunction="#{flightOverviewView.filterByTimeBefore}">
                 <f:facet name="filter">
-                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.CalendarDateTimeConverter" widgetVar="departureCalendar">
+                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="departureCalendar">
                         <p:ajax event="dateSelect" oncomplete="PF('flightTable').filter()" />
                     </p:calendar>
                 </f:facet>
@@ -50,7 +50,7 @@
             <p:column headerText="Arrival Time" filterBy="#{flight.arrivalTime}"
                       filterFunction="#{flightOverviewView.filterByTimeAfter}">
                 <f:facet name="filter">
-                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.CalendarDateTimeConverter" widgetVar="arrivalCalendar">
+                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="arrivalCalendar">
                         <p:ajax event="dateSelect" oncomplete="PF('flightTable').filter()" />
                     </p:calendar>
                     <f:facet name="header">

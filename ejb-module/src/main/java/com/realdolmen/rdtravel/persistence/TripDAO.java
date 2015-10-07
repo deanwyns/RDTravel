@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
+import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 
@@ -8,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by JSTAX29 on 6/10/2015.
@@ -51,5 +54,13 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
         }
         em.persist(t);
         return t;
+    }
+
+    public List<Trip> findByCountry(Country country) {
+        List<Trip> trips = this.findAll();
+
+        return trips.stream().filter(
+                t -> t.getFlights().get(t.getFlights().size() - 1).getDestination().getCountry().equals(country)
+        ).collect(Collectors.toList());
     }
 }

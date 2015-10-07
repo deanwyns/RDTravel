@@ -43,11 +43,7 @@ public class FlightView implements Serializable {
         flight.setMaxSeats(viewModel.getAvailableSeats());
         flight.setPrice(viewModel.getPrice());
 
-        if(selectedFlight == null) {
-            flightDAO.create(flight);
-        } else {
-            flightDAO.update(flight);
-        }
+        flightDAO.update(flight);
 
         return "overview";
     }

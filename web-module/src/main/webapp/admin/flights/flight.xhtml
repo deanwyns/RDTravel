@@ -39,7 +39,7 @@
 
                 <p:row>
                     <p:outputLabel for="departureTime" value="Departure time" />
-                    <p:calendar id="departureTime" value="#{flightView.viewModel.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.CalendarDateTimeConverter" />
+                    <p:calendar id="departureTime" value="#{flightView.viewModel.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
                 </p:row>
                 <p:row>
                     <p:messages for="departureTime" />
@@ -47,7 +47,7 @@
 
                 <p:row>
                     <p:outputLabel for="arrivalTime" value="Arrival time" />
-                    <p:calendar id="arrivalTime" value="#{flightView.viewModel.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.CalendarDateTimeConverter" />
+                    <p:calendar id="arrivalTime" value="#{flightView.viewModel.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
                 </p:row>
                 <p:row>
                     <p:messages for="arrivalTime" />
