@@ -3,6 +3,7 @@ package com.realdolmen.rdtravel.views;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.persistence.TripDAO;
+import com.realdolmen.rdtravel.services.TripService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -16,15 +17,15 @@ import java.util.List;
  */
 @Named
 @RequestScoped
-public class FindTripOverviewView implements Serializable   {
-    @Inject private TripDAO tripDAO;
+public class FindTripOverviewView implements Serializable {
+    @Inject private TripService tripService;
 
     private Country country;
     private LocalDate departureDate;
     private LocalDate returnDate;
 
     public List<Trip> getTrips() {
-        return tripDAO.findByCountry(country);
+        return tripService.findByDateAndCountry(departureDate, returnDate, country);
     }
 
     public Country getCountry() {
