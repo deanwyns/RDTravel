@@ -8,7 +8,10 @@ import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -18,6 +21,8 @@ import java.util.List;
 @XmlRootElement
 @Entity
 public class Trip {
+    public static final String PERSIST_ALL = "Trip.persistAll";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(required = true)
@@ -93,17 +98,23 @@ public class Trip {
         this.flights = flights;
     }
 
-
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Trip{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", price=").append(pricePerDay);
-        sb.append(", startDate=").append(startDate);
-        sb.append(", endDate=").append(endDate);
-        sb.append(", flights=").append(flights);
-        sb.append('}');
-        return sb.toString();
+        String toString = "Trip{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pricePerDay=" + pricePerDay +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", flights={";
+
+
+        for (Flight f : flights) {
+            toString += f;
+        }
+
+        toString += "}}";
+
+        return toString;
     }
 }
