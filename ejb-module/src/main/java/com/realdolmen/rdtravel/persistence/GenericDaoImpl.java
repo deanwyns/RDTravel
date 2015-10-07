@@ -43,6 +43,6 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
 
     @Override
     public List<T> findAll() {
-        return getEntityManager().createQuery("Select t from " + entityClass.getSimpleName() + " t", entityClass).getResultList();
+        return getEntityManager().createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t", entityClass).getResultList();
     }
 }

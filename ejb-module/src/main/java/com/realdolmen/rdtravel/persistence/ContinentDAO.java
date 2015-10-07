@@ -1,0 +1,27 @@
+package com.realdolmen.rdtravel.persistence;
+
+import com.realdolmen.rdtravel.domain.Continent;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ * Created by DWSAX40 on 7/10/2015.
+ */
+@Named
+@RequestScoped
+public class ContinentDAO extends GenericDaoImpl<Continent,Integer> {
+    @PersistenceContext
+    private EntityManager em;
+
+    public ContinentDAO() {
+        super(Continent.class);
+    }
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+}

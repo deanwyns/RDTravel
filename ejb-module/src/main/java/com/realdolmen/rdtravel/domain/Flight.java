@@ -38,11 +38,11 @@ public class Flight {
     private BigDecimal price;
     private int maxSeats;
     private int occupiedSeats;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Airport destination;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Airport departure;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Partner partner;
 
     @Version

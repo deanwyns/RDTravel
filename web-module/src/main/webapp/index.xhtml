@@ -13,17 +13,23 @@
 
         <h:form>
             <p:outputLabel for="departureDate" />
-            <p:calendar id="departureDate" />
+            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" converter="com.realdolmen.LocalDateConverter" />
             <p:messages for="departureDate" />
 
             <p:outputLabel for="returnDate" />
-            <p:calendar id="returnDate" />
+            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy" converter="com.realdolmen.LocalDateConverter" />
             <p:messages for="returnDate" />
 
-            <p:selectOneMenu id="continent" value="#{bookTripView.selectedContinent}">
-                <p:ajax listener="#{bookTripView.onContinentChange}" />
-                <f:selectItems value="#{bookTripView.continents}" />
+            <p:selectOneMenu id="continent" value="#{findTripView.selectedContinent}" converter="#{continentConverter}">
+                <p:ajax listener="#{findTripView.onContinentChange}" update="country" />
+                <f:selectItems value="#{findTripView.continents}" var="continent" itemLabel="#{continent.name}" itemValue="#{continent}" />
             </p:selectOneMenu>
+
+            <p:selectOneMenu id="country" value="#{findTripView.selectedCountry}" converter="#{countryConverter}">
+                <f:selectItems value="#{findTripView.countries}" var="country" itemLabel="#{country.name}" itemValue="#{country}" />
+            </p:selectOneMenu>
+
+            <p:commandButton ajax="false" action="#{findTripView.findTrips}" value="Find trips" />
         </h:form>
     </ui:define>
 </ui:composition>

@@ -9,9 +9,6 @@ import java.util.Objects;
  * Created by DWSAX40 on 6/10/2015.
  */
 @Entity
-@NamedQueries(
-        @NamedQuery(name = "country.findAll", query = "SELECT c FROM Country c ORDER BY c.name")
-)
 public class Country implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +18,6 @@ public class Country implements Serializable {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="container.xhtml">
+    <ui:define name="pageContent">
+        <f:metadata>
+            <f:viewParam name="country" value="#{findTripOverviewView.country}" converter="#{countryConverter}" required="true" />
+            <f:viewParam name="departureDate" value="#{findTripOverviewView.departureDate}" converter="com.realdolmen.LocalDateConverter" required="true" />
+            <f:viewParam name="returnDate" value="#{findTripOverviewView.returnDate}" converter="com.realdolmen.LocalDateConverter" required="true" />
+        </f:metadata>
+
+        <p:dataTable style="table-layout: fixed;" var="trip" value="#{findTripOverviewView.trips}" id="tripTable"
+                     paginator="true" rows="10" emptyMessage="No trips were found.">
+            <p:column headerText="Name">
+                <h:outputText value="#{trip.name}" />
+            </p:column>
+
+            <p:column headerText="Price per day">
+                <h:outputText value="#{trip.pricePerDay}" />
+            </p:column>
+
+            <p:column headerText="Departure date">
+                <h:outputText value="#{trip.startDate}" />
+            </p:column>
+
+            <p:column headerText="Return date">
+                <h:outputText value="#{trip.endDate}" />
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>
+</html>

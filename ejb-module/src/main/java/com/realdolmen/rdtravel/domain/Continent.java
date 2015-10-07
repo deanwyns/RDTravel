@@ -15,8 +15,12 @@ public class Continent implements Serializable {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Country> countries = new HashSet<>();
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -32,6 +36,11 @@ public class Continent implements Serializable {
 
     public void setCountries(Set<Country> countries) {
         this.countries = countries;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
     @Override
