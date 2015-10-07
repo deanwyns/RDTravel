@@ -39,7 +39,10 @@ public class FlightConverter implements Converter {
 
         if(value instanceof Flight) {
             Flight flight = (Flight)value;
-            return flight.getId().toString();
+            if(flight.getId() != null)
+                return flight.getId().toString();
+            else
+                return "";
         }
 
         throw new ConverterException(new FacesMessage("Could not convert " + value.toString() + " to a Flight"));

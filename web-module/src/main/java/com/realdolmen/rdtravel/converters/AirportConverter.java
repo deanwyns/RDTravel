@@ -39,7 +39,8 @@ public class AirportConverter implements Converter {
 
         if(value instanceof Airport) {
             Airport airport = (Airport)value;
-            return airport.getId().toString();
+            if(airport.getId() != null)
+                return airport.getId().toString();
         }
 
         throw new ConverterException(new FacesMessage("Could not convert " + value.toString() + " to an Airport"));

@@ -5,6 +5,8 @@ import com.realdolmen.rdtravel.XMLUtils.JAXBLongAdapter;
 import com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
@@ -22,7 +24,6 @@ import java.time.LocalDateTime;
 public class Flight {
     public static final String FIND_ALL_WITH_IDS = "Flight.findAllWithIds";
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlSchemaType(name="long")
@@ -31,18 +32,32 @@ public class Flight {
     private Long id;
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
+    @NotNull
     private LocalDateTime departureTime;
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
+    @NotNull
     private LocalDateTime arrivalTime;
+
+    @NotNull
+    @Min(value = 1)
     private BigDecimal price;
+
+    @NotNull
+    @Min(value = 1)
     private int maxSeats;
+
+    @NotNull
+    @Min(value = 0)
     private int occupiedSeats;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @NotNull
     private Airport destination;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @NotNull
     private Airport departure;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @NotNull
     private Partner partner;
 
     @Version
