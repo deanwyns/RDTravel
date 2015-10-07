@@ -34,7 +34,7 @@ public class BookTripView implements Serializable {
     }
 
     public List<String> getContinents() {
-        return new ArrayList<>(Constants.continentMap.keySet().stream().map(Constants.Continent::getName).collect(Collectors.toList()));
+        return new ArrayList<>();
     }
 
     public List<String> getCountries() {
