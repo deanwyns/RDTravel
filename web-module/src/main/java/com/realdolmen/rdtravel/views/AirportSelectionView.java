@@ -1,6 +1,7 @@
 package com.realdolmen.rdtravel.views;
 
 import com.realdolmen.rdtravel.domain.Airport;
+import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
 
 import javax.annotation.PostConstruct;
@@ -18,71 +19,71 @@ public class AirportSelectionView implements Serializable {
     @Inject
     private AirportDAO airportDAO;
 
-    private String country1, country2;
+    private String departureCountry, destinationCountry;
 
-    private List<String> countries = new ArrayList<>();
+    private List<Country> countries = new ArrayList<>();
 
-    private List<Airport> airports1 = new ArrayList<>();
-    private List<Airport> airports2 = new ArrayList<>();
+    private List<Airport> departureAirports = new ArrayList<>();
+    private List<Airport> destinationAirports = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         countries = airportDAO.findCountries();
     }
 
-    public List<String> getCountries() {
+    public List<Country> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<String> countries) {
+    public void setCountries(List<Country> countries) {
         this.countries = countries;
     }
 
-    public void onCountryChange1() {
-        airports1 = new ArrayList<>();
+    public void onDepartureCountryChange() {
+        departureAirports = new ArrayList<>();
 
-        if(country1 != null && !country1.equals("")) {
-            airports1 = airportDAO.findByCountry(country1);
+        if(departureCountry != null && !departureCountry.equals("")) {
+            departureAirports = airportDAO.findByCountryName(departureCountry);
         }
     }
 
-    public void onCountryChange2() {
-        airports2 = new ArrayList<>();
+    public void onDestinationCountryChange() {
+        destinationAirports = new ArrayList<>();
 
-        if(country2 != null && !country2.equals("")) {
-            airports2 = airportDAO.findByCountry(country2);
+        if(destinationCountry != null && !destinationCountry.equals("")) {
+            destinationAirports = airportDAO.findByCountryName(destinationCountry);
         }
     }
 
-    public String getCountry1() {
-        return country1;
+    public String getDepartureCountry() {
+        return departureCountry;
     }
 
-    public void setCountry1(String country1) {
-        this.country1 = country1;
+    public void setDepartureCountry(String departureCountry) {
+        this.departureCountry = departureCountry;
     }
 
-    public String getCountry2() {
-        return country2;
+    public String getDestinationCountry() {
+        return destinationCountry;
     }
 
-    public void setCountry2(String country2) {
-        this.country2 = country2;
+    public void setDestinationCountry(String destinationCountry) {
+        this.destinationCountry = destinationCountry;
     }
 
-    public List<Airport> getAirports1() {
-        return airports1;
+    public List<Airport> getDepartureAirports() {
+        return departureAirports;
     }
 
-    public void setAirports1(List<Airport> airports1) {
-        this.airports1 = airports1;
+    public void setDepartureAirports(List<Airport> departureAirports) {
+        this.departureAirports = departureAirports;
     }
 
-    public List<Airport> getAirports2() {
-        return airports2;
+    public List<Airport> getDestinationAirports() {
+        return destinationAirports;
     }
 
-    public void setAirports2(List<Airport> airports2) {
-        this.airports2 = airports2;
+    public void setDestinationAirports(List<Airport> destinationAirports) {
+        this.destinationAirports = destinationAirports;
     }
 }
