@@ -1,6 +1,7 @@
 package com.realdolmen.rdtravel.controllers;
 
 
+import com.realdolmen.rdtravel.exceptions.TripNotFoundException;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.ImportTripService;
@@ -43,7 +44,7 @@ public class TripController {
         } catch (PersistenceException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", "The trip could not be saved to the database.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-        } catch (IllegalArgumentException e) {
+        } catch (TripNotFoundException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException | JDOMException | XMLStreamException e) {

@@ -31,29 +31,9 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
         return em;
     }
 
-//    /**
-//     * Persists all trips. Rollbacks when an error happens.
-//     * todo: write test.
-//     *
-//     * @param trips the trips to be inserted into the database
-//     */
-//    @Transactional
-//    public void persistAll(List<Trip> trips) {
-//        for(Trip trip : trips){
-//            for(Flight flight : trip.getFlights()){
-//                em.merge(flight);
-//            }
-//            em.persist(trip);
-//        }
-//    }
-
     @Override
-    public Trip create(Trip t) {
-        for(Flight flight : t.getFlights()){
-            em.merge(flight);
-        }
-        em.persist(t);
-        return t;
+    public void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
     }
 
     public List<Trip> findByCountry(Country country) {

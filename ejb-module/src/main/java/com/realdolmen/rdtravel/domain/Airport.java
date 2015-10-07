@@ -33,7 +33,7 @@ public class Airport {
     @ManyToOne
     private Country country;
 
-    protected Airport(){}
+    public Airport(){}
 
     public Airport(String name, String city, Country country, String iataFaa, String icao, double latitude, double longitude, double altitude, double timezone, char daylightSavingsTime, String timezoneTzFormat) {
         this.name = name;

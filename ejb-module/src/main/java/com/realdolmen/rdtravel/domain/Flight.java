@@ -50,6 +50,17 @@ public class Flight {
 
     public Flight(){}
 
+    public Flight(LocalDateTime departureTime, LocalDateTime arrivalTime, BigDecimal price, int maxSeats, int occupiedSeats, Airport destination, Airport departure, Partner partner) {
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.price = price;
+        this.maxSeats = maxSeats;
+        this.occupiedSeats = occupiedSeats;
+        this.destination = destination;
+        this.departure = departure;
+        this.partner = partner;
+    }
+
     public Long getId() {
         return id;
     }

@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
  */
 @Named
 @RequestScoped
-public class ContinentDAO extends GenericDaoImpl<Continent,Integer> {
+public class ContinentDAO extends GenericDaoImpl<Continent, Integer> {
     @PersistenceContext
     private EntityManager em;
 
@@ -23,5 +23,10 @@ public class ContinentDAO extends GenericDaoImpl<Continent,Integer> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
     }
 }

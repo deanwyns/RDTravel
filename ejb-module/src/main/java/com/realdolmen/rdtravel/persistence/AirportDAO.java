@@ -28,6 +28,11 @@ public class AirportDAO extends GenericDaoImpl<Airport, Long> {
         return em;
     }
 
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
+    }
+
     public List<Airport> findByCountryName(String countryName) {
         TypedQuery<Airport> query = em.createNamedQuery("airport.findByCountryName", Airport.class).setParameter("country", countryName);
         return query.getResultList();

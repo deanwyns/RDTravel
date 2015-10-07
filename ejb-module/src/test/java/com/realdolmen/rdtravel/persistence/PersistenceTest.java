@@ -41,6 +41,7 @@ public abstract class PersistenceTest extends Assert {
 
     /**
      * Provides connection settings for the database.
+     *
      * @return Map of JPA properties.
      */
     protected static Map<String, String> properties() {
@@ -71,15 +72,15 @@ public abstract class PersistenceTest extends Assert {
     @After
     public void destroy() {
         logger.info("Committing and closing transacted EntityManager");
-        if(transaction != null) {
-            if(transaction.getRollbackOnly()) {
+        if (transaction != null) {
+            if (transaction.getRollbackOnly()) {
                 transaction.rollback();
             } else {
                 transaction.commit();
             }
         }
 
-        if(entityManager != null) {
+        if (entityManager != null) {
             entityManager.close();
         }
     }
@@ -87,7 +88,7 @@ public abstract class PersistenceTest extends Assert {
     @AfterClass
     public static void destroyEntityManagerFactory() {
         logger.info("Closing EntityManagerFactory");
-        if(entityManagerFactory != null) {
+        if (entityManagerFactory != null) {
             entityManagerFactory.close();
         }
     }
@@ -101,11 +102,17 @@ public abstract class PersistenceTest extends Assert {
 
     /**
      * Obtains a <strong>new</strong> JDBC connection using connection settings defined in {@link #properties()}
+     *
      * @return A new JDBC connection. Callsite is responsible for closing.
      * @throws SQLException When the shit hits the fan.
      */
     protected Connection newConnection() throws SQLException {
         Map<String, String> properties = properties();
         return DriverManager.getConnection(properties.get(URL), properties.get(USER), properties.get(PASSWORD));
+    }
+
+    protected void flushAndClear() {
+        entityManager().flush();
+        entityManager().clear();
     }
 }

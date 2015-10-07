@@ -54,6 +54,14 @@ public class Trip {
     public Trip() {
     }
 
+    public Trip(String name, BigDecimal pricePerDay, LocalDate startDate, LocalDate endDate, List<Flight> flights) {
+        this.name = name;
+        this.pricePerDay = pricePerDay;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.flights = flights;
+    }
+
     public Long getId() {
         return id;
     }
