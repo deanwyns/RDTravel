@@ -1,4 +1,4 @@
-package com.realdolmen.rdtravel.util;
+package com.realdolmen.rdtravel.XMLUtils;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

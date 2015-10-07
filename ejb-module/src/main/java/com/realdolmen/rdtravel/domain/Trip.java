@@ -1,6 +1,6 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.util.JAXBLocalDateAdapter;
+import com.realdolmen.rdtravel.XMLUtils.JAXBLocalDateAdapter;
 import com.realdolmen.rdtravel.util.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
@@ -8,10 +8,7 @@ import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -44,12 +41,15 @@ public class Trip {
     @XmlJavaTypeAdapter(JAXBLocalDateAdapter.class)
     private LocalDate endDate;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @XmlIDREF
     @XmlSchemaType(name = "long")
     @XmlElement(name = "flightId")
     @XmlElementWrapper
     private List<Flight> flights;
+
+    @Version
+    private long version;
 
     public Trip() {
     }

@@ -1,10 +1,6 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.util.JAXBLongAdapter;
-
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
@@ -31,6 +27,9 @@ public class Airport {
     private double timezone;
     private char daylightSavingsTime;
     private String timezoneTzFormat;
+
+    @Version
+    private long version;
 
     protected Airport(){}
 

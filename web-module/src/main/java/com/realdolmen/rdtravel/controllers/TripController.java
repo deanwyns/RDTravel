@@ -1,5 +1,7 @@
 package com.realdolmen.rdtravel.controllers;
 
+import com.realdolmen.rdtravel.XMLUtils.JAXBWrapper;
+import com.realdolmen.rdtravel.XMLUtils.MarshallerUtil;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
@@ -24,6 +26,9 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -57,37 +62,44 @@ public class TripController {
             String fileContentAsString = new String(fileContent, "UTF-8");
 
             //Let JAXB create a Trip class from the XML, without flights since they are entered by ID
-            JAXBContext jaxbContext = JAXBContext.newInstance(Trip.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(JAXBWrapper.class, Trip.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            Trip trip = (Trip) jaxbUnmarshaller.unmarshal(new StringReader(fileContentAsString));
+            XMLInputFactory factory = XMLInputFactory.newInstance();
 
+            XMLStreamReader xmlStreamReader = factory.createXMLStreamReader(new StringReader(fileContentAsString));
+            List<Trip> tripList = MarshallerUtil.unmarshal(jaxbUnmarshaller, Trip.class, xmlStreamReader);
             //Find the flight ID's from the XML that could not be processed by JAXB
-            List<Long> flightIdList = getIdsFromXml(fileContentAsString);
 
-            //Find the flights in the database
-            List<Flight> flightList = flightDAO.findAllWithIds(flightIdList);
+//            for (int i = 0; i < tripList.size(); i++) {
+            for (int i = 0; i < 1; i++) {
+                Trip trip = tripList.get(i);
+                List<Long> flightIdList = getIdsFromXml(fileContentAsString, (i + 1));
 
-            //There were more ids than there are found flights. Some flights were not found.
-            if (flightIdList.size() != flightList.size())
-                throw new IllegalArgumentException("Not all flights were found in the database. The trip has not been added.");
+                //Find the flights in the database
+                List<Flight> flightList = flightDAO.findAllWithIds(flightIdList);
 
-            //Connect the flights to the trip
-            trip.setFlights(flightList);
+                //There were more ids than there are found flights. Some flights were not found.
+                if (flightIdList.size() != flightList.size())
+                    throw new IllegalArgumentException("Not all flights were found in the database. The trip has not been added.");
 
-            //If the ID of the trip is not null, it's editing an existing trip. Update it.
-            if(trip.getId() != null){
-                tripDAO.update(trip);
+                //Connect the flights to the trip
+                trip.setFlights(flightList);
 
-                //Let the user know updating was successful
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload successful", "File was uploaded and trips have been updated.");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }else{
-                //No Trip id present, it's a new trip. Persist the trip to the database
-                tripDAO.create(trip);
+                //If the ID of the trip is not null, it's editing an existing trip. Update it.
+                if (trip.getId() != null) {
+                    tripDAO.update(trip);
 
-                //Let the user know creating was successful
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload successful", "File was uploaded and trips have been created.");
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                    //Let the user know updating was successful
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload successful", "File was uploaded and trips have been updated.");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                } else {
+                    //No Trip id present, it's a new trip. Persist the trip to the database
+                    tripDAO.create(trip);
+
+                    //Let the user know creating was successful
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload successful", "File was uploaded and trips have been created.");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
             }
 
 
@@ -102,27 +114,31 @@ public class TripController {
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException | JDOMException e) {
             e.printStackTrace();
+        } catch (XMLStreamException e) {
+            e.printStackTrace();
         }
 
     }
 
     /**
      * Finds the ids that are within the XML file and returns them as a list of Long values
+     *
      * @param fileContentAsString the xml as a string
+     * @param tripId              the id of the currently iterated trip.
      * @return the list of ids as Long values
      * @throws JDOMException
      * @throws IOException
      */
-    private List<Long> getIdsFromXml(String fileContentAsString) throws JDOMException, IOException {
+    private List<Long> getIdsFromXml(String fileContentAsString, int tripId) throws JDOMException, IOException {
         XPathFactory xpf = XPathFactory.instance();
-        XPathExpression<Element> xpath = xpf.compile("//flights/flightId", Filters.element());
+        XPathExpression<Element> xpath = xpf.compile("//trip[" + tripId + "]/flights/flightId", Filters.element());
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(new StringReader(fileContentAsString));
         List<Element> idElementList = xpath.evaluate(document);
 
         List<Long> flightIdList = new ArrayList<>();
 
-        for(Element idElement : idElementList){
+        for (Element idElement : idElementList) {
             flightIdList.add(Long.parseLong(idElement.getText()));
         }
         return flightIdList;

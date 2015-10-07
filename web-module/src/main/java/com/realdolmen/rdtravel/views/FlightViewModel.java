@@ -13,8 +13,10 @@ import java.time.LocalDateTime;
  */
 @RequestScoped
 public class FlightViewModel {
-    @NotNull private Airport departureAirport;
-    @NotNull private Airport destinationAirport;
+//    @NotNull
+    private Airport departureAirport;
+//    @NotNull
+    private Airport destinationAirport;
     @NotNull
     @Min(value = 1)
     private Integer availableSeats;

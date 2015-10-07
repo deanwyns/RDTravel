@@ -1,13 +1,6 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.util.JAXBLongAdapter;
-
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Created by JSTAX29 on 6/10/2015.
@@ -19,6 +12,9 @@ public class Partner {
     private Long id;
     @Column(nullable = false)
     private String name;
+
+    @Version
+    private long version;
 
     public Partner() {
     }

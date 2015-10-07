@@ -38,6 +38,9 @@ public abstract class User {
     @Size(max = 64, min = 1)
     private String password;
 
+    @Version
+    private long version;
+
     protected User() {
     }
 

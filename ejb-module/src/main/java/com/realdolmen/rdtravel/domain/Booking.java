@@ -15,6 +15,9 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
+    @Version
+    private long version;
+
     protected Booking(){}
 
     public Long getId() {

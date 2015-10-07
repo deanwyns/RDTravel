@@ -1,7 +1,7 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.util.JAXBLocalDateTimeAdapter;
-import com.realdolmen.rdtravel.util.JAXBLongAdapter;
+import com.realdolmen.rdtravel.XMLUtils.JAXBLocalDateTimeAdapter;
+import com.realdolmen.rdtravel.XMLUtils.JAXBLongAdapter;
 import com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter;
 
 import javax.persistence.*;
@@ -28,7 +28,7 @@ public class Flight {
     @XmlSchemaType(name="long")
     @XmlID
     @XmlJavaTypeAdapter(JAXBLongAdapter.class)
-    private Long id;
+    private Long id = new Long(1);
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     private LocalDateTime departureTime;
@@ -38,12 +38,15 @@ public class Flight {
     private BigDecimal price;
     private int maxSeats;
     private int occupiedSeats;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Airport destination;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Airport departure;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Partner partner;
+
+    @Version
+    private long version;
 
     public Flight(){}
 
