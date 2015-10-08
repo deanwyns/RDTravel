@@ -26,6 +26,11 @@ public class UserDAO extends GenericDaoImpl<User, Long> {
         return em;
     }
 
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        this.em = entityManager;
+    }
+
     public User findByEmail(String email) {
         TypedQuery<User> query = em.createNamedQuery("user.findByEmail", User.class).setParameter("email", email);
 

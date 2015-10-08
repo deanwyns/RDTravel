@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
 @NamedQueries(
         @NamedQuery(name = "user.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
 )
-public abstract class User {
+public abstract class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,8 +38,8 @@ public abstract class User {
     private String email;
 
     @NotNull
-    @Column(length = 64, nullable = false)
-    @Size(max = 64, min = 64)
+    @Column(length = 128, nullable = false)
+    @Size(max = 128, min = 128)
     private String password;
 
     @Version

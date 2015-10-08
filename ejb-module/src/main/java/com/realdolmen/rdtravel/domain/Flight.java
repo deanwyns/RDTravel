@@ -22,10 +22,12 @@ import java.time.LocalDateTime;
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 @NamedQueries({
-        @NamedQuery(name = Flight.FIND_ALL_WITH_IDS, query = "select f from Flight f where f.id in :idList")
+        @NamedQuery(name = Flight.FIND_ALL_WITH_IDS, query = "select f from Flight f where f.id in :idList"),
+        @NamedQuery(name = Flight.FIND_BY_PARTNER, query = "SELECT f FROM Flight f WHERE f.partner = :partner")
 })
 public class Flight {
     public static final String FIND_ALL_WITH_IDS = "Flight.findAllWithIds";
+    public static final String FIND_BY_PARTNER = "Flight.findByPartner";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

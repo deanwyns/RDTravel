@@ -26,6 +26,8 @@ public class FlightView implements Serializable {
     @Inject private FlightDAO flightDAO;
     @Inject private AirportSelectionView airportSelectionView;
 
+    @Inject private User user;
+
     private Flight flight = new Flight();
 
     public Flight getFlight() {
@@ -44,7 +46,6 @@ public class FlightView implements Serializable {
     }
 
     public String save() {
-        User user = ((UserPrincipal)FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal()).getUser();
         PartnerAdmin partnerAdmin = (PartnerAdmin)user;
         flight.setPartner(partnerAdmin.getPartner());
 
