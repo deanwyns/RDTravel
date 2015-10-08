@@ -1,6 +1,8 @@
 package com.realdolmen.rdtravel.views;
 
 import com.realdolmen.rdtravel.domain.Flight;
+import com.realdolmen.rdtravel.domain.PartnerAdmin;
+import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 
 import javax.enterprise.context.RequestScoped;
@@ -16,6 +18,8 @@ import java.io.Serializable;
 public class FlightView implements Serializable {
     @Inject private FlightDAO flightDAO;
     @Inject private AirportSelectionView airportSelectionView;
+
+    @Inject private User user;
 
     private Flight flight = new Flight();
 
@@ -35,6 +39,9 @@ public class FlightView implements Serializable {
     }
 
     public String save() {
+        PartnerAdmin partnerAdmin = (PartnerAdmin)user;
+        flight.setPartner(partnerAdmin.getPartner());
+
         flightDAO.update(flight);
 
         return "overview";

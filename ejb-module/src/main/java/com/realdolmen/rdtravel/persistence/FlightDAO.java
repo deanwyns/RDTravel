@@ -1,6 +1,7 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.Flight;
+import com.realdolmen.rdtravel.domain.Partner;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -37,5 +38,9 @@ public class FlightDAO extends GenericDaoImpl<Flight, Long> {
                 .createNamedQuery(Flight.FIND_ALL_WITH_IDS, Flight.class)
                 .setParameter("idList", ids);
         return flightTypedQuery.getResultList();
+    }
+
+    public List<Flight> findByPartner(Partner partner) {
+        return em.createNamedQuery(Flight.FIND_BY_PARTNER, Flight.class).setParameter("partner", partner).getResultList();
     }
 }

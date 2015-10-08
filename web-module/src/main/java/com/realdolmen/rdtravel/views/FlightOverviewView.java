@@ -1,10 +1,11 @@
 package com.realdolmen.rdtravel.views;
 
 import com.realdolmen.rdtravel.domain.Flight;
+import com.realdolmen.rdtravel.domain.PartnerAdmin;
+import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,13 +22,15 @@ import java.util.Locale;
 public class FlightOverviewView implements Serializable {
     @Inject private FlightDAO flightDAO;
 
+    @Inject private User user;
+
     private List<Flight> flights;
     private List<Flight> filteredFlights;
     private List<Flight> selectedFlights;
 
     @PostConstruct
     public void init() {
-        flights = flightDAO.findAll();
+        flights = flightDAO.findByPartner(((PartnerAdmin)user).getPartner());
     }
 
     public void delete(Flight flight) {

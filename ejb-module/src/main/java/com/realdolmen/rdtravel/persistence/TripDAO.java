@@ -1,15 +1,11 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.Country;
-import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,11 +32,18 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
         em = entityManager;
     }
 
-    public List<Trip> findByCountry(Country country) {
+    /**
+     * Find all trips with the given country as the last destination (the last flight's destination).
+     * @param country
+     * @return
+     */
+    public List<Trip> findByDestinationCountry(Country country) {
         List<Trip> trips = this.findAll();
 
-        return trips.stream().filter(
-                t -> t.getFlights().get(t.getFlights().size() - 1).getDestination().getCountry().equals(country)
+        return trips.stream().filter(t -> {
+                    int amount = t.getFlights().size();
+                    return amount != 0 && t.getFlights().get(amount - 1).getDestination().getCountry().equals(country);
+                }
         ).collect(Collectors.toList());
     }
 }

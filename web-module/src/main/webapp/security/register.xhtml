@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+        >
 <h:body>
     <h:form id="registerForm">
         <h:panelGrid columns="3">
@@ -20,7 +19,7 @@
             <h:message for="c_email"/>
 
             <h:outputLabel value="Password:"/>
-            <h:inputSecret required="true" id="c_pw" value="#{customerController.customer.password}"/>
+            <h:inputSecret required="true" id="c_pw" value="#{customerController.customer.plainPassword}"/>
             <h:message for="c_pw"/>
 
             <h:commandButton value="Register" action="#{customerController.createCustomer}">

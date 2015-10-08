@@ -8,18 +8,24 @@
       xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="container.xhtml">
+    <ui:define name="head">
+        <h:outputStylesheet library="webjars" name="jvectormap/2.0.1/jquery-jvectormap.css" />
+    </ui:define>
+
     <ui:define name="pageContent">
         <h1>Welcome to RDTravel</h1>
 
         <h:form id="findTripForm">
             <p:outputLabel for="departureDate" />
-            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
+            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy"
+                        mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
                 <p:ajax event="dateSelect" update="returnDate" />
             </p:calendar>
             <p:messages for="departureDate" />
 
             <p:outputLabel for="returnDate" />
-            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy" mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
+            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy"
+                        mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
                 <p:ajax event="dateSelect" update="departureDate" />
             </p:calendar>
             <p:messages for="returnDate" />
@@ -33,8 +39,14 @@
                 <f:selectItems value="#{findTripView.countries}" var="country" itemLabel="#{country.name}" itemValue="#{country}" />
             </p:selectOneMenu>
 
-            <p:commandButton ajax="false" action="#{findTripView.findTrips}" value="Find trips" />
+            <p:outputLabel for="participants" />
+            <p:inputText id="participants" value="#{findTripView.participantsAmount}" />
+
+            <p:commandButton ajax="false" action="#{findTripView.findTrips}" value="Find trips" validateClient="true" />
         </h:form>
+
+        <h:outputScript library="webjars" name="jquery/2.1.3/jquery.min.js" />
+        <h:outputScript library="webjars" name="jvectormap/2.0.1/jquery.jvectormap.min.js" />
     </ui:define>
 </ui:composition>
 

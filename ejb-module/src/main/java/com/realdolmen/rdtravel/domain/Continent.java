@@ -1,19 +1,24 @@
 package com.realdolmen.rdtravel.domain;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created by DWSAX40 on 6/10/2015.
  */
 @Entity
+@NamedQueries(
+        @NamedQuery(name = Continent.FIND_ALL, query = "SELECT c FROM Continent c ORDER BY c.name")
+)
 public class Continent implements Serializable {
+    public static final String FIND_ALL = "Continent.findAll";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

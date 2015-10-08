@@ -1,11 +1,8 @@
 package com.realdolmen.rdtravel.domain;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +10,12 @@ import java.util.Objects;
  * Created by DWSAX40 on 6/10/2015.
  */
 @Entity
+@NamedQueries(
+        @NamedQuery(name = Country.FIND_ALL, query = "SELECT c FROM Country c ORDER BY c.name")
+)
 public class Country implements Serializable {
+    public static final String FIND_ALL = "Country.findAll";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

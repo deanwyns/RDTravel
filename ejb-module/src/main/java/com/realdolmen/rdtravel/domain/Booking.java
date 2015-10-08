@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.domain;
 
+import com.realdolmen.rdtravel.domain.Trip;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -21,6 +22,12 @@ public class Booking {
     @NotNull
     @ManyToOne
     private PaymentMethod paymentMethod;
+
+    @Valid
+    @NotNull
+    @Column(nullable = false)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Trip trip;
 
     @Version
     private long version;
@@ -50,5 +57,13 @@ public class Booking {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 }
