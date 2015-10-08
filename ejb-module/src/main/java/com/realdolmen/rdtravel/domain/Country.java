@@ -1,6 +1,10 @@
 package com.realdolmen.rdtravel.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,7 +17,9 @@ public class Country implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 1, max = 255)
     private String name;
 
     public Integer getId() {

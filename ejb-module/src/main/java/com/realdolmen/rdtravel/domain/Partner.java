@@ -1,6 +1,10 @@
 package com.realdolmen.rdtravel.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by JSTAX29 on 6/10/2015.
@@ -10,7 +14,9 @@ public class Partner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    @Column(nullable = false)
+    @NotNull
+    @Column(nullable = false, unique = true)
+    @Size(min = 1, max = 255)
     private String name;
 
     @Version

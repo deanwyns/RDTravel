@@ -35,7 +35,7 @@ public abstract class User {
 
     @NotNull
     @Column(length = 64, nullable = false)
-    @Size(max = 64, min = 1)
+    @Size(max = 64, min = 64)
     private String password;
 
     @Version

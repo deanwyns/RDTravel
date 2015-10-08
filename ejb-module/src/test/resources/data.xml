@@ -5,6 +5,9 @@
     <country id="1" name="Guinea"/>
     <country id="2" name="Greenland"/>
 
+    <partner id="1" name="JetAir" version="0"/>
+    <partner id="2" name="RyanAir" version="0"/>
+
     <airport id='1' altitude='5282' city='Goroka' daylightSavingsTime='U' iataFaa='GKA' icao='AYGA' latitude='-6.081689'
              longitude='145.391881' name='Goroka' timezone='10' timezoneTzFormat='Pacific/Port_Moresby' country_id='1'
              version='0'/>
@@ -16,9 +19,9 @@
              timezoneTzFormat='America/Godthab' country_id='2' version='0'/>
 
     <flight id='1' departureTime='2015-10-15 00:00:00' arrivalTime='2015-10-22 00:00:00' maxSeats='12' occupiedSeats='0'
-            price='12.00' version='0' departure_id='1' destination_id='3'/>
+            price='12.00' version='0' departure_id='1' destination_id='3' partner_id="1"/>
     <flight id='2' departureTime='2015-10-22 00:00:00' arrivalTime='2015-10-23 00:00:00' maxSeats='50' occupiedSeats='0'
-            price='100.90' version='0' departure_id='3' destination_id='2'/>
+            price='100.90' version='0' departure_id='3' destination_id='2' partner_id="2"/>
 
     <continent id="1" name="North America"/>
     <continent id="5" name="Africa"/>
