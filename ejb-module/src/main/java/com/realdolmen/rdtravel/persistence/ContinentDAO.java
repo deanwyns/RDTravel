@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by DWSAX40 on 7/10/2015.
@@ -28,5 +29,10 @@ public class ContinentDAO extends GenericDaoImpl<Continent, Integer> {
     @Override
     public void setEntityManager(EntityManager entityManager) {
         em = entityManager;
+    }
+
+    @Override
+    public List<Continent> findAll() {
+        return em.createNamedQuery(Continent.FIND_ALL, Continent.class).getResultList();
     }
 }

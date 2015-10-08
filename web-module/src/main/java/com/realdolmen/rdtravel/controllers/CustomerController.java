@@ -17,7 +17,6 @@ import javax.persistence.PersistenceException;
 @Named
 @RequestScoped
 public class CustomerController {
-
     @Inject
     private CustomerDAO customerDAO;
 

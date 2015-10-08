@@ -2,7 +2,6 @@ package com.realdolmen.rdtravel.views;
 
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.domain.Trip;
-import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.TripService;
 
 import javax.enterprise.context.RequestScoped;

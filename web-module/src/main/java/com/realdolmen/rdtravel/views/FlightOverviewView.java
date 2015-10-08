@@ -6,7 +6,6 @@ import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -50,12 +50,6 @@ public class TripService {
         if(departureDate.isAfter(returnDate)) {
             throw new IllegalArgumentException("Departure date can't be after return date.");
         }
-        System.out.println(tripDAO.findByDestinationCountry(country));
-        for(Trip trip : tripDAO.findByDestinationCountry(country)) {
-            System.out.println("///////////////////////////////////////");
-            System.out.println(trip.getName());
-            System.out.println(getMaxSeatsForTrip(trip));
-        }
 
         return tripDAO.findByDestinationCountry(country).stream().filter(
                 trip -> getMaxSeatsForTrip(trip) >= participantsAmount && departureDate.isBefore(trip.getStartDate()) && returnDate.isAfter(trip.getEndDate())

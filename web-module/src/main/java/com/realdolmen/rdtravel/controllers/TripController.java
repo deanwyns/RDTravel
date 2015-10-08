@@ -2,8 +2,6 @@ package com.realdolmen.rdtravel.controllers;
 
 
 import com.realdolmen.rdtravel.exceptions.TripNotFoundException;
-import com.realdolmen.rdtravel.persistence.FlightDAO;
-import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.ImportTripService;
 import org.jdom2.JDOMException;
 

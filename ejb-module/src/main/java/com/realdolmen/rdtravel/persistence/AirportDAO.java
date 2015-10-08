@@ -1,7 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.Airport;
-import com.realdolmen.rdtravel.domain.Country;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,8 +13,8 @@ import java.util.List;
  * An implementation of the generic DAO for airports.
  */
 @Stateless
-public class AirportDAO extends GenericDaoImpl<Airport, Long> {
 
+public class AirportDAO extends GenericDaoImpl<Airport, Long> {
     @PersistenceContext
     private EntityManager em;
 
@@ -33,8 +32,13 @@ public class AirportDAO extends GenericDaoImpl<Airport, Long> {
         em = entityManager;
     }
 
+    @Override
+    public List<Airport> findAll() {
+        return em.createNamedQuery(Airport.FIND_ALL, Airport.class).getResultList();
+    }
+
     public List<Airport> findByCountryName(String countryName) {
-        TypedQuery<Airport> query = em.createNamedQuery("airport.findByCountryName", Airport.class).setParameter("country", countryName);
+        TypedQuery<Airport> query = em.createNamedQuery(Airport.FIND_BY_COUNTRY_NAME, Airport.class).setParameter("country", countryName);
         return query.getResultList();
     }
 }

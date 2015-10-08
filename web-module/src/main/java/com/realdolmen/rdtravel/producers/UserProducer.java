@@ -1,8 +1,5 @@
 package com.realdolmen.rdtravel.producers;
 
-import com.realdolmen.rdtravel.domain.Customer;
-import com.realdolmen.rdtravel.domain.PartnerAdmin;
-import com.realdolmen.rdtravel.domain.RDTravelAdmin;
 import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.principals.UserPrincipal;
 

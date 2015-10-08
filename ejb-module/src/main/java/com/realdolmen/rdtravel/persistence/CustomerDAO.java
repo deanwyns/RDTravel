@@ -3,7 +3,6 @@ package com.realdolmen.rdtravel.persistence;
 import com.realdolmen.rdtravel.domain.Customer;
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

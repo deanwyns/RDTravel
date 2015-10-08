@@ -32,7 +32,7 @@ public class UserDAO extends GenericDaoImpl<User, Long> {
     }
 
     public User findByEmail(String email) {
-        TypedQuery<User> query = em.createNamedQuery("user.findByEmail", User.class).setParameter("email", email);
+        TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_EMAIL, User.class).setParameter("email", email);
 
         return query.getSingleResult();
     }

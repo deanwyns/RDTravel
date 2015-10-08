@@ -1,11 +1,13 @@
 package com.realdolmen.rdtravel.XMLUtils;
 
-import java.io.File;
-import java.util.List;
-import javax.xml.bind.*;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.util.List;
 
 public class MarshallerUtil {
     /**

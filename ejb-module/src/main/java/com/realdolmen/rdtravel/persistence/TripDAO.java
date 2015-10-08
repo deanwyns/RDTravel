@@ -1,15 +1,11 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.Country;
-import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

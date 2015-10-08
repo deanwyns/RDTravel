@@ -1,7 +1,6 @@
 package com.realdolmen.rdtravel.XMLUtils;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**

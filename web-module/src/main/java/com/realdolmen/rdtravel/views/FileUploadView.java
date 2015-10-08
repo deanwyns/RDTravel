@@ -1,15 +1,13 @@
 package com.realdolmen.rdtravel.views;
 
+import com.realdolmen.rdtravel.controllers.TripController;
+import org.primefaces.model.UploadedFile;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import com.realdolmen.rdtravel.controllers.TripController;
-import org.primefaces.model.UploadedFile;
-
 import java.io.Serializable;
 
 @Named

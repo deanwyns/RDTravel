@@ -1,12 +1,14 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.util.HashGeneratorUtils;
+import com.realdolmen.rdtravel.util.PasswordHash;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -15,9 +17,11 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(
-        @NamedQuery(name = "user.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+        @NamedQuery(name = User.FIND_BY_EMAIL, query = "SELECT u FROM User u WHERE u.email = :email")
 )
 public abstract class User implements Serializable {
+    public static final String FIND_BY_EMAIL = "User.findByEmail";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,9 +42,12 @@ public abstract class User implements Serializable {
     private String email;
 
     @NotNull
-    @Column(length = 128, nullable = false)
-    @Size(max = 128, min = 128)
+    @Column(length = 103, nullable = false)
     private String password;
+
+    @Transient
+    @Size(min = 6, max = 50)
+    private String plainPassword;
 
     @Version
     private long version;
@@ -83,11 +90,24 @@ public abstract class User implements Serializable {
         this.email = email;
     }
 
+    public String getPlainPassword() {
+        return plainPassword;
+    }
+
+    public void setPlainPassword(String plainPassword) {
+        this.plainPassword = plainPassword;
+        setPassword(plainPassword);
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = HashGeneratorUtils.generateSHA256(password);
+        try {
+            this.password = PasswordHash.createHash(password);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
     }
 }

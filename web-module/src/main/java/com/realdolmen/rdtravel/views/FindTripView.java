@@ -47,6 +47,7 @@ public class FindTripView implements Serializable {
 
     public void onContinentChange() {
         countries = new ArrayList<>(selectedContinent.getCountries());
+        countries.sort((c1, c2) -> c1.getName().compareTo(c2.getName()));
     }
 
     public String findTrips() {

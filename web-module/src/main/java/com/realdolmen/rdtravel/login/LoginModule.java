@@ -1,9 +1,12 @@
 package com.realdolmen.rdtravel.login;
 
-import com.realdolmen.rdtravel.domain.*;
-import com.realdolmen.rdtravel.principals.RDTravelAdminPrincipal;
+import com.realdolmen.rdtravel.domain.Customer;
+import com.realdolmen.rdtravel.domain.PartnerAdmin;
+import com.realdolmen.rdtravel.domain.RDTravelAdmin;
+import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.principals.CustomerPrincipal;
 import com.realdolmen.rdtravel.principals.PartnerAdminPrincipal;
+import com.realdolmen.rdtravel.principals.RDTravelAdminPrincipal;
 import com.realdolmen.rdtravel.principals.UserPrincipal;
 import com.realdolmen.rdtravel.util.CdiHelper;
 import com.realdolmen.rdtravel.util.PasswordHash;
@@ -46,7 +49,7 @@ public class LoginModule extends AbstractServerLoginModule {
 
         this.loginOk = false;
 
-        List<User> resultList = em.createNamedQuery("user.findByEmail", User.class).setParameter("email", email).getResultList();
+        List<User> resultList = em.createNamedQuery(User.FIND_BY_EMAIL, User.class).setParameter("email", email).getResultList();
         if(resultList.size() == 0) {
             throw PicketBoxMessages.MESSAGES.noMatchingUsernameFoundInPrincipals();
         }
