@@ -23,4 +23,9 @@ public class CustomerDAO extends GenericDaoImpl<Customer, Long> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
+    }
 }

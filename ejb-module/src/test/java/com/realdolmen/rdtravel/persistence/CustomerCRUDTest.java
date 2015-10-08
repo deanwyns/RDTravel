@@ -13,63 +13,98 @@ import java.io.FileNotFoundException;
 /**
  * Created by JSTAX29 on 5/10/2015.
  */
-public class CustomerCRUDTest extends PersistenceTest {
+public class CustomerCRUDTest extends DataSetPersistenceTest {
 
+    private CustomerDAO customerDAO = new CustomerDAO();
     private Customer customer;
 
     @Before
     public void initialize() {
-        super.initialize();
-        customer = new Customer("John", "Smith", "John.Smith@Mail.com", "P@ssword");
+        customerDAO.setEntityManager(entityManager());
+        customer = customerDAO.read(1l);
     }
 
     @Test
     public void testCreateCustomer() throws FileNotFoundException {
-        entityManager().persist(customer);
+        Customer customer = new Customer("Jack", "Smith", "jack@smith.com", "p@55word");
+        customerDAO.create(customer);
+        flushAndClear();
         assertNotNull(customer.getId());
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerFirstNameNull() {
         customer.setFirstName(null);
-        entityManager().persist(customer);
+        customerDAO.create(customer);
+        flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerLastNameNull() {
         customer.setLastName(null);
-        entityManager().persist(customer);
+        customerDAO.create(customer);
+        flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerEmailNull() {
         customer.setEmail(null);
-        entityManager().persist(customer);
+        customerDAO.create(customer);
+        flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
-     public void testCreateCustomerEmailInvalid() {
+    public void testCreateCustomerEmailInvalid() {
         customer.setEmail("invalid");
-        entityManager().persist(customer);
+        customerDAO.create(customer);
+        flushAndClear();
     }
 
     @Test(expected = PersistenceException.class)
     public void testCreateCustomerDuplicateEmail() {
         entityManager().persist(customer);
-        Customer secondCustomer = new Customer("John", "Smith 2nd", "John.Smith@Mail.com", "SomePW");
-        entityManager().persist(secondCustomer);
+        Customer secondCustomer = new Customer("Johnny", "Johnson", "johnny@info.com", "password");
+        customerDAO.create(secondCustomer);
+        flushAndClear();
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void testCreateCustomerDuplicateEmailNotEqualCasing() {
+        entityManager().persist(customer);
+        Customer secondCustomer = new Customer("Johnny", "Johnson", "Johnny@Info.cOm", "password");
+        customerDAO.create(secondCustomer);
+        flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerPasswordNull() {
         customer.setPassword(null);
-        entityManager().persist(customer);
+        customerDAO.create(customer);
+        flushAndClear();
+
     }
 
     @Test
-    public void testPasswordIsHashed(){
+    public void testPasswordIsHashed() {
         String password = "P@55Word";
         customer.setPassword(password);
         Assert.assertNotEquals(password, customer.getPassword());
+    }
+
+    @Test
+    public void testCustomerCanBeDeleted() {
+        customerDAO.delete(customer);
+        flushAndClear();
+        Assert.assertNull(entityManager().find(Customer.class, 1l));
+    }
+
+    @Test
+    public void testCustomerCanBeEdited() {
+        String newEmail = "new@email.com";
+        customer.setEmail(newEmail);
+        customerDAO.update(customer);
+        flushAndClear();
+        Customer updatedCustomer = customerDAO.read(1l);
+        assertEquals(newEmail, updatedCustomer.getEmail());
     }
 }

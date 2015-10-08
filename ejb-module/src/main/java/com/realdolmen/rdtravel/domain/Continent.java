@@ -1,6 +1,11 @@
 package com.realdolmen.rdtravel.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
 
@@ -12,9 +17,12 @@ public class Continent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 1, max = 255)
     private String name;
 
+    @Valid
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Country> countries = new HashSet<>();
 

@@ -4,6 +4,11 @@ import com.realdolmen.rdtravel.XMLUtils.JAXBLocalDateAdapter;
 import com.realdolmen.rdtravel.util.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
@@ -26,19 +31,30 @@ public class Trip {
     private Long id;
 
     @XmlElement(required = true)
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 1, max = 255)
     private String name;
 
     @XmlElement(required = true)
+    @NotNull
+    @Column(nullable = false)
+    @Min(value = 0)
+    @Digits(fraction = 2, integer = 8)
     private BigDecimal pricePerDay;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(JAXBLocalDateAdapter.class)
+    @NotNull
+    @Column(nullable = false)
     private LocalDate startDate;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(JAXBLocalDateAdapter.class)
+    @NotNull
+    @Column(nullable = false)
     private LocalDate endDate;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -46,12 +62,22 @@ public class Trip {
     @XmlSchemaType(name = "long")
     @XmlElement(name = "flightId")
     @XmlElementWrapper
+    @NotNull
+    @Valid
     private List<Flight> flights;
 
     @Version
     private long version;
 
     public Trip() {
+    }
+
+    public Trip(String name, BigDecimal pricePerDay, LocalDate startDate, LocalDate endDate, List<Flight> flights) {
+        this.name = name;
+        this.pricePerDay = pricePerDay;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.flights = flights;
     }
 
     public Long getId() {

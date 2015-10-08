@@ -24,4 +24,9 @@ public class CountryDAO extends GenericDaoImpl<Country, Integer> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
+    }
 }

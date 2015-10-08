@@ -20,6 +20,7 @@ public class CustomerController {
 
     @Inject
     private CustomerDAO customerDAO;
+
     private Customer customer = new Customer();
 
     public String createCustomer(){

@@ -2,6 +2,7 @@ package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -11,6 +12,7 @@ import java.util.Collection;
  */
 @Entity
 public class Customer extends User {
+    @Valid
     @OneToMany
     private Collection<Booking> bookings = new ArrayList<>();
 

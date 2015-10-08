@@ -1,7 +1,10 @@
 package com.realdolmen.rdtravel.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
 /**
@@ -10,6 +13,8 @@ import java.security.Principal;
  */
 @Entity
 public class PartnerAdmin extends Administrator {
+    @Valid
+    @NotNull
     @ManyToOne
     private Partner partner;
 

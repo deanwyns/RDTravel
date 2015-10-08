@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<trips>
+    <trip>
+        <name>New invalidly composed Trip (flight instead of flights)</name>
+        <pricePerDay>20.5</pricePerDay>
+        <startDate>2015-10-07</startDate>
+        <endDate>2015-10-09</endDate>
+        <flight>
+            <flightId>1</flightId>
+            <flightId>2</flightId>
+        </flight>
+    </trip>
+</trips>

@@ -1,6 +1,8 @@
 package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
@@ -16,26 +18,51 @@ public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 1, max = 255)
     private String name;
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 1, max = 255)
     private String city;
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 0, max = 4)
     private String iataFaa;
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 0, max = 4)
     private String icao;
+    @NotNull
+    @Column(nullable = false)
     private double latitude;
+    @NotNull
+    @Column(nullable = false)
     private double longitude;
+    @NotNull
+    @Column(nullable = false)
     private double altitude;
-    private double timezone;
+    @NotNull
+    @Column(nullable = false)
+    private byte timezone;
+    @NotNull
+    @Column(nullable = false)
     private char daylightSavingsTime;
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 1, max = 255)
     private String timezoneTzFormat;
-
     @Version
     private long version;
 
     @ManyToOne
     private Country country;
 
-    protected Airport(){}
+    public Airport() {
+    }
 
-    public Airport(String name, String city, Country country, String iataFaa, String icao, double latitude, double longitude, double altitude, double timezone, char daylightSavingsTime, String timezoneTzFormat) {
+    public Airport(String name, String city, Country country, String iataFaa, String icao, double latitude, double longitude, double altitude, byte timezone, char daylightSavingsTime, String timezoneTzFormat) {
         this.name = name;
         this.city = city;
         this.country = country;
@@ -117,11 +144,11 @@ public class Airport {
         this.altitude = altitude;
     }
 
-    public double getTimezone() {
+    public byte getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(double timezone) {
+    public void setTimezone(byte timezone) {
         this.timezone = timezone;
     }
 

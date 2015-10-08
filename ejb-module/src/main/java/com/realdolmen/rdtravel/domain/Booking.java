@@ -1,6 +1,8 @@
 package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -11,7 +13,12 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @Column(nullable = false)
+    @Min(value = 1)
     private int numberOfTravelers;
+    @NotNull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 

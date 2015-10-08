@@ -4,6 +4,7 @@ import com.realdolmen.rdtravel.XMLUtils.JAXBWrapper;
 import com.realdolmen.rdtravel.XMLUtils.MarshallerUtil;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
+import com.realdolmen.rdtravel.exceptions.TripNotFoundException;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 import com.realdolmen.rdtravel.persistence.TripDAO;
 import org.jdom2.Document;
@@ -17,6 +18,7 @@ import org.jdom2.xpath.XPathFactory;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -41,12 +43,14 @@ public class ImportTripService {
 
 
     /**
-     * When uploading an XML file, the tripcontroller will parse the xml and import it to the database.
-     * This method is called from the fileUploadView to redirect the uploading logic to the parsing and persistence logic.
+     * When uploading an XML file, the importTripService will parse the xml and import it to the database.
+     * This method is called from the tripController to redirect the uploading logic to the parsing and persistence logic.
+     * If there is a wrongly formatted trip in the file, no trips will be added. Every trip during persisting will be rollbacked.
      *
      * @param fileContent the content that was found inside the given file
      */
-    public void parseAndPersistTrip(byte[] fileContent) throws IOException, JAXBException, XMLStreamException, JDOMException {
+    @Transactional
+    public void parseAndPersistTrip(byte[] fileContent) throws IOException, JAXBException, XMLStreamException, JDOMException, TripNotFoundException {
 
         //Convert the byte[] to a String
         String fileContentAsString = new String(fileContent, "UTF-8");
@@ -69,7 +73,7 @@ public class ImportTripService {
 
             //There were more ids than there are found flights. Some flights were not found.
             if (flightIdList.size() != flightList.size())
-                throw new IllegalArgumentException("Not all flights were found in the database. The trip has not been added.");
+                throw new TripNotFoundException("Not all flights were found in the database. The trip has not been added.");
 
             //Connect the flights to the trip
             trip.setFlights(flightList);

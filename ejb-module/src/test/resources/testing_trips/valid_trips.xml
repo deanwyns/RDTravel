@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<trips>
+    <trip>
+        <name>New Fun Trip</name>
+        <pricePerDay>20.5</pricePerDay>
+        <startDate>2015-10-07</startDate>
+        <endDate>2015-10-09</endDate>
+        <flights>
+            <flightId>1</flightId>
+            <flightId>2</flightId>
+        </flights>
+    </trip>
+    <trip>
+        <name>Best Trip Ever</name>
+        <pricePerDay>80.5</pricePerDay>
+        <startDate>2015-09-23</startDate>
+        <endDate>2015-10-07</endDate>
+        <flights>
+            <flightId>1</flightId>
+        </flights>
+    </trip>
+    <trip>
+        <name>Also a cool trip</name>
+        <pricePerDay>10</pricePerDay>
+        <startDate>2015-03-28</startDate>
+        <endDate>2015-04-01</endDate>
+        <flights>
+            <flightId>2</flightId>
+        </flights>
+    </trip>
+</trips>

@@ -57,14 +57,13 @@
         <class>com.realdolmen.rdtravel.domain.Partner</class>
         <class>com.realdolmen.rdtravel.domain.Continent</class>
         <class>com.realdolmen.rdtravel.domain.Country</class>
-        <class>com.realdolmen.rdtravel.domain.Partner</class>
 
         <class>com.realdolmen.rdtravel.util.LocalDatePersistenceConverter</class>
         <class>com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 </persistence>

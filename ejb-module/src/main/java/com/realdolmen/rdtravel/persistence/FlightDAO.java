@@ -27,6 +27,11 @@ public class FlightDAO extends GenericDaoImpl<Flight, Long> {
         return em;
     }
 
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
+    }
+
     public List<Flight> findAllWithIds(List<Long> ids) {
         TypedQuery<Flight> flightTypedQuery = getEntityManager()
                 .createNamedQuery(Flight.FIND_ALL_WITH_IDS, Flight.class)

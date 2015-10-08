@@ -5,6 +5,9 @@ import com.realdolmen.rdtravel.XMLUtils.JAXBLongAdapter;
 import com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
@@ -26,36 +29,50 @@ public class Flight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlSchemaType(name="long")
+    @XmlSchemaType(name = "long")
     @XmlID
     @XmlJavaTypeAdapter(JAXBLongAdapter.class)
     private Long id;
+
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     @NotNull
+    @Column(nullable = false)
     private LocalDateTime departureTime;
+
     @Convert(converter = LocalDateTimePersistenceConverter.class)
     @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     @NotNull
+    @Column(nullable = false)
     private LocalDateTime arrivalTime;
 
     @NotNull
+    @Column(nullable = false)
     @Min(value = 1)
+    @Digits(fraction = 2, integer = 8)
     private BigDecimal price;
 
     @NotNull
+    @Column(nullable = false)
     @Min(value = 1)
     private int maxSeats;
 
     @NotNull
+    @Column(nullable = false)
     @Min(value = 0)
     private int occupiedSeats;
+
+    @Valid
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
     private Airport destination;
+
+    @Valid
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
     private Airport departure;
+
+    @Valid
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
     private Partner partner;
@@ -63,7 +80,19 @@ public class Flight {
     @Version
     private long version;
 
-    public Flight(){}
+    public Flight() {
+    }
+
+    public Flight(LocalDateTime departureTime, LocalDateTime arrivalTime, BigDecimal price, int maxSeats, int occupiedSeats, Airport destination, Airport departure, Partner partner) {
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.price = price;
+        this.maxSeats = maxSeats;
+        this.occupiedSeats = occupiedSeats;
+        this.destination = destination;
+        this.departure = departure;
+        this.partner = partner;
+    }
 
     public Long getId() {
         return id;
