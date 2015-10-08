@@ -105,7 +105,7 @@ public abstract class User implements Serializable {
 
     public void setPassword(String password) {
         try {
-            this.password = PasswordHash.createHash(password);
+            this.password = (password != null ? PasswordHash.createHash(password) : null);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }

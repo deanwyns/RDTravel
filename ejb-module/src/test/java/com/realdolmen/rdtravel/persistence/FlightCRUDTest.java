@@ -147,8 +147,6 @@ public class FlightCRUDTest extends DataSetPersistenceTest {
         List<Long> idList = new ArrayList<>(Arrays.asList((long) 1, (long) 2));
         List<Flight> foundFlights = flightDAO.findAllWithIds(idList);
 
-//        assertThat(correctFlightList, is(equalTo(foundFlights)));
         assertEquals(correctFlightList, foundFlights);
-
     }
 }

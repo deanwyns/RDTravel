@@ -5,7 +5,11 @@
     <paymentmethod id="1"/>
     <paymentmethod id="2"/>
 
-    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="1"/>
+    <trip id="1" endDate="2015-10-07" name="Super fun trip" pricePerDay="25.20" startDate="2015-10-04" version="0"/>
+    <trip id="2" endDate="2015-02-15" name="Trip to the database!" pricePerDay="12.80" startDate="2015-02-15"
+          version="0"/>
+
+    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="1" trip_id="1"/>
 
     <user_booking Customer_id="1" bookings_id="1"/>
 
@@ -40,9 +44,6 @@
     <continent_country countries_id="1" Continent_id="5"/>
     <continent_country countries_id="2" Continent_id="1"/>
 
-    <trip id="1" endDate="2015-10-07" name="Super fun trip" pricePerDay="25.20" startDate="2015-10-04" version="0"/>
-    <trip id="2" endDate="2015-02-15" name="Trip to the database!" pricePerDay="12.80" startDate="2015-02-15"
-          version="0"/>
 
     <trip_flight Trip_id="1" flights_id="1"/>
     <trip_flight Trip_id="1" flights_id="2"/>

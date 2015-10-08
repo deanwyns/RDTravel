@@ -74,13 +74,6 @@ public class ContinentCRUDTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testContinentWithNoCountries(){
-        continent.setCountries(new HashSet<>());
-        continentDAO.update(continent);
-        flushAndClear();
-    }
-
-    @Test(expected = ConstraintViolationException.class)
     public void testContinentWithCountriesNull(){
         continent.setCountries(null);
         continentDAO.update(continent);

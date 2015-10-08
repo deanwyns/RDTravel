@@ -1,9 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
-import com.realdolmen.rdtravel.domain.Booking;
-import com.realdolmen.rdtravel.domain.CreditCard;
-import com.realdolmen.rdtravel.domain.Endorsement;
-import com.realdolmen.rdtravel.domain.PaymentMethod;
+import com.realdolmen.rdtravel.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,8 +25,8 @@ public class BookingCRUDTest extends DataSetPersistenceTest {
     @Test
     public void testCreateBooking() {
         PaymentMethod paymentMethod = entityManager().find(PaymentMethod.class, 1l);
-        entityManager().persist(paymentMethod);
-        Booking booking = new Booking(3, paymentMethod);
+        Trip trip = entityManager().find(Trip.class, 1l);
+        Booking booking = new Booking(3, paymentMethod, trip);
         assertNull(booking.getId());
         bookingDAO.create(booking);
         flushAndClear();

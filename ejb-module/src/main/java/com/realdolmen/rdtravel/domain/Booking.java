@@ -20,12 +20,11 @@ public class Booking {
     private int numberOfTravelers;
     @Valid
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private PaymentMethod paymentMethod;
 
     @Valid
     @NotNull
-    @Column(nullable = false)
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Trip trip;
 
@@ -34,9 +33,10 @@ public class Booking {
 
     protected Booking(){}
 
-    public Booking(int numberOfTravelers, PaymentMethod paymentMethod) {
+    public Booking(int numberOfTravelers, PaymentMethod paymentMethod, Trip trip) {
         this.numberOfTravelers = numberOfTravelers;
         this.paymentMethod = paymentMethod;
+        this.trip = trip;
     }
 
     public Long getId() {
