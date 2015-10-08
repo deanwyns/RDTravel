@@ -56,11 +56,18 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
         return t;
     }
 
-    public List<Trip> findByCountry(Country country) {
+    /**
+     * Find all trips with the given country as the last destination (the last flight's destination).
+     * @param country
+     * @return
+     */
+    public List<Trip> findByDestinationCountry(Country country) {
         List<Trip> trips = this.findAll();
 
-        return trips.stream().filter(
-                t -> t.getFlights().get(t.getFlights().size() - 1).getDestination().getCountry().equals(country)
+        return trips.stream().filter(t -> {
+                    int amount = t.getFlights().size();
+                    return amount != 0 && t.getFlights().get(amount - 1).getDestination().getCountry().equals(country);
+                }
         ).collect(Collectors.toList());
     }
 }

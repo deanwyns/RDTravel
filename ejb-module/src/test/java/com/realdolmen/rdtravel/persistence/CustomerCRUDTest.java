@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
+import com.realdolmen.rdtravel.domain.Administrator;
 import com.realdolmen.rdtravel.domain.Customer;
 import org.junit.Assert;
 import org.junit.Before;

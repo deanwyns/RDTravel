@@ -1,26 +1,20 @@
 package com.realdolmen.rdtravel.views;
 
-import com.realdolmen.rdtravel.converters.LocalDateConverter;
 import com.realdolmen.rdtravel.domain.Continent;
 import com.realdolmen.rdtravel.domain.Country;
-import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
 import com.realdolmen.rdtravel.persistence.ContinentDAO;
-import com.realdolmen.rdtravel.persistence.TripDAO;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.core.UriBuilder;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,15 +30,19 @@ public class FindTripView implements Serializable {
 
     private List<Continent> continents;
     private Continent selectedContinent;
-    private Country selectedCountry;
+    @NotNull private Country selectedCountry;
     private List<Country> countries;
 
-    private LocalDate departureDate;
-    private LocalDate returnDate;
+    @NotNull private LocalDate departureDate;
+    @NotNull private LocalDate returnDate;
+
+    @NotNull @Min(1) private Integer participantsAmount;
 
     @PostConstruct
     public void init() {
         continents = continentDAO.findAll();
+        selectedContinent = continents.get(0);
+        onContinentChange();
     }
 
     public void onContinentChange() {
@@ -52,11 +50,26 @@ public class FindTripView implements Serializable {
     }
 
     public String findTrips() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return "trips?faces-redirect=true&" +
                 "country=" + selectedCountry.getId() +
                 "&departureDate=" + departureDate.format(formatter) +
-                "&returnDate=" + returnDate.format(formatter);
+                "&returnDate=" + returnDate.format(formatter) +
+                "&participants=" + participantsAmount;
+    }
+
+    public String departureDateRestriction() {
+        if(returnDate == null)
+            return LocalDate.now().format(formatter);
+        else
+            return returnDate.format(formatter);
+    }
+
+    public String returnDateRestriction() {
+        if(departureDate != null) {
+            return departureDate.format(formatter);
+        }
+
+        return null;
     }
 
     public Continent getSelectedContinent() {
@@ -103,18 +116,11 @@ public class FindTripView implements Serializable {
         this.returnDate = returnDate;
     }
 
-    public String departureDateRestriction() {
-        if(returnDate == null)
-            return LocalDate.now().format(formatter);
-        else
-            return returnDate.format(formatter);
+    public Integer getParticipantsAmount() {
+        return participantsAmount;
     }
 
-    public String returnDateRestriction() {
-        if(departureDate != null) {
-            return departureDate.format(formatter);
-        }
-
-        return null;
+    public void setParticipantsAmount(Integer participantsAmount) {
+        this.participantsAmount = participantsAmount;
     }
 }

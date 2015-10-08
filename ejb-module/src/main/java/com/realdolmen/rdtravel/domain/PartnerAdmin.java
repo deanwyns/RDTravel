@@ -2,6 +2,7 @@ package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.security.Principal;
 
 /**
  * Created by JSTAX29 on 2/10/2015.

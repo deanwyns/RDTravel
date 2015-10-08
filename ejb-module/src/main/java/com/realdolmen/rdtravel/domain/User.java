@@ -13,6 +13,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NamedQueries(
+        @NamedQuery(name = "user.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+)
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

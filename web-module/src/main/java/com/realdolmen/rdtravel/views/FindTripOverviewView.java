@@ -26,10 +26,11 @@ public class FindTripOverviewView implements Serializable {
     private Country country;
     private LocalDate departureDate;
     private LocalDate returnDate;
+    private int participantsAmount;
 
     public List<Trip> getTrips() throws IOException {
         try {
-            return tripService.findByDateAndCountry(departureDate, returnDate, country);
+            return tripService.findBy(departureDate, returnDate, country, participantsAmount);
         } catch (IllegalArgumentException ex) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.getExternalContext().redirect("index.xhtml");
@@ -60,5 +61,13 @@ public class FindTripOverviewView implements Serializable {
 
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public int getParticipantsAmount() {
+        return participantsAmount;
+    }
+
+    public void setParticipantsAmount(int participantsAmount) {
+        this.participantsAmount = participantsAmount;
     }
 }
