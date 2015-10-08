@@ -34,19 +34,14 @@ public class Airport {
     @Column(nullable = false)
     @Size(min = 0, max = 4)
     private String icao;
-    @NotNull
     @Column(nullable = false)
     private double latitude;
-    @NotNull
     @Column(nullable = false)
     private double longitude;
-    @NotNull
     @Column(nullable = false)
     private double altitude;
-    @NotNull
     @Column(nullable = false)
     private byte timezone;
-    @NotNull
     @Column(nullable = false)
     private char daylightSavingsTime;
     @NotNull

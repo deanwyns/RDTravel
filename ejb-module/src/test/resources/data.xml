@@ -2,6 +2,16 @@
     <user DTYPE="Customer" id="1" email="johnny@info.com" firstName="Johnny" lastName="Johnson"
           password="9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08" version="0"/>
 
+    <paymentmethod id="1"/>
+    <paymentmethod id="2"/>
+
+    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="1"/>
+
+    <user_booking Customer_id="1" bookings_id="1"/>
+
+    <creditcard id="1" expirationDate="2999-01-01" number="4716965610097306"/>
+    <endorsement id="2" accountNumber="651616486486541641"/>
+
     <country id="1" name="Guinea"/>
     <country id="2" name="Greenland"/>
 
@@ -17,6 +27,7 @@
     <airport id='3' altitude='112' city='Narssarssuaq' daylightSavingsTime='E' iataFaa='UAK' icao='BGBW'
              latitude='61.160517' longitude='-45.425978' name='Narsarsuaq' timezone='-3'
              timezoneTzFormat='America/Godthab' country_id='2' version='0'/>
+
 
     <flight id='1' departureTime='2015-10-15 00:00:00' arrivalTime='2015-10-22 00:00:00' maxSeats='12' occupiedSeats='0'
             price='12.00' version='0' departure_id='1' destination_id='3' partner_id="1"/>

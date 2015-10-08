@@ -1,6 +1,7 @@
 package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -13,19 +14,23 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
     @Column(nullable = false)
     @Min(value = 1)
     private int numberOfTravelers;
+    @Valid
     @NotNull
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private PaymentMethod paymentMethod;
 
     @Version
     private long version;
 
     protected Booking(){}
+
+    public Booking(int numberOfTravelers, PaymentMethod paymentMethod) {
+        this.numberOfTravelers = numberOfTravelers;
+        this.paymentMethod = paymentMethod;
+    }
 
     public Long getId() {
         return id;

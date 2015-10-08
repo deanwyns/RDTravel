@@ -57,6 +57,9 @@
         <class>com.realdolmen.rdtravel.domain.Partner</class>
         <class>com.realdolmen.rdtravel.domain.Continent</class>
         <class>com.realdolmen.rdtravel.domain.Country</class>
+        <class>com.realdolmen.rdtravel.domain.PaymentMethod</class>
+        <class>com.realdolmen.rdtravel.domain.CreditCard</class>
+        <class>com.realdolmen.rdtravel.domain.Endorsement</class>
 
         <class>com.realdolmen.rdtravel.util.LocalDatePersistenceConverter</class>
         <class>com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter</class>

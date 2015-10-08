@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.controllers;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -7,6 +8,7 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.security.Principal;
 
 /**
  * Created by JSTAX29 on 5/10/2015.
@@ -35,6 +37,7 @@ public class LoginController {
     }
 
     public String login () throws IOException {
+
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {

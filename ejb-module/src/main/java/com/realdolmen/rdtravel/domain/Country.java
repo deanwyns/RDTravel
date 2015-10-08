@@ -22,6 +22,13 @@ public class Country implements Serializable {
     @Size(min = 1, max = 255)
     private String name;
 
+    public Country() {
+    }
+
+    public Country(String name) {
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }
