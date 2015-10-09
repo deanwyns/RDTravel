@@ -13,11 +13,13 @@ import java.util.Set;
  * Created by DWSAX40 on 6/10/2015.
  */
 @Entity
-@NamedQueries(
-        @NamedQuery(name = Continent.FIND_ALL, query = "SELECT c FROM Continent c ORDER BY c.name")
-)
+@NamedQueries({
+        @NamedQuery(name = Continent.FIND_ALL, query = "SELECT c FROM Continent c ORDER BY c.name"),
+        @NamedQuery(name = Continent.FIND_BY_ISO2, query = "SELECT c FROM Continent c WHERE c.ISO2 = :iso ORDER BY c.name")
+})
 public class Continent implements Serializable {
     public static final String FIND_ALL = "Continent.findAll";
+    public static final String FIND_BY_ISO2 = "Continent.findByISO2";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,11 @@ public class Continent implements Serializable {
     @Column(nullable = false)
     @Size(min = 1, max = 255)
     private String name;
+
+    @NotNull
+    @Column(nullable = false, length = 2)
+    @Size(min = 2, max = 2)
+    private String ISO2;
 
     @Valid
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

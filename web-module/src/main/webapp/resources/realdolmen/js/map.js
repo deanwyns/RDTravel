@@ -19,7 +19,7 @@
         function onRegionClick(e, code) {
             console.log(e);
             console.log(code);
+            window.selectContinent({code: code});
         }
     });
 })();
-

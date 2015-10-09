@@ -35,4 +35,8 @@ public class ContinentDAO extends GenericDaoImpl<Continent, Integer> {
     public List<Continent> findAll() {
         return em.createNamedQuery(Continent.FIND_ALL, Continent.class).getResultList();
     }
+
+    public Continent findByISO2(String iso2) {
+        return em.createNamedQuery(Continent.FIND_BY_ISO2, Continent.class).setParameter("iso", iso2).getSingleResult();
+    }
 }
