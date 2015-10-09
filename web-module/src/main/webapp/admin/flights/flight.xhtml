@@ -37,6 +37,30 @@
                 </p:row>
 
                 <p:row>
+                    <p:outputLabel for="volumeDiscount" value="Volume discount" />
+                    <p:selectBooleanCheckbox id="volumeDiscount" value="#{flightView.flight.discount}" />
+                </p:row>
+                <p:row>
+                    <p:messages for="volumeDiscount" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="seatsThreshold" value="Seats threshold" />
+                    <p:inputText id="seatsThreshold" value="#{flightView.flight.seatsThresholdForDiscount}" />
+                </p:row>
+                <p:row>
+                    <p:messages for="seatsThreshold" />
+                </p:row>
+
+                <p:row>
+                    <p:outputLabel for="discountPerc" value="Discount amount" />
+                    <p:inputText id="discountPerc" value="#{flightView.flight.discountPercentage}" />
+                </p:row>
+                <p:row>
+                    <p:messages for="discountPerc" />
+                </p:row>
+
+                <p:row>
                     <p:outputLabel for="departureTime" value="Departure time" />
                     <p:calendar id="departureTime" value="#{flightView.flight.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
                 </p:row>

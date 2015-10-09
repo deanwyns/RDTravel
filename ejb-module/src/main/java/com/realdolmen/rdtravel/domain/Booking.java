@@ -15,10 +15,12 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     @Column(nullable = false)
     @Min(value = 1)
-    private int numberOfTravelers;
-    @Valid
+    private Integer numberOfTravelers;
+
     @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private PaymentMethod paymentMethod;
@@ -43,11 +45,11 @@ public class Booking {
         return id;
     }
 
-    public int getNumberOfTravelers() {
+    public Integer getNumberOfTravelers() {
         return numberOfTravelers;
     }
 
-    public void setNumberOfTravelers(int numberOfTravelers) {
+    public void setNumberOfTravelers(Integer numberOfTravelers) {
         this.numberOfTravelers = numberOfTravelers;
     }
 

@@ -52,6 +52,7 @@ public class TripService {
         }
 
         return tripDAO.findByDestinationCountry(country).stream().filter(
+                // Filter all trips with enough available seats for the amount of travelers, and all trips within the given dates.
                 trip -> getMaxSeatsForTrip(trip) >= participantsAmount && departureDate.isBefore(trip.getStartDate()) && returnDate.isAfter(trip.getEndDate())
         ).collect(Collectors.toList());
     }

@@ -24,6 +24,16 @@ public class Country implements Serializable {
     @Size(min = 1, max = 255)
     private String name;
 
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 2, max = 2)
+    private String ISO2;
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(min = 3, max = 3)
+    private String ISO3;
+
     public Country() {
     }
 
