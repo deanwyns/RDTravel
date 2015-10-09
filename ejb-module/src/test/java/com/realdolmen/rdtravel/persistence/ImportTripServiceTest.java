@@ -55,7 +55,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
 
 
     @Test
-    public void testImportValidTrips() throws IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, URISyntaxException {
+    public void testImportValidTrips() throws IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, URISyntaxException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/valid_trips.xml");
         importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
@@ -64,7 +64,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     }
 
     @Test
-    public void testImportTripsUpdatesOtherTrips() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException {
+    public void testImportTripsUpdatesOtherTrips() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/valid_trips_updating.xml");
         importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
@@ -73,7 +73,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = FlightNotFoundException.class)
-    public void testImportNoFlightFound() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException {
+    public void testImportNoFlightFound() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/flight_not_found_flight.xml");
         importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
@@ -82,7 +82,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testImportInvalidCharacters() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException {
+    public void testImportInvalidCharacters() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/invalid_characters_trips.xml");
         importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
@@ -91,7 +91,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testInvalidFormat() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException {
+    public void testInvalidFormat() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/invalid_formatted_trips.xml");
         importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
@@ -100,7 +100,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = FlightOutsideTripDateException.class)
-    public void testFlightsAreWithinTripTime() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException {
+    public void testFlightsAreWithinTripTime() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/flights_outside_trip_dates.xml");
         importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 

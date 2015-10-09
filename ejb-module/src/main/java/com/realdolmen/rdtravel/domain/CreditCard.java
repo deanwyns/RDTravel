@@ -1,7 +1,8 @@
 package com.realdolmen.rdtravel.domain;
 
 import com.realdolmen.rdtravel.util.LocalDatePersistenceConverter;
-import org.hibernate.validator.constraints.CreditCardNumber;
+import com.realdolmen.rdtravel.validation.CreditCardNumber;
+import com.realdolmen.rdtravel.validation.Future;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,13 +16,14 @@ public class CreditCard extends PaymentMethod {
     @Convert(converter = LocalDatePersistenceConverter.class)
     @NotNull
     @Column(nullable = false)
+    @Future
     private LocalDate expirationDate;
     @NotNull
     @Column(nullable = false)
     @CreditCardNumber
-    private String number;
+    private Long number;
 
-    public CreditCard(LocalDate expirationDate, String number) {
+    public CreditCard(LocalDate expirationDate, Long number) {
         this.expirationDate = expirationDate;
         this.number = number;
     }
@@ -37,11 +39,11 @@ public class CreditCard extends PaymentMethod {
         this.expirationDate = expirationDate;
     }
 
-    public String getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 }

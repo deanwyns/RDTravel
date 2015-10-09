@@ -211,6 +211,7 @@ public class Flight {
         return sb.toString();
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -218,16 +219,22 @@ public class Flight {
 
         Flight flight = (Flight) o;
 
-        if (maxSeats != flight.maxSeats) return false;
-        if (occupiedSeats != flight.occupiedSeats) return false;
+        if (discount != flight.discount) return false;
+        if (version != flight.version) return false;
         if (id != null ? !id.equals(flight.id) : flight.id != null) return false;
         if (departureTime != null ? !departureTime.equals(flight.departureTime) : flight.departureTime != null)
             return false;
         if (arrivalTime != null ? !arrivalTime.equals(flight.arrivalTime) : flight.arrivalTime != null) return false;
         if (price != null ? !price.equals(flight.price) : flight.price != null) return false;
+        if (maxSeats != null ? !maxSeats.equals(flight.maxSeats) : flight.maxSeats != null) return false;
+        if (occupiedSeats != null ? !occupiedSeats.equals(flight.occupiedSeats) : flight.occupiedSeats != null)
+            return false;
         if (destination != null ? !destination.equals(flight.destination) : flight.destination != null) return false;
         if (departure != null ? !departure.equals(flight.departure) : flight.departure != null) return false;
-        return !(partner != null ? !partner.equals(flight.partner) : flight.partner != null);
+        if (partner != null ? !partner.equals(flight.partner) : flight.partner != null) return false;
+        if (seatsThresholdForDiscount != null ? !seatsThresholdForDiscount.equals(flight.seatsThresholdForDiscount) : flight.seatsThresholdForDiscount != null)
+            return false;
+        return !(discountPercentage != null ? !discountPercentage.equals(flight.discountPercentage) : flight.discountPercentage != null);
 
     }
 
@@ -237,11 +244,15 @@ public class Flight {
         result = 31 * result + (departureTime != null ? departureTime.hashCode() : 0);
         result = 31 * result + (arrivalTime != null ? arrivalTime.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + maxSeats;
-        result = 31 * result + occupiedSeats;
+        result = 31 * result + (maxSeats != null ? maxSeats.hashCode() : 0);
+        result = 31 * result + (occupiedSeats != null ? occupiedSeats.hashCode() : 0);
         result = 31 * result + (destination != null ? destination.hashCode() : 0);
         result = 31 * result + (departure != null ? departure.hashCode() : 0);
         result = 31 * result + (partner != null ? partner.hashCode() : 0);
+        result = 31 * result + (discount ? 1 : 0);
+        result = 31 * result + (seatsThresholdForDiscount != null ? seatsThresholdForDiscount.hashCode() : 0);
+        result = 31 * result + (discountPercentage != null ? discountPercentage.hashCode() : 0);
+        result = 31 * result + (int) (version ^ (version >>> 32));
         return result;
     }
 }

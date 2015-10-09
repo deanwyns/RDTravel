@@ -41,9 +41,12 @@ public class Country implements Serializable {
     public Country() {
     }
 
-    public Country(String name) {
+    public Country(String name, String ISO2, String ISO3) {
         this.name = name;
+        this.ISO2 = ISO2;
+        this.ISO3 = ISO3;
     }
+
 
     public Integer getId() {
         return id;

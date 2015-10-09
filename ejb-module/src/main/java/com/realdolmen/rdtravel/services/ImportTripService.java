@@ -5,6 +5,7 @@ import com.realdolmen.rdtravel.XMLUtils.MarshallerUtil;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.exceptions.FlightNotFoundException;
+import com.realdolmen.rdtravel.exceptions.FlightOutsideTripDateException;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 import com.realdolmen.rdtravel.persistence.TripDAO;
 import org.jdom2.Document;
@@ -49,7 +50,7 @@ public class ImportTripService {
      * @param fileContent the content that was found inside the given file
      */
     @Transactional
-    public void parseAndPersistTrip(byte[] fileContent) throws IOException, JAXBException, XMLStreamException, JDOMException, FlightNotFoundException {
+    public void parseAndPersistTrip(byte[] fileContent) throws IOException, JAXBException, XMLStreamException, JDOMException, FlightNotFoundException, FlightOutsideTripDateException {
 
         //Convert the byte[] to a String
         String fileContentAsString = new String(fileContent, "UTF-8");
@@ -73,6 +74,13 @@ public class ImportTripService {
             //There were more ids than there are found flights. Some flights were not found.
             if (flightIdList.size() != flightList.size())
                 throw new FlightNotFoundException("Not all flights were found in the database. The trip has not been added.");
+
+            for (Flight flight : flightList) {
+                if ((trip.getStartDate() != null && trip.getEndDate() != null) &&
+                        (flight.getDepartureTime().isBefore(trip.getStartDate().atStartOfDay()) ||
+                        flight.getArrivalTime().isAfter(trip.getEndDate().atStartOfDay())))
+                    throw new FlightOutsideTripDateException("Flight " + flight.getId() + " was not within the start date and end date for trip " + trip.getName());
+            }
 
             //Connect the flights to the trip
             trip.setFlights(flightList);
