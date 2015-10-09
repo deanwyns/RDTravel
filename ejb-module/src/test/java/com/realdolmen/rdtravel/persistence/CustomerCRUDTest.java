@@ -8,6 +8,10 @@ import org.junit.Test;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  * Created by JSTAX29 on 5/10/2015.
@@ -21,6 +25,7 @@ public class CustomerCRUDTest extends DataSetPersistenceTest {
     public void initialize() {
         customerDAO.setEntityManager(entityManager());
         customer = customerDAO.read(1l);
+        flushAndClear();
     }
 
     @Test
@@ -34,36 +39,37 @@ public class CustomerCRUDTest extends DataSetPersistenceTest {
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerFirstNameNull() {
         customer.setFirstName(null);
-        customerDAO.create(customer);
+        customerDAO.update(customer);
         flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerLastNameNull() {
         customer.setLastName(null);
-        customerDAO.create(customer);
+        customerDAO.update(customer);
         flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerEmailNull() {
         customer.setEmail(null);
-        customerDAO.create(customer);
+        customerDAO.update(customer);
         flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerEmailInvalid() {
         customer.setEmail("invalid");
-        customerDAO.create(customer);
+        customerDAO.update(customer);
         flushAndClear();
     }
 
     @Test(expected = PersistenceException.class)
     public void testCreateCustomerDuplicateEmail() {
         entityManager().persist(customer);
+        flushAndClear();
         Customer secondCustomer = new Customer("Johnny", "Johnson", "johnny@info.com", "password");
-        customerDAO.create(secondCustomer);
+        customerDAO.update(secondCustomer);
         flushAndClear();
     }
 
@@ -71,16 +77,15 @@ public class CustomerCRUDTest extends DataSetPersistenceTest {
     public void testCreateCustomerDuplicateEmailNotEqualCasing() {
         entityManager().persist(customer);
         Customer secondCustomer = new Customer("Johnny", "Johnson", "Johnny@Info.cOm", "password");
-        customerDAO.create(secondCustomer);
+        customerDAO.update(secondCustomer);
         flushAndClear();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testCreateCustomerPasswordNull() {
         customer.setPassword(null);
-        customerDAO.create(customer);
+        customerDAO.update(customer);
         flushAndClear();
-
     }
 
     @Test
@@ -94,7 +99,7 @@ public class CustomerCRUDTest extends DataSetPersistenceTest {
     public void testCustomerCanBeDeleted() {
         customerDAO.delete(customer);
         flushAndClear();
-        Assert.assertNull(entityManager().find(Customer.class, 1l));
+        Assert.assertNull(customerDAO.read(1l));
     }
 
     @Test
@@ -105,5 +110,11 @@ public class CustomerCRUDTest extends DataSetPersistenceTest {
         flushAndClear();
         Customer updatedCustomer = customerDAO.read(1l);
         assertEquals(newEmail, updatedCustomer.getEmail());
+    }
+
+    @Test
+    public void testGenericDAOFindAll(){
+        List<Customer> allCustomers = customerDAO.findAll();
+        assertThat(allCustomers.size(), is(1));
     }
 }

@@ -115,4 +115,5 @@ public abstract class PersistenceTest extends Assert {
         entityManager().flush();
         entityManager().clear();
     }
+
 }

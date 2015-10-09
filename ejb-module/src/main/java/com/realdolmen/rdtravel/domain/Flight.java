@@ -53,16 +53,14 @@ public class Flight {
 
     @NotNull
     @Column(nullable = false)
-    @Min(value = 1)
+    @Min(value = 0)
     @Digits(fraction = 2, integer = 8)
     private BigDecimal price;
 
-    @NotNull
     @Column(nullable = false)
     @Min(value = 1)
     private Integer maxSeats;
 
-    @NotNull
     @Column(nullable = false)
     @Min(value = 0)
     private Integer occupiedSeats;
@@ -211,5 +209,39 @@ public class Flight {
         sb.append(", departure=").append(departure);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Flight flight = (Flight) o;
+
+        if (maxSeats != flight.maxSeats) return false;
+        if (occupiedSeats != flight.occupiedSeats) return false;
+        if (id != null ? !id.equals(flight.id) : flight.id != null) return false;
+        if (departureTime != null ? !departureTime.equals(flight.departureTime) : flight.departureTime != null)
+            return false;
+        if (arrivalTime != null ? !arrivalTime.equals(flight.arrivalTime) : flight.arrivalTime != null) return false;
+        if (price != null ? !price.equals(flight.price) : flight.price != null) return false;
+        if (destination != null ? !destination.equals(flight.destination) : flight.destination != null) return false;
+        if (departure != null ? !departure.equals(flight.departure) : flight.departure != null) return false;
+        return !(partner != null ? !partner.equals(flight.partner) : flight.partner != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (departureTime != null ? departureTime.hashCode() : 0);
+        result = 31 * result + (arrivalTime != null ? arrivalTime.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + maxSeats;
+        result = 31 * result + occupiedSeats;
+        result = 31 * result + (destination != null ? destination.hashCode() : 0);
+        result = 31 * result + (departure != null ? departure.hashCode() : 0);
+        result = 31 * result + (partner != null ? partner.hashCode() : 0);
+        return result;
     }
 }

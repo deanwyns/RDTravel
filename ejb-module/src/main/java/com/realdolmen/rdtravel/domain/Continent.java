@@ -29,6 +29,7 @@ public class Continent implements Serializable {
 
     @Valid
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @NotNull
     private Set<Country> countries = new HashSet<>();
 
     public Integer getId() {

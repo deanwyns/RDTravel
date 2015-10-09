@@ -22,8 +22,7 @@ public class Booking {
     private Integer numberOfTravelers;
 
     @NotNull
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private PaymentMethod paymentMethod;
 
     @Valid
@@ -35,6 +34,12 @@ public class Booking {
     private long version;
 
     protected Booking(){}
+
+    public Booking(int numberOfTravelers, PaymentMethod paymentMethod, Trip trip) {
+        this.numberOfTravelers = numberOfTravelers;
+        this.paymentMethod = paymentMethod;
+        this.trip = trip;
+    }
 
     public Long getId() {
         return id;

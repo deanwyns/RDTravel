@@ -23,8 +23,6 @@ import java.util.List;
 @XmlRootElement
 @Entity
 public class Trip {
-    public static final String PERSIST_ALL = "Trip.persistAll";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(required = true)
@@ -63,6 +61,7 @@ public class Trip {
     @XmlElement(name = "flightId")
     @XmlElementWrapper
     @NotNull
+    @Size(min = 1)
     @Valid
     private List<Flight> flights;
 

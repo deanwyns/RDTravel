@@ -34,6 +34,13 @@ public class Country implements Serializable {
     @Size(min = 3, max = 3)
     private String ISO3;
 
+    public Country() {
+    }
+
+    public Country(String name) {
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }
