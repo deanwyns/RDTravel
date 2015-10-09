@@ -40,7 +40,7 @@ public class BookingCRUDTest extends DataSetPersistenceTest {
         bookingDAO.update(booking);
         flushAndClear();
         Booking changedBooking = bookingDAO.read(1l);
-        assertEquals(revisionedvalue, changedBooking.getNumberOfTravelers());
+        assertEquals(revisionedvalue, changedBooking.getNumberOfTravelers().intValue());
         flushAndClear();
     }
 

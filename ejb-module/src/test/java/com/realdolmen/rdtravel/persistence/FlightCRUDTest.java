@@ -49,7 +49,7 @@ public class FlightCRUDTest extends DataSetPersistenceTest {
         flightDAO.update(flight);
         flushAndClear();
         Flight changedFlight = flightDAO.read(1l);
-        assertEquals(revisionedvalue, changedFlight.getMaxSeats());
+        assertEquals(revisionedvalue, changedFlight.getMaxSeats().intValue());
         flushAndClear();
     }
 
