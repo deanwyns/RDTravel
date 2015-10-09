@@ -17,8 +17,8 @@
         <h1>Welcome to RDTravel</h1>
 
         <h:form id="findTripForm">
-            <p:remoteCommand name="selectContinent" actionListener="#{findTripView.setSelectedContinentCommand}" />
-            <p:remoteCommand name="selectCountry" actionListener="#{findTripView.setSelectedCountryCommand}" />
+            <p:remoteCommand name="selectContinent" action="#{findTripView.test()}" oncomplete="handleContinent" />
+            <p:remoteCommand name="selectCountry" action="#{findTripView.setSelectedCountryCommand}" />
 
             <p:outputLabel for="departureDate" />
             <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy"

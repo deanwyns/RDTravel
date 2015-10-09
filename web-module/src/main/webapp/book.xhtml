@@ -8,11 +8,11 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="container.xhtml">
     <ui:define name="pageContent">
-        <f:metadata>
+        <!--<f:metadata>
             <f:viewParam name="trip" value="#{bookingController.trip}" converter="#{tripConverter}" required="true" />
-        </f:metadata>
+        </f:metadata>-->
 
-
+<h:outputText value="#{bookingController.trip.name}" />
 
     </ui:define>
 </ui:composition>

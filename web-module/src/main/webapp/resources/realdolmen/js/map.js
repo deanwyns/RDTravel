@@ -23,3 +23,7 @@
         }
     });
 })();
+
+function handleContinent(xhr, code, args) {
+    console.log(arguments);
+}

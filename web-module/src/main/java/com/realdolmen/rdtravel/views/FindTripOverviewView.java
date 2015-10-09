@@ -43,10 +43,6 @@ public class FindTripOverviewView implements Serializable {
         return trips;
     }
 
-    public String book() {
-        return "book?faces-redirect=true";
-    }
-
     public Country getCountry() {
         return country;
     }
