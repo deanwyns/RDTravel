@@ -10,12 +10,16 @@
 <ui:composition template="container.xhtml">
     <ui:define name="head">
         <h:outputStylesheet library="webjars" name="jvectormap/2.0.1/jquery-jvectormap.css" />
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </ui:define>
 
     <ui:define name="pageContent">
         <h1>Welcome to RDTravel</h1>
 
         <h:form id="findTripForm">
+            <p:remoteCommand name="selectContinent" actionListener="#{findTripView.setSelectedContinentCommand}" />
+            <p:remoteCommand name="selectCountry" actionListener="#{findTripView.setSelectedCountryCommand}" />
+
             <p:outputLabel for="departureDate" />
             <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy"
                         mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
@@ -45,8 +49,15 @@
             <p:commandButton ajax="false" action="#{findTripView.findTrips}" value="Find trips" validateClient="true" />
         </h:form>
 
-        <h:outputScript library="webjars" name="jquery/2.1.3/jquery.min.js" />
+        <div id="world-map" style="width: 100%; height: 800px"></div>
+
         <h:outputScript library="webjars" name="jvectormap/2.0.1/jquery.jvectormap.min.js" />
+        <h:outputScript>
+            var baseUrl = '#{request.contextPath}';
+            var continentsJsonUrl = '#{resource['realdolmen/map/continents.json']}';
+            var worldJsonUrl = '#{resource['realdolmen/map/world.json']}';
+        </h:outputScript>
+        <h:outputScript name="realdolmen/js/map.js" />
     </ui:define>
 </ui:composition>
 

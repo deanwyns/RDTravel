@@ -64,8 +64,7 @@ public class LoginModule extends AbstractServerLoginModule {
                 principal = new RDTravelAdminPrincipal(email, (RDTravelAdmin)user);
         }
 
-        String expectedPassword = createPasswordHash(password);
-        if(!validatePassword(password, expectedPassword)) {
+        if(!validatePassword(password, user.getPassword())) {
             throw PicketBoxMessages.MESSAGES.invalidPassword();
         }
 

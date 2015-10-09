@@ -19,7 +19,7 @@ public class Booking {
     @NotNull
     @Column(nullable = false)
     @Min(value = 1)
-    private int numberOfTravelers;
+    private Integer numberOfTravelers;
 
     @NotNull
     @Column(nullable = false)
@@ -28,7 +28,6 @@ public class Booking {
 
     @Valid
     @NotNull
-    @Column(nullable = false)
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Trip trip;
 
@@ -41,11 +40,11 @@ public class Booking {
         return id;
     }
 
-    public int getNumberOfTravelers() {
+    public Integer getNumberOfTravelers() {
         return numberOfTravelers;
     }
 
-    public void setNumberOfTravelers(int numberOfTravelers) {
+    public void setNumberOfTravelers(Integer numberOfTravelers) {
         this.numberOfTravelers = numberOfTravelers;
     }
 

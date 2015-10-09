@@ -4,8 +4,10 @@ import com.realdolmen.rdtravel.domain.Continent;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
 import com.realdolmen.rdtravel.persistence.ContinentDAO;
+import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by DWSAX40 on 6/10/2015.
@@ -81,6 +84,10 @@ public class FindTripView implements Serializable {
         this.selectedContinent = selectedContinent;
     }
 
+    public void setSelectedContinentCommand() {
+        Map<String, String> parrams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    }
+
     public List<Continent> getContinents() {
         return continents;
     }
@@ -123,5 +130,10 @@ public class FindTripView implements Serializable {
 
     public void setParticipantsAmount(Integer participantsAmount) {
         this.participantsAmount = participantsAmount;
+    }
+
+    public void test() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.addCallbackParam("baseUrl", "http");
     }
 }

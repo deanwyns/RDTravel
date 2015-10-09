@@ -7,6 +7,7 @@ import com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -59,12 +60,12 @@ public class Flight {
     @NotNull
     @Column(nullable = false)
     @Min(value = 1)
-    private int maxSeats;
+    private Integer maxSeats;
 
     @NotNull
     @Column(nullable = false)
     @Min(value = 0)
-    private int occupiedSeats;
+    private Integer occupiedSeats;
 
     @Valid
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -80,6 +81,13 @@ public class Flight {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
     private Partner partner;
+
+    private boolean discount;
+    @Min(1)
+    private Integer seatsThresholdForDiscount;
+    @Min(0)
+    @Max(100)
+    private BigDecimal discountPercentage;
 
     @Version
     private long version;
@@ -126,11 +134,11 @@ public class Flight {
         this.price = price;
     }
 
-    public int getMaxSeats() {
+    public Integer getMaxSeats() {
         return maxSeats;
     }
 
-    public void setMaxSeats(int maxSeats) {
+    public void setMaxSeats(Integer maxSeats) {
         this.maxSeats = maxSeats;
     }
 
@@ -164,6 +172,30 @@ public class Flight {
 
     public void setPartner(Partner partner) {
         this.partner = partner;
+    }
+
+    public boolean isDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(boolean discount) {
+        this.discount = discount;
+    }
+
+    public Integer getSeatsThresholdForDiscount() {
+        return seatsThresholdForDiscount;
+    }
+
+    public void setSeatsThresholdForDiscount(Integer seatsThresholdForDiscount) {
+        this.seatsThresholdForDiscount = seatsThresholdForDiscount;
+    }
+
+    public BigDecimal getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
     @Override
