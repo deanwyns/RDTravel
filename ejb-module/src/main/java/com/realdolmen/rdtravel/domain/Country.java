@@ -10,11 +10,15 @@ import java.util.Objects;
  * Created by DWSAX40 on 6/10/2015.
  */
 @Entity
-@NamedQueries(
-        @NamedQuery(name = Country.FIND_ALL, query = "SELECT c FROM Country c ORDER BY c.name")
-)
+@NamedQueries({
+        @NamedQuery(name = Country.FIND_ALL, query = "SELECT c FROM Country c ORDER BY c.name"),
+        @NamedQuery(name = Country.FIND_BY_ISO2, query = "SELECT c FROM Country c WHERE c.ISO2 = :iso ORDER BY c.name"),
+        @NamedQuery(name = Country.FIND_BY_ISO3, query = "SELECT c FROM Country c WHERE c.ISO3 = :iso ORDER BY c.name")
+})
 public class Country implements Serializable {
     public static final String FIND_ALL = "Country.findAll";
+    public static final String FIND_BY_ISO2 = "Country.findByISO2";
+    public static final String FIND_BY_ISO3 = "Country.findByISO3";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +29,12 @@ public class Country implements Serializable {
     private String name;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2)
     @Size(min = 2, max = 2)
     private String ISO2;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3)
     @Size(min = 3, max = 3)
     private String ISO3;
 
@@ -51,6 +55,22 @@ public class Country implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getISO2() {
+        return ISO2;
+    }
+
+    public void setISO2(String ISO2) {
+        this.ISO2 = ISO2;
+    }
+
+    public String getISO3() {
+        return ISO3;
+    }
+
+    public void setISO3(String ISO3) {
+        this.ISO3 = ISO3;
     }
 
     @Override

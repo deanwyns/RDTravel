@@ -4,6 +4,7 @@ import com.realdolmen.rdtravel.domain.Continent;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
 import com.realdolmen.rdtravel.persistence.ContinentDAO;
+import com.realdolmen.rdtravel.persistence.CountryDAO;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class FindTripView implements Serializable {
     @Inject private AirportDAO airportDAO;
     @Inject private ContinentDAO continentDAO;
+    @Inject private CountryDAO countryDAO;
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -85,7 +87,18 @@ public class FindTripView implements Serializable {
     }
 
     public void setSelectedContinentCommand() {
-        Map<String, String> parrams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String continentISO2 = params.get("continent");
+        System.out.println("///////////////////////////////");
+        System.out.println(continentISO2);
+        selectedContinent = continentDAO.findByISO2(continentISO2);
+    }
+
+    public void setSelectedCountryCommand() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String countryISO2 = params.get("country");
+        System.out.println(countryISO2);
+        selectedCountry = countryDAO.findByISO2(countryISO2);
     }
 
     public List<Continent> getContinents() {

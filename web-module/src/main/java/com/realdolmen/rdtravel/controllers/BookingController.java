@@ -23,6 +23,7 @@ public class BookingController {
     }
 
     public void setTrip(Trip trip) {
+        System.out.println(trip);
         this.trip = trip;
     }
 
@@ -35,9 +36,5 @@ public class BookingController {
 
     public void setBookTicketBean(BookTicketBean bookTicketBean) {
         this.bookTicketBean = bookTicketBean;
-    }
-
-    public String bookTicket(){
-        return "book?faces-redirect=true&includeViewParams=true";
     }
 }

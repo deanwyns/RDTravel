@@ -35,4 +35,12 @@ public class CountryDAO extends GenericDaoImpl<Country, Integer> {
     public List<Country> findAll() {
         return em.createNamedQuery(Country.FIND_ALL, Country.class).getResultList();
     }
+
+    public Country findByISO2(String iso2) {
+        return em.createNamedQuery(Country.FIND_BY_ISO2, Country.class).setParameter("iso", iso2).getSingleResult();
+    }
+
+    public Country findByISO3(String iso3) {
+        return em.createNamedQuery(Country.FIND_BY_ISO3, Country.class).setParameter("iso", iso3).getSingleResult();
+    }
 }
