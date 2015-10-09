@@ -6,6 +6,7 @@ import com.realdolmen.rdtravel.services.TripService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by DWSAX40 on 7/10/2015.
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class FindTripOverviewView implements Serializable {
     @Inject private TripService tripService;
 
@@ -27,15 +28,19 @@ public class FindTripOverviewView implements Serializable {
     private LocalDate returnDate;
     private int participantsAmount;
 
+    private List<Trip> trips;
+
     public List<Trip> getTrips() throws IOException {
-        try {
-            return tripService.findBy(departureDate, returnDate, country, participantsAmount);
-        } catch (IllegalArgumentException ex) {
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            ctx.getExternalContext().redirect("index.xhtml");
+        if(trips == null) {
+            try {
+                return tripService.findBy(departureDate, returnDate, country, participantsAmount);
+            } catch (IllegalArgumentException ex) {
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                ctx.getExternalContext().redirect("index.xhtml");
+            }
         }
 
-        return new ArrayList<>();
+        return trips;
     }
 
     public Country getCountry() {
