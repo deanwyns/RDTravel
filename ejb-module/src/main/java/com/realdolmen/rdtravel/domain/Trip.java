@@ -65,6 +65,7 @@ public class Trip {
     @Valid
     private List<Flight> flights;
 
+    @XmlElement(required = false)
     @Version
     private long version;
 

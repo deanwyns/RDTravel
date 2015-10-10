@@ -17,6 +17,7 @@ import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -29,7 +30,14 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,14 +134,16 @@ public class ImportExportTripService {
     /**
      * Exports all trips of the database to an XML file.
      */
-    public void exportTripsToXmlFile() throws JAXBException {
+    public File exportTripsToXmlFile() throws JAXBException, URISyntaxException, MalformedURLException {
         JAXBContext jaxbContext;
         jaxbContext = JAXBContext.newInstance(JAXBWrapper.class, Trip.class);
 
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-        MarshallerUtil.marshal(jaxbMarshaller, tripDAO.findAll(), "trips", new File("trips.xml"));
+        List<Trip> allTrips = tripDAO.findAll();
+
+        return MarshallerUtil.marshal(jaxbMarshaller, allTrips, "trips", new File("trips.xml"));
     }
 
 

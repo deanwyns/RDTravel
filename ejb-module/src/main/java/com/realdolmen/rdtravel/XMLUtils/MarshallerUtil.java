@@ -28,10 +28,11 @@ public class MarshallerUtil {
      * @throws JAXBException
      * @throws NullPointerException when the ID of the referenced object is null
      */
-    public static void marshal(Marshaller marshaller, List<?> list, String outerElementName, File file) throws JAXBException, NullPointerException {
+    public static File marshal(Marshaller marshaller, List<?> list, String outerElementName, File file) throws JAXBException, NullPointerException {
         QName qName = new QName(outerElementName);
         JAXBWrapper jaxbWrapper = new JAXBWrapper(list);
         JAXBElement<JAXBWrapper> jaxbElement = new JAXBElement<JAXBWrapper>(qName, JAXBWrapper.class, jaxbWrapper);
         marshaller.marshal(jaxbElement, file);
+        return file;
     }
 }

@@ -9,7 +9,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.LocalDate;
 
 /**
  * Created by JSTAX29 on 10/10/2015.
@@ -23,11 +27,14 @@ public class FileDownloadView {
     private StreamedContent file;
 
     @PostConstruct
-    public void init() {
-        tripController.exportTripsToFile();
-
-        InputStream stream = this.getClass().getResourceAsStream("/realdolmen/css/main.css");
-        file = new DefaultStreamedContent(stream, "text/css", "main.css");
+    public void fileDownloadViewConstruct() {
+        try {
+            File xmlfile = tripController.exportTripsToFile();
+            file = new DefaultStreamedContent(new FileInputStream(xmlfile));
+            this.file = new DefaultStreamedContent(new FileInputStream(xmlfile), "text/xml", "trips" + LocalDate.now() + ".xml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public StreamedContent getFile() {
