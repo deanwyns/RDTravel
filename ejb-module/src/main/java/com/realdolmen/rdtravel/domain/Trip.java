@@ -55,7 +55,7 @@ public class Trip {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @XmlIDREF
     @XmlSchemaType(name = "long")
     @XmlElement(name = "flightId")

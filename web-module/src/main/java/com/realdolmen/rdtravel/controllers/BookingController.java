@@ -1,8 +1,11 @@
 package com.realdolmen.rdtravel.controllers;
 
 import com.realdolmen.rdtravel.beans.BookTripBean;
+import com.realdolmen.rdtravel.domain.Booking;
+import com.realdolmen.rdtravel.domain.Endorsement;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.persistence.TripDAO;
+import com.realdolmen.rdtravel.services.BookService;
 
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -16,10 +19,14 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 public class BookingController implements Serializable {
-    @Inject private TripDAO tripDAO;
+    @Inject
+    private TripDAO tripDAO;
 
     @Inject
     private BookTripBean bookTripBean;
+
+    @Inject
+    private BookService bookService;
 
     public String book() {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("trip");

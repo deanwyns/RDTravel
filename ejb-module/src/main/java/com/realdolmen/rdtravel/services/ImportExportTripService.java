@@ -22,10 +22,12 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 @Named
 @RequestScoped
-public class ImportTripService {
+public class ImportExportTripService {
     @Inject
     private TripDAO tripDAO;
     @Inject
@@ -78,7 +80,7 @@ public class ImportTripService {
             for (Flight flight : flightList) {
                 if ((trip.getStartDate() != null && trip.getEndDate() != null) &&
                         (flight.getDepartureTime().isBefore(trip.getStartDate().atStartOfDay()) ||
-                        flight.getArrivalTime().isAfter(trip.getEndDate().atStartOfDay())))
+                                flight.getArrivalTime().isAfter(trip.getEndDate().atStartOfDay())))
                     throw new FlightOutsideTripDateException("Flight " + flight.getId() + " was not within the start date and end date for trip " + trip.getName());
             }
 
@@ -120,5 +122,19 @@ public class ImportTripService {
         }
         return flightIdList;
     }
+
+    /**
+     * Exports all trips of the database to an XML file.
+     */
+    public void exportTripsToXmlFile() throws JAXBException {
+        JAXBContext jaxbContext;
+        jaxbContext = JAXBContext.newInstance(JAXBWrapper.class, Trip.class);
+
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        MarshallerUtil.marshal(jaxbMarshaller, tripDAO.findAll(), "trips", new File("trips.xml"));
+    }
+
 
 }

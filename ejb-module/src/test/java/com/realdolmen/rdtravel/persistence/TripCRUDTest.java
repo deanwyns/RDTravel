@@ -6,6 +6,7 @@ import com.realdolmen.rdtravel.domain.Trip;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.OptimisticLockException;
 import javax.validation.ConstraintViolationException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -48,18 +49,6 @@ public class TripCRUDTest extends DataSetPersistenceTest {
         assertEquals(revisionedName, changedTrip.getName());
         flushAndClear();
     }
-
-//    @Test
-//    public void testDeleteTrip() {
-//        Booking booking = entityManager().find(Booking.class, 1l);
-//        entityManager().remove(booking);
-//        flushAndClear();
-//        tripDAO.delete(trip);
-//        flushAndClear();
-//        Trip oldTrip = tripDAO.read(1l);
-//        flushAndClear();
-//        assertNull(oldTrip);
-//    }
 
     @Test(expected = ConstraintViolationException.class)
     public void testTripNameTooLong() {
@@ -141,5 +130,16 @@ public class TripCRUDTest extends DataSetPersistenceTest {
         flushAndClear();
     }
 
+    @Test(expected = OptimisticLockException.class)
+    public void testConcurrentTripWithOutdatedFlight() {
+        //Trip is received in the before method. Flush and clear to close the current transaction
+        flushAndClear();
+        //Update the flight that is linked to the trip so it no longer has enough available seats
+        Flight flight = entityManager().find(Flight.class, 1l);
+        flight.setOccupiedSeats(flight.getMaxSeats() - 2);
+        flushAndClear();
+        //When persisting the trip, it should no longer be a valid trip due to outdated information
+        entityManager().merge(trip);
+    }
 
 }

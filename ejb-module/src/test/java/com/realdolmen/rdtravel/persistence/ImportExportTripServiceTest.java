@@ -3,7 +3,7 @@ package com.realdolmen.rdtravel.persistence;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.exceptions.FlightNotFoundException;
 import com.realdolmen.rdtravel.exceptions.FlightOutsideTripDateException;
-import com.realdolmen.rdtravel.services.ImportTripService;
+import com.realdolmen.rdtravel.services.ImportExportTripService;
 import org.jdom2.JDOMException;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ import java.util.Collections;
  * Created by JSTAX29 on 8/10/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ImportTripServiceTest extends DataSetPersistenceTest {
+public class ImportExportTripServiceTest extends DataSetPersistenceTest {
 
     private TripDAO tripDAO = new TripDAO();
     @Mock
@@ -36,7 +36,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Mock
     private FlightDAO mockFlightDAO;
     @InjectMocks
-    private ImportTripService importTripService;
+    private ImportExportTripService importExportTripService;
 
     @Before
     public void initialize() {
@@ -57,7 +57,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Test
     public void testImportValidTrips() throws IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, URISyntaxException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/valid_trips.xml");
-        importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
         //Two are currently in the data.xml. Three are being added. So there should be 5.
         assertEquals(5, tripDAO.findAll().size());
@@ -66,7 +66,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Test
     public void testImportTripsUpdatesOtherTrips() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/valid_trips_updating.xml");
-        importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
         //Two are currently in the data.xml. Two are updated, one is added. There should be 3.
         assertEquals(3, tripDAO.findAll().size());
@@ -75,7 +75,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Test(expected = FlightNotFoundException.class)
     public void testImportNoFlightFound() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/flight_not_found_flight.xml");
-        importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
         //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
         assertEquals(2, tripDAO.findAll().size());
@@ -84,7 +84,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Test(expected = ConstraintViolationException.class)
     public void testImportInvalidCharacters() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/invalid_characters_trips.xml");
-        importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
         //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
         assertEquals(2, tripDAO.findAll().size());
@@ -93,7 +93,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Test(expected = ConstraintViolationException.class)
     public void testInvalidFormat() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/invalid_formatted_trips.xml");
-        importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
         //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
         assertEquals(2, tripDAO.findAll().size());
@@ -102,7 +102,7 @@ public class ImportTripServiceTest extends DataSetPersistenceTest {
     @Test(expected = FlightOutsideTripDateException.class)
     public void testFlightsAreWithinTripTime() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
         java.net.URL url = this.getClass().getResource("/testing_trips/flights_outside_trip_dates.xml");
-        importTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
         //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
         assertEquals(2, tripDAO.findAll().size());

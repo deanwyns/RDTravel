@@ -3,6 +3,7 @@ package com.realdolmen.rdtravel.views;
 import com.realdolmen.rdtravel.controllers.TripController;
 import org.primefaces.model.UploadedFile;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -11,8 +12,8 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 @Named
-@ViewScoped
-public class FileUploadView implements Serializable{
+@RequestScoped
+public class FileUploadView{
 
     @Inject
     private TripController tripController;
