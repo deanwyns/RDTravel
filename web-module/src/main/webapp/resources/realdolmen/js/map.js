@@ -27,6 +27,7 @@
         div: null
     };
     var scalePromise = null;
+    var backButton = null;
 
     $(document).ready(function() {
         window.getAirportsCallback = getAirportsCallback;
@@ -44,6 +45,15 @@
             height: '100%',
             position: 'absolute'
         });
+        backButton = $('<div/>').addClass('jvectormap-goback').text('Back');
+        backButton.hide();
+        worldMap.container.append(backButton);
+        backButton.click(function() {
+            worldMap.continent = null;
+            worldMap.container.css('z-index', '');
+            worldMap.map.reset();
+            backButton.hide();
+        });
 
         worldMapEl.append(worldMap.container);
         worldMapEl.append(continentMap.container);
@@ -52,6 +62,7 @@
             container: continentMap.container,
             map: 'continents_mill',
             zoomButtons: false,
+            zoomOnScroll: false,
             panOnDrag: false,
             regionsSelectable: false,
             onRegionClick: onContinentClick
@@ -61,6 +72,7 @@
             container: worldMap.container,
             map: 'world_mill',
             zoomButtons: false,
+            zoomOnScroll: false,
             panOnDrag: false,
             regionsSelectableOne: true,
             onRegionClick: onCountryClick,
@@ -75,9 +87,16 @@
         var zoom = continentMap.map.getScaleByRegion(code);
         worldMap.container.zIndex(1000);
         scalePromise = worldMap.map.setScale(zoom.scale, zoom.anchorX, zoom.anchorY, true, true);
+
+        backButton.show();
     }
 
     function onCountryClick(e, code) {
+        if(countries[worldMap.continent].indexOf(code) === -1) {
+            e.preventDefault();
+            return;
+        }
+
         worldMap.map.clearSelectedRegions();
         worldMap.map.setSelectedRegions(code);
     }
