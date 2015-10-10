@@ -8,11 +8,14 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class JAXBLongAdapter extends XmlAdapter<String, Long> {
     @Override
     public Long unmarshal(String v) throws Exception {
-        return Long.parseLong(v);
+        if(v != null && !v.isEmpty())
+            return Long.parseLong(v);
+
+        return null;
     }
 
     @Override
     public String marshal(Long v) throws Exception {
-        return v.toString();
+        return v != null ? v.toString() : null;
     }
 }

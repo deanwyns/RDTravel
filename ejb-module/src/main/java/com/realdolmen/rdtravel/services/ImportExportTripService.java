@@ -133,7 +133,7 @@ public class ImportExportTripService {
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-        MarshallerUtil.marshal(jaxbMarshaller, tripDAO.findAll(), "trips", new File("trips.xml"));
+        MarshallerUtil.marshal(jaxbMarshaller, tripDAO.findAll(), "trips", new File("file.xml"));
     }
 
 
