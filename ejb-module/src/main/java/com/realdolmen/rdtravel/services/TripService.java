@@ -21,6 +21,10 @@ import java.util.stream.Collectors;
 public class TripService {
     @Inject private TripDAO tripDAO;
 
+    public Trip findById(Long id) {
+        return tripDAO.read(id);
+    }
+
     /**
      * Get the least available seats of all flights.
      * @param trip

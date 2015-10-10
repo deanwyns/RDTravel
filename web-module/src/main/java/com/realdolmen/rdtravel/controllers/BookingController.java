@@ -1,12 +1,13 @@
 package com.realdolmen.rdtravel.controllers;
 
 import com.realdolmen.rdtravel.beans.BookTripBean;
-import com.realdolmen.rdtravel.domain.Booking;
-import com.realdolmen.rdtravel.domain.Endorsement;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.BookService;
+import com.realdolmen.rdtravel.services.TripService;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -19,33 +20,17 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 public class BookingController implements Serializable {
-    @Inject
-    private TripDAO tripDAO;
-
-    @Inject
-    private BookTripBean bookTripBean;
-
-    @Inject
-    private BookService bookService;
+    @Inject private TripService tripService;
+    @Inject private BookTripBean bookTripBean;
+    @Inject private Conversation conversation;
 
     public String book() {
+        conversation.begin();
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("trip");
-        trip = tripDAO.read(Long.parseLong(id));
+        bookTripBean.setTrip(tripService.findById(Long.parseLong(id)));
 
         return "book?faces-redirect=true";
     }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        System.out.println(trip);
-        this.trip = trip;
-    }
-
-    private Trip trip;
-
 
     public BookTripBean getBookTripBean() {
         return bookTripBean;

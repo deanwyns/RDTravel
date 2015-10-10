@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         >
 <h:head>
     <title>RDTravel</title>
-    <ui:insert name="head">
-    </ui:insert>
+    <ui:insert name="head"></ui:insert>
 
-    <h:outputStylesheet name="realdolmen/css/main.css" />
+    <h:outputStylesheet name="realdolmen/css/all.css" />
 </h:head>
-<h:body styleClass="wrapper">
-    <div>
-        <h:link rendered="#{empty request.remoteUser}" outcome="/security/login" value="Login"/> <h:link rendered="#{empty request.remoteUser}" outcome="/security/register" value="Register"/>
-        <h:form ><h:commandLink rendered="#{not empty request.remoteUser}" value="Logout" type="submit" action="#{loginController.logout()}"/> </h:form>
+<h:body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">RealDolmen</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid wrapper">
+
+        <!--<div>
+            <h:link rendered="#{empty request.remoteUser}" outcome="/security/login" value="Login"/> <h:link rendered="#{empty request.remoteUser}" outcome="/security/register" value="Register"/>
+            <h:form ><h:commandLink rendered="#{not empty request.remoteUser}" value="Logout" type="submit" action="#{loginController.logout()}"/> </h:form>
+        </div>-->
+
+        <ui:insert name="pageContent">
+            Content goes here.
+        </ui:insert>
 
     </div>
 
-    <ui:insert name="pageContent">
-        Content goes here.
-    </ui:insert>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </h:body>
 </html>

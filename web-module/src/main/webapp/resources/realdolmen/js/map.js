@@ -52,6 +52,12 @@
             worldMap.continent = null;
             worldMap.container.css('z-index', '');
             worldMap.map.reset();
+
+            currentAirportPopup.country = null;
+            if(currentAirportPopup.div !== null) {
+                currentAirportPopup.div.remove();
+            }
+
             backButton.hide();
         });
 

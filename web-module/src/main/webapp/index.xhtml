@@ -10,7 +10,6 @@
 <ui:composition template="container.xhtml">
     <ui:define name="head">
         <h:outputStylesheet name="realdolmen/css/jquery-jvectormap-2.0.4.css" />
-        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </ui:define>
 
     <ui:define name="pageContent">
@@ -18,8 +17,6 @@
             <p:remoteCommand name="selectAirport" actionListener="#{findTripView.selectAirportCommand}" process="@this" update="findTripForm" />
             <p:remoteCommand name="getAirports" actionListener="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
         </h:form>
-
-        <h1>Welcome to RDTravel</h1>
 
         <h:form id="findTripForm">
             <p:outputLabel for="departureDate" />
