@@ -15,8 +15,8 @@
 
     <ui:define name="pageContent">
         <h:form>
-            <p:remoteCommand name="selectAirport" actionListener="#{findTripView.selectAirportCommand}" process="@this" update=":findTripForm" />
-            <p:remoteCommand name="getAirports" action="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
+            <p:remoteCommand name="selectAirport" actionListener="#{findTripView.selectAirportCommand}" process="@this" update="findTripForm" />
+            <p:remoteCommand name="getAirports" actionListener="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
         </h:form>
 
         <h1>Welcome to RDTravel</h1>

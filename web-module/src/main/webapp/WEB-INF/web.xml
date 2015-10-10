@@ -39,7 +39,7 @@
 
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Admin</web-resource-name>
+            <web-resource-name>PartnerAdmin</web-resource-name>
             <url-pattern>/admin/flights/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>

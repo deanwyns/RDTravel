@@ -4,6 +4,7 @@ import com.realdolmen.rdtravel.controllers.TripController;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -21,7 +22,8 @@ public class FileDownloadView {
 
     private StreamedContent file;
 
-    public FileDownloadView() {
+    @PostConstruct
+    public void init() {
         tripController.exportTripsToFile();
 
         InputStream stream = this.getClass().getResourceAsStream("/realdolmen/css/main.css");

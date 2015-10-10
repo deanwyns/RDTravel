@@ -42,7 +42,7 @@ public abstract class User implements Serializable {
     private String email;
 
     @NotNull
-    @Column(length = 103, nullable = false)
+    @Column(length = 102, nullable = false)
     private String password;
 
     @Transient

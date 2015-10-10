@@ -105,9 +105,11 @@ public class FindTripView implements Serializable {
             Airport airport = airportDAO.read(Long.parseLong(airportId));
 
             String continentISO2 = params.get("continent");
-            selectedContinent = continentDAO.findByISO2(continentISO2);
-            selectedCountry = airport.getCountry();
-            selectedAirport = airport;
+            setSelectedContinent(continentDAO.findByISO2(continentISO2));
+            onContinentChange();
+            setSelectedCountry(airport.getCountry());
+            onCountryChange();
+            setSelectedAirport(airport);
         }
     }
 
