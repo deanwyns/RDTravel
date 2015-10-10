@@ -23,8 +23,7 @@ public class CountryCRUDTest extends DataSetPersistenceTest {
 
     @Test
     public void testCreateCountry() {
-        Country country = new Country();
-        country.setName("SomehowANewCountry");
+        Country country = new Country("SomehowANewCountry", "SN", "SAN");
         assertNull(country.getId());
         countryDAO.create(country);
         flushAndClear();

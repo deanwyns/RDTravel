@@ -10,8 +10,13 @@ import javax.validation.constraints.NotNull;
  * Created by JSTAX29 on 2/10/2015.
  * An order of a trip.
  */
+@NamedQueries({
+        @NamedQuery(name = Booking.COUNT_TOTAL_BOOKINGS_FOR_PARTNER, query = "select count(b) from Booking b join b.trip.flights as f where f.partner.id = :pid")
+})
 @Entity
 public class Booking {
+    public static final String COUNT_TOTAL_BOOKINGS_FOR_PARTNER = "Booking.countTotalBookingsForPartner";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

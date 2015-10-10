@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Named
 @ConversationScoped
-public class BookTicketBean implements Serializable{
+public class BookTripBean implements Serializable{
 
     private Trip trip;
 

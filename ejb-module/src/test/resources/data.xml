@@ -1,25 +1,31 @@
 <dataset>
-    <user DTYPE="Customer" id="1" email="johnny@info.com" firstName="Johnny" lastName="Johnson"
-          password="9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08" version="0"/>
+    <trip id="1" name="Super fun trip" pricePerDay="25.20" startDate="2999-10-04" endDate="2999-10-07" version="0"/>
+    <trip id="2" name="Trip to the database!" pricePerDay="12.80" startDate="2999-02-15" endDate="2999-02-15"
+          version="0"/>
 
     <paymentmethod id="1"/>
     <paymentmethod id="2"/>
 
-    <trip id="1" endDate="2015-10-07" name="Super fun trip" pricePerDay="25.20" startDate="2015-10-04" version="0"/>
-    <trip id="2" endDate="2015-02-15" name="Trip to the database!" pricePerDay="12.80" startDate="2015-02-15"
-          version="0"/>
+    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="2" trip_id="1"/>
+    <booking id="2" numberOfTravelers="4" version="0" paymentMethod_id="1" trip_id="1"/>
+    <booking id="3" numberOfTravelers="2" version="0" paymentMethod_id="1" trip_id="2"/>
 
-    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="1" trip_id="1"/>
+    <user DTYPE="Customer" id="1" email="johnny@info.com" firstName="Johnny" lastName="Johnson"
+          password="1000:70f40ef34b77323d3ceb956d6962b2f743be9624c56f4233:cf59bda3995c701fb45ecc0e58162f059543d1d63c9870e3" version="0"/>
+    <user DTYPE="Customer" id="2" email="James@info.com" firstName="James" lastName="Jackson"
+          password="1000:70f40ef34b77323d3ceb956d6962b2f743be9624c56f4233:cf59bda3995c701fb45ecc0e58162f059543d1d63c9870e3" version="0"/>
 
+    <user_booking Customer_id="2" bookings_id="3"/>
+    <user_booking Customer_id="1" bookings_id="2"/>
     <user_booking Customer_id="1" bookings_id="1"/>
 
     <creditcard id="1" expirationDate="2999-01-01" number="4716965610097306"/>
     <endorsement id="2" accountNumber="651616486486541641"/>
 
-    <country id="1" name="Guinea"/>
-    <country id="2" name="Greenland"/>
+    <country id="1" name="Guinea" ISO2="GN" ISO3="GIN"/>
+    <country id="2" name="Greenland" ISO2="GL" ISO3="GRL"/>
 
-    <partner id="1" name="JetAir" version="0"/>
+    <partner id="1" name="JetAir" version="0" discountPercentage="7" ticketThresholdForDiscount="2"/>
     <partner id="2" name="RyanAir" version="0"/>
 
     <airport id='1' altitude='5282' city='Goroka' daylightSavingsTime='U' iataFaa='GKA' icao='AYGA' latitude='-6.081689'
@@ -32,18 +38,17 @@
              latitude='61.160517' longitude='-45.425978' name='Narsarsuaq' timezone='-3'
              timezoneTzFormat='America/Godthab' country_id='2' version='0'/>
 
+    <flight id='1' departureTime='2999-10-15 00:00:00' arrivalTime='2999-10-22 00:00:00' maxSeats='12' occupiedSeats='0'
+            price='12.00' version='0' departure_id='1' destination_id='3' partner_id="1" discount="1"
+            discountPercentage="10.85"/>
+    <flight id='2' departureTime='2999-10-22 00:00:00' arrivalTime='2999-10-23 00:00:00' maxSeats='50' occupiedSeats='0'
+            price='100.90' version='0' departure_id='3' destination_id='2' partner_id="2" discount="0"/>
 
-    <flight id='1' departureTime='2015-10-15 00:00:00' arrivalTime='2015-10-22 00:00:00' maxSeats='12' occupiedSeats='0'
-            price='12.00' version='0' departure_id='1' destination_id='3' partner_id="1"/>
-    <flight id='2' departureTime='2015-10-22 00:00:00' arrivalTime='2015-10-23 00:00:00' maxSeats='50' occupiedSeats='0'
-            price='100.90' version='0' departure_id='3' destination_id='2' partner_id="2"/>
-
-    <continent id="1" name="North America"/>
-    <continent id="5" name="Africa"/>
+    <continent id="1" name="North America" ISO2="NA"/>
+    <continent id="5" name="Africa" ISO2="AF"/>
 
     <continent_country countries_id="1" Continent_id="5"/>
     <continent_country countries_id="2" Continent_id="1"/>
-
 
     <trip_flight Trip_id="1" flights_id="1"/>
     <trip_flight Trip_id="1" flights_id="2"/>

@@ -28,12 +28,10 @@ public class ContinentCRUDTest extends DataSetPersistenceTest {
 
     @Test
     public void testCreateContinent() {
-        Country country1 = new Country("Some new country 1");
-        Country country2 = new Country("Some new country 2");
+        Country country1 = new Country("Some new country 1", "SN", "SN1");
+        Country country2 = new Country("Some new country 2", "SN", "SN2");
         Set<Country> countrySet = new HashSet<>(Arrays.asList(country1, country2));
-        Continent continent = new Continent();
-        continent.setCountries(countrySet);
-        continent.setName("ANewContinent");
+        Continent continent = new Continent("ANewContinent", "AN", countrySet);
 
         assertNull(continent.getId());
         continentDAO.create(continent);

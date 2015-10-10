@@ -39,6 +39,15 @@ public class Continent implements Serializable {
     @NotNull
     private Set<Country> countries = new HashSet<>();
 
+    public Continent() {
+    }
+
+    public Continent(String name, String ISO2, Set<Country> countries) {
+        this.name = name;
+        this.ISO2 = ISO2;
+        this.countries = countries;
+    }
+
     public Integer getId() {
         return id;
     }

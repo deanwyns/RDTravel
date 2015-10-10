@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    
+</h:head>
+<h:body>
+    <p:dataTable style="table-layout: fixed;" var="booking" value="#{bookingOverviewView.bookings}" id="bookingTable" widgetVar="bookingTable"
+                 selection="#{bookingOverviewView.selectedBookings}" selectionMode="multiple"
+                 rowKey="#{booking.id}" paginator="true" rows="10"
+                 filteredValue="#{bookingOverviewView.filteredBookings}" emptyMessage="No bookings were found.">
+        <f:facet name="header">
+            <p:outputPanel>
+                <p:inputText id="globalFilter" onkeyup="PF('bookingTable').filter()" placeholder="Search"/>
+            </p:outputPanel>
+        </f:facet>
+
+        <p:column headerText="Id" filterBy="#{booking.id}" sortBy="#{booking.id}" filterMatchMode="contains">
+            <h:outputText value="#{booking.id}" />
+        </p:column>
+        <p:column headerText="Departure" filterBy="#{booking.name} #{booking.departure.city}" filterMatchMode="contains">
+            <h:outputText value="#{booking.departure.name}" /><br />
+            <h:outputText value="#{booking.departure.city}" />
+        </p:column>
+        <p:column headerText="Departure Time" filterBy="#{booking.departureTime}"
+                  filterFunction="#{bookingOverviewView.filterByTimeBefore}">
+            <f:facet name="filter">
+                <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="departureCalendar">
+                    <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()" />
+                </p:calendar>
+            </f:facet>
+            <f:facet name="header">
+                Departure Time
+                <p:button value="X" onclick="PF('departureCalendar').setDate(null)" />
+            </f:facet>
+            <h:outputText value="#{booking.departureTime}" />
+        </p:column>
+        <p:column headerText="Destination" filterBy="#{booking.destination.name} #{booking.destination.city}" filterMatchMode="contains">
+            <h:outputText value="#{booking.destination.name}" /><br />
+            <h:outputText value="#{booking.destination.city}" />
+        </p:column>
+        <p:column headerText="Arrival Time" filterBy="#{booking.arrivalTime}"
+                  filterFunction="#{bookingOverviewView.filterByTimeAfter}">
+            <f:facet name="filter">
+                <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="arrivalCalendar">
+                    <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()" />
+                </p:calendar>
+                <f:facet name="header">
+                    Arrival Time
+                    <p:button value="X" onclick="PF('arrivalCalendar').setDate(null)" />
+                </f:facet>
+            </f:facet>
+            <h:outputText value="#{booking.arrivalTime}" />
+        </p:column>
+        <p:column headerText="Seats">
+            <h:outputText value="#{booking.occupiedSeats}/#{booking.maxSeats}" />
+        </p:column>
+        <p:column headerText="Price" sortBy="#{booking.price}" filterBy="#{booking.price}">
+            <h:outputText value="#{booking.price}">
+                <f:convertNumber type="currency" />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <h:link outcome="booking" value="Edit">
+                <f:param name="id" value="#{booking.id}" />
+            </h:link>
+
+            <h:commandLink action="#{bookingOverviewView.delete(booking)}" value="Delete" update=":bookingTable">
+                <f:param name="id" value="#{booking.id}" />
+            </h:commandLink>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>

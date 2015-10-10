@@ -82,4 +82,10 @@ public class BookingCRUDTest extends DataSetPersistenceTest {
         bookingDAO.update(booking);
         flushAndClear();
     }
+
+    @Test
+    public void testCountBookingCountForPartner(){
+        assertEquals(3, bookingDAO.countBookingsForPartner(1l));
+        assertEquals(2, bookingDAO.countBookingsForPartner(2l));
+    }
 }

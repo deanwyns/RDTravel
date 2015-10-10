@@ -2,7 +2,8 @@ package com.realdolmen.rdtravel.controllers;
 
 
 import com.realdolmen.rdtravel.exceptions.FlightNotFoundException;
-import com.realdolmen.rdtravel.services.ImportTripService;
+import com.realdolmen.rdtravel.exceptions.FlightOutsideTripDateException;
+import com.realdolmen.rdtravel.services.ImportExportTripService;
 import org.jdom2.JDOMException;
 
 import javax.enterprise.context.RequestScoped;
@@ -24,13 +25,17 @@ import java.io.UnsupportedEncodingException;
 public class TripController {
 
     @Inject
-    private ImportTripService importTripService;
+    private ImportExportTripService importExportTripService;
 
 
+    /**
+     * Delegates the functionality of parsing and persisting an XML file of trips to the importExportTripService.
+     * @param contents the contents of the xml file
+     */
     public void parseAndPersistTrip(byte[] contents) {
         try {
             //Let the service import the trips.
-            importTripService.parseAndPersistTrip(contents);
+            importExportTripService.parseAndPersistTrip(contents);
 
             //Let the user know creating/updating was successful
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload successful", "File was uploaded and trips have been created and/or updated.");
@@ -42,12 +47,22 @@ public class TripController {
         } catch (PersistenceException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", "The trip could not be saved to the database.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-        } catch (FlightNotFoundException e) {
+        } catch (FlightNotFoundException | FlightOutsideTripDateException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException | JDOMException | XMLStreamException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * Delegates the fucntionality of exporting trips to an xml file to the importExportTripService.
+     */
+    public void exportTripsToFile(){
+        try {
+            importExportTripService.exportTripsToXmlFile();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 }

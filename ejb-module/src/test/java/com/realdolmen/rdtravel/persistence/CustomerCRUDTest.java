@@ -115,6 +115,6 @@ public class CustomerCRUDTest extends DataSetPersistenceTest {
     @Test
     public void testGenericDAOFindAll(){
         List<Customer> allCustomers = customerDAO.findAll();
-        assertThat(allCustomers.size(), is(1));
+        assertThat(allCustomers.size(), is(2));
     }
 }
