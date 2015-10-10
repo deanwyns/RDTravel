@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.services;
 
+import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
@@ -35,14 +36,14 @@ public class TripService {
     }
 
     /**
-     * Find all trips with a given country and with a period between the given dates.
+     * Find all trips with a given airport and with a period between the given dates.
      * @param departureDate
      * @param returnDate
-     * @param country
+     * @param airport
      * @throws IllegalArgumentException the departure date takes place before today, or after the return date.
      * @return trips
      */
-    public List<Trip> findBy(LocalDate departureDate, LocalDate returnDate, Country country, int participantsAmount) {
+    public List<Trip> findBy(LocalDate departureDate, LocalDate returnDate, Airport airport, int participantsAmount) {
         if(departureDate.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Departure date can't be before today.");
         }
@@ -51,7 +52,7 @@ public class TripService {
             throw new IllegalArgumentException("Departure date can't be after return date.");
         }
 
-        return tripDAO.findByDestinationCountry(country).stream().filter(
+        return tripDAO.findByDestinationAirport(airport).stream().filter(
                 // Filter all trips with enough available seats for the amount of travelers, and all trips within the given dates.
                 trip -> getMaxSeatsForTrip(trip) >= participantsAmount && departureDate.isBefore(trip.getStartDate()) && returnDate.isAfter(trip.getEndDate())
         ).collect(Collectors.toList());

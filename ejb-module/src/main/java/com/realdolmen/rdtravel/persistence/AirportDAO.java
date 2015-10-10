@@ -41,4 +41,9 @@ public class AirportDAO extends GenericDaoImpl<Airport, Long> {
         TypedQuery<Airport> query = em.createNamedQuery(Airport.FIND_BY_COUNTRY_NAME, Airport.class).setParameter("country", countryName);
         return query.getResultList();
     }
+
+    public List<Airport> findByCountryISO2(String ISO2) {
+        TypedQuery<Airport> query = em.createNamedQuery(Airport.FIND_BY_COUNTRY_ISO2, Airport.class).setParameter("country", ISO2);
+        return query.getResultList();
+    }
 }

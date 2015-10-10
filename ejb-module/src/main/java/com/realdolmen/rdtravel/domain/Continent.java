@@ -68,6 +68,14 @@ public class Continent implements Serializable {
         this.countries = countries;
     }
 
+    public String getISO2() {
+        return ISO2;
+    }
+
+    public void setISO2(String ISO2) {
+        this.ISO2 = ISO2;
+    }
+
     @Override
     public String toString() {
         return getName();
