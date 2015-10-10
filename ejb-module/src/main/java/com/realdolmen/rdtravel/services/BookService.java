@@ -96,13 +96,13 @@ public class BookService {
             throw new IllegalArgumentException("The departure date has already passed.");
     }
 
-    /**
-     * Calculates the profit margin for the given booking. This takes seat threshold and volume sales into account.
-     * @param booking the booking to calculate the profit on
-     */
-    public BigDecimal calculateMargin(Booking booking){
-
-
-        return BigDecimal.ZERO;
-    }
+//    /**
+//     * Calculates the profit margin for the given booking. This takes seat threshold and volume sales into account.
+//     * @param booking the booking to calculate the profit on
+//     */
+//    public BigDecimal calculateMargin(Booking booking){
+//        We're not really sure how the margin is calculated atm
+//
+//        return BigDecimal.ZERO;
+//    }
 }

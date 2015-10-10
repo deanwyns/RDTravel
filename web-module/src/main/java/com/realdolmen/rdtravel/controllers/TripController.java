@@ -6,12 +6,14 @@ import com.realdolmen.rdtravel.exceptions.FlightOutsideTripDateException;
 import com.realdolmen.rdtravel.services.ImportExportTripService;
 import org.jdom2.JDOMException;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
@@ -50,7 +52,14 @@ public class TripController {
         } catch (PersistenceException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", "The trip could not be saved to the database.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-        } catch (FlightNotFoundException | FlightOutsideTripDateException e) {
+        } catch (EJBTransactionRolledbackException e) {
+            if(e.getCause() instanceof ConstraintViolationException){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", "Every trip should have a flight.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }else{
+                throw e;
+            }
+        }catch (FlightNotFoundException | FlightOutsideTripDateException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException | JDOMException | XMLStreamException e) {

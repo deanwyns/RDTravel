@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,10 +35,13 @@ public class FlightDAO extends GenericDaoImpl<Flight, Long> {
     }
 
     public List<Flight> findAllWithIds(List<Long> ids) {
-        TypedQuery<Flight> flightTypedQuery = getEntityManager()
-                .createNamedQuery(Flight.FIND_ALL_WITH_IDS, Flight.class)
-                .setParameter("idList", ids);
-        return flightTypedQuery.getResultList();
+        if(ids != null && !ids.isEmpty()){
+            TypedQuery<Flight> flightTypedQuery = getEntityManager()
+                    .createNamedQuery(Flight.FIND_ALL_WITH_IDS, Flight.class)
+                    .setParameter("idList", ids);
+            return flightTypedQuery.getResultList();
+        }
+        return new ArrayList<>();
     }
 
     public List<Flight> findByPartner(Partner partner) {

@@ -179,6 +179,14 @@ public class BookServiceTest extends DataSetPersistenceTest {
         assertEquals(0, flight1.getOccupiedSeats());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidBookingTripHasPassed(){
+        trip.setStartDate(LocalDate.now().minusDays(1));
+        Booking booking = new Booking(4, paymentMethod, trip);
+
+        bookService.createBooking(booking);
+    }
+
     //todo: fix this.
     @Ignore
     @Test(expected = OptimisticLockException.class)

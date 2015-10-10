@@ -16,13 +16,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.validation.ConstraintViolationException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+
+import static org.mockito.Mockito.*;
 
 /**
  * Created by JSTAX29 on 8/10/2015.
@@ -42,13 +46,13 @@ public class ImportExportTripServiceTest extends DataSetPersistenceTest {
     public void initialize() {
         Flight flight1 = entityManager().find(Flight.class, 1l);
         Flight flight2 = entityManager().find(Flight.class, 2l);
-        Mockito.when(mockFlightDAO.findAllWithIds(new ArrayList<>(Arrays.asList((long) 1, (long) 2)))).thenReturn(new ArrayList<>(Arrays.asList(flight1, flight2)));
-        Mockito.when(mockFlightDAO.findAllWithIds(new ArrayList<>(Collections.singletonList((long) 1)))).thenReturn(new ArrayList<>(Collections.singletonList(flight1)));
-        Mockito.when(mockFlightDAO.findAllWithIds(new ArrayList<>(Collections.singletonList((long) 2)))).thenReturn(new ArrayList<>(Collections.singletonList(flight2)));
+        when(mockFlightDAO.findAllWithIds(new ArrayList<>(Arrays.asList((long) 1, (long) 2)))).thenReturn(new ArrayList<>(Arrays.asList(flight1, flight2)));
+        when(mockFlightDAO.findAllWithIds(new ArrayList<>(Collections.singletonList((long) 1)))).thenReturn(new ArrayList<>(Collections.singletonList(flight1)));
+        when(mockFlightDAO.findAllWithIds(new ArrayList<>(Collections.singletonList((long) 2)))).thenReturn(new ArrayList<>(Collections.singletonList(flight2)));
 
-        Mockito.when(mockTripDAO.getEntityManager()).thenReturn(entityManager());
-        Mockito.when(mockTripDAO.create(Mockito.any())).thenCallRealMethod();
-        Mockito.when(mockTripDAO.update(Mockito.any())).thenCallRealMethod();
+        when(mockTripDAO.getEntityManager()).thenReturn(entityManager());
+        when(mockTripDAO.create(any())).thenCallRealMethod();
+        when(mockTripDAO.update(any())).thenCallRealMethod();
 
         tripDAO.setEntityManager(entityManager());
     }
@@ -108,4 +112,9 @@ public class ImportExportTripServiceTest extends DataSetPersistenceTest {
         assertEquals(2, tripDAO.findAll().size());
     }
 
+    @Test
+    public void testExportingTripsGivesFile() throws MalformedURLException, JAXBException, URISyntaxException {
+        File file = importExportTripService.exportTripsToXmlFile();
+        assertNotNull(file);
+    }
 }

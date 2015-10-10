@@ -1,8 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
-import com.realdolmen.rdtravel.domain.Booking;
-import com.realdolmen.rdtravel.domain.Flight;
-import com.realdolmen.rdtravel.domain.Trip;
+import com.realdolmen.rdtravel.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -142,4 +140,25 @@ public class TripCRUDTest extends DataSetPersistenceTest {
         entityManager().merge(trip);
     }
 
+    @Test
+    public void testFindAllTripsWithFinalAirportNull(){
+        assertEquals(0, tripDAO.findByDestinationCountry(null).size());
+    }
+
+    @Test
+    public void testFindAllTripsWithFinalAirport(){
+        Airport airport2 = entityManager().find(Airport.class, 2l);
+        assertEquals(2, tripDAO.findByDestinationAirport(airport2).size());
+    }
+
+    @Test
+    public void testFindAllTripsWithFinalCountryNull(){
+        assertEquals(0, tripDAO.findByDestinationAirport(null).size());
+    }
+
+    @Test
+    public void testFindAllTripsWithFinalCountry(){
+        Country country1 = entityManager().find(Country.class, 1);
+        assertEquals(2, tripDAO.findByDestinationCountry(country1).size());
+    }
 }
