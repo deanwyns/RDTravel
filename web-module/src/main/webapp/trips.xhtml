@@ -7,7 +7,7 @@
 <ui:composition template="container.xhtml">
     <ui:define name="pageContent">
         <f:metadata>
-            <f:viewParam name="country" value="#{findTripOverviewView.country}" converter="#{countryConverter}"
+            <f:viewParam name="destination" value="#{findTripOverviewView.airport}" converter="#{airportConverter}"
                          required="true"/>
             <f:viewParam name="departureDate" value="#{findTripOverviewView.departureDate}"
                          converter="com.realdolmen.LocalDateConverter" required="true"/>

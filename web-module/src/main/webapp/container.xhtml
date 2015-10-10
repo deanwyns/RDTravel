@@ -17,10 +17,9 @@
         <h:form ><h:commandLink rendered="#{not empty request.remoteUser}" value="Logout" type="submit" action="#{loginController.logout()}"/> </h:form>
 
     </div>
-    <div>
-        <ui:insert name="pageContent">
-            Content goes here.
-        </ui:insert>
-    </div>
+
+    <ui:insert name="pageContent">
+        Content goes here.
+    </ui:insert>
 </h:body>
 </html>

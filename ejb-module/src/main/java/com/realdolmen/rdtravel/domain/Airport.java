@@ -12,11 +12,13 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = Airport.FIND_ALL, query = "SELECT a FROM Airport a ORDER BY a.name"),
-        @NamedQuery(name = Airport.FIND_BY_COUNTRY_NAME, query = "SELECT a FROM Airport a WHERE a.country.name = :country ORDER BY a.country.name")
+        @NamedQuery(name = Airport.FIND_BY_COUNTRY_NAME, query = "SELECT a FROM Airport a WHERE a.country.name = :country ORDER BY a.country.name"),
+        @NamedQuery(name = Airport.FIND_BY_COUNTRY_ISO2, query = "SELECT a FROM Airport a WHERE a.country.ISO2 = :country ORDER BY a.country.name")
 })
 public class Airport {
     public static final String FIND_ALL = "Airport.findAll";
     public static final String FIND_BY_COUNTRY_NAME = "Airport.findByCountryName";
+    public static final String FIND_BY_COUNTRY_ISO2 = "Airport.findByCountryISO2";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

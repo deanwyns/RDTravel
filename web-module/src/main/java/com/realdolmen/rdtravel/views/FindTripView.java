@@ -1,5 +1,7 @@
 package com.realdolmen.rdtravel.views;
 
+import com.google.gson.Gson;
+import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Continent;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.persistence.AirportDAO;
@@ -35,8 +37,10 @@ public class FindTripView implements Serializable {
 
     private List<Continent> continents;
     private Continent selectedContinent;
-    @NotNull private Country selectedCountry;
+    private Country selectedCountry;
+    @NotNull private Airport selectedAirport;
     private List<Country> countries;
+    private List<Airport> airports;
 
     @NotNull private LocalDate departureDate;
     @NotNull private LocalDate returnDate;
@@ -53,11 +57,18 @@ public class FindTripView implements Serializable {
     public void onContinentChange() {
         countries = new ArrayList<>(selectedContinent.getCountries());
         countries.sort((c1, c2) -> c1.getName().compareTo(c2.getName()));
+
+        selectedCountry = countries.get(0);
+        onCountryChange();
+    }
+
+    public void onCountryChange() {
+        airports = airportDAO.findByCountryName(selectedCountry.getName());
     }
 
     public String findTrips() {
         return "trips?faces-redirect=true&" +
-                "country=" + selectedCountry.getId() +
+                "destination=" + selectedAirport.getId() +
                 "&departureDate=" + departureDate.format(formatter) +
                 "&returnDate=" + returnDate.format(formatter) +
                 "&participants=" + participantsAmount;
@@ -86,19 +97,29 @@ public class FindTripView implements Serializable {
         this.selectedContinent = selectedContinent;
     }
 
-    public void setSelectedContinentCommand() {
+    public void selectAirportCommand() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String continentISO2 = params.get("continent");
-        System.out.println("///////////////////////////////");
-        System.out.println(continentISO2);
-        selectedContinent = continentDAO.findByISO2(continentISO2);
+
+        if(params.containsKey("airport") && params.containsKey("continent")) {
+            String airportId = params.get("airport");
+            Airport airport = airportDAO.read(Long.parseLong(airportId));
+
+            String continentISO2 = params.get("continent");
+            selectedContinent = continentDAO.findByISO2(continentISO2);
+            selectedCountry = airport.getCountry();
+            selectedAirport = airport;
+        }
     }
 
-    public void setSelectedCountryCommand() {
+    public void getAirportsCommand() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String countryISO2 = params.get("country");
-        System.out.println(countryISO2);
-        selectedCountry = countryDAO.findByISO2(countryISO2);
+
+        if(params.containsKey("country")) {
+            String countryISO2 = params.get("country");
+            List<Airport> airports = airportDAO.findByCountryISO2(countryISO2);
+
+            RequestContext.getCurrentInstance().addCallbackParam("airports", new Gson().toJson(airports));
+        }
     }
 
     public List<Continent> getContinents() {
@@ -145,8 +166,19 @@ public class FindTripView implements Serializable {
         this.participantsAmount = participantsAmount;
     }
 
-    public void test() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.addCallbackParam("baseUrl", "http");
+    public Airport getSelectedAirport() {
+        return selectedAirport;
+    }
+
+    public void setSelectedAirport(Airport selectedAirport) {
+        this.selectedAirport = selectedAirport;
+    }
+
+    public List<Airport> getAirports() {
+        return airports;
+    }
+
+    public void setAirports(List<Airport> airports) {
+        this.airports = airports;
     }
 }

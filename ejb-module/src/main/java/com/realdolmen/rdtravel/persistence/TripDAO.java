@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
+import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.domain.Trip;
 
@@ -43,6 +44,21 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
         return trips.stream().filter(t -> {
                     int amount = t.getFlights().size();
                     return amount != 0 && t.getFlights().get(amount - 1).getDestination().getCountry().equals(country);
+                }
+        ).collect(Collectors.toList());
+    }
+
+    /**
+     * Find all trips with the given airport as the last destination (the last flight's destination).
+     * @param airport
+     * @return
+     */
+    public List<Trip> findByDestinationAirport(Airport airport) {
+        List<Trip> trips = this.findAll();
+
+        return trips.stream().filter(t -> {
+                    int amount = t.getFlights().size();
+                    return amount != 0 && t.getFlights().get(amount - 1).getDestination().equals(airport);
                 }
         ).collect(Collectors.toList());
     }

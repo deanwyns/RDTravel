@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.views;
 
+import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Country;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.services.TripService;
@@ -23,7 +24,7 @@ import java.util.List;
 public class FindTripOverviewView implements Serializable {
     @Inject private TripService tripService;
 
-    private Country country;
+    private Airport airport;
     private LocalDate departureDate;
     private LocalDate returnDate;
     private int participantsAmount;
@@ -33,7 +34,7 @@ public class FindTripOverviewView implements Serializable {
     public List<Trip> getTrips() throws IOException {
         if(trips == null) {
             try {
-                return tripService.findBy(departureDate, returnDate, country, participantsAmount);
+                return tripService.findBy(departureDate, returnDate, airport, participantsAmount);
             } catch (IllegalArgumentException ex) {
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 ctx.getExternalContext().redirect("index.xhtml");
@@ -43,12 +44,12 @@ public class FindTripOverviewView implements Serializable {
         return trips;
     }
 
-    public Country getCountry() {
-        return country;
+    public Airport getAirport() {
+        return airport;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setAirport(Airport airport) {
+        this.airport = airport;
     }
 
     public LocalDate getDepartureDate() {
