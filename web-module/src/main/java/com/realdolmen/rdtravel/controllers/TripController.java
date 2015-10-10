@@ -14,8 +14,11 @@ import javax.inject.Named;
 import javax.persistence.PersistenceException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 /**
  * Created by JSTAX29 on 6/10/2015.
@@ -58,11 +61,12 @@ public class TripController {
     /**
      * Delegates the fucntionality of exporting trips to an xml file to the importExportTripService.
      */
-    public void exportTripsToFile(){
+    public File exportTripsToFile(){
         try {
-            importExportTripService.exportTripsToXmlFile();
-        } catch (JAXBException e) {
+            return importExportTripService.exportTripsToXmlFile();
+        } catch (JAXBException | URISyntaxException | MalformedURLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
