@@ -36,10 +36,22 @@ public class CountryDAO extends GenericDaoImpl<Country, Integer> {
         return em.createNamedQuery(Country.FIND_ALL, Country.class).getResultList();
     }
 
+    /**
+     * Finds all countries with the given ISO2 string
+     * @param iso2 the string to search countries on
+     * @return the country that corresponds to the iso2 string
+     * @throws javax.persistence.NoResultException when no country is found
+     */
     public Country findByISO2(String iso2) {
         return em.createNamedQuery(Country.FIND_BY_ISO2, Country.class).setParameter("iso", iso2).getSingleResult();
     }
 
+    /**
+     * Finds all countries with the given ISO3 string
+     * @param iso3 the string to search countries on
+     * @return the country that corresponds to the iso3 string
+     * @throws javax.persistence.NoResultException when no country is found
+     */
     public Country findByISO3(String iso3) {
         return em.createNamedQuery(Country.FIND_BY_ISO3, Country.class).setParameter("iso", iso3).getSingleResult();
     }

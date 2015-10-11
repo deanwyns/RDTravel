@@ -123,6 +123,24 @@ public class ImportExportTripServiceTest extends DataSetPersistenceTest {
         assertEquals(2, tripDAO.findAll().size());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testTripDepartureAfterReturn() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
+        java.net.URL url = this.getClass().getResource("/testing_trips/trip_departure_after_return.xml");
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+
+        //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
+        assertEquals(2, tripDAO.findAll().size());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTripDeparturePassed() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightNotFoundException, JAXBException, FlightOutsideTripDateException {
+        java.net.URL url = this.getClass().getResource("/testing_trips/trip_departure_passed.xml");
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+
+        //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
+        assertEquals(2, tripDAO.findAll().size());
+    }
+
     @Test
     public void testExportingTripsGivesFile() throws MalformedURLException, JAXBException, URISyntaxException {
         File file = importExportTripService.exportTripsToXmlFile();

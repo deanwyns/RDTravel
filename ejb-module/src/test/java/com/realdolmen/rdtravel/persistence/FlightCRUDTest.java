@@ -149,4 +149,23 @@ public class FlightCRUDTest extends DataSetPersistenceTest {
 
         assertEquals(correctFlightList, foundFlights);
     }
+
+    @Test
+    public void testFindAllFlightsWithIdsNull(){
+        assertTrue(flightDAO.findAllWithIds(new ArrayList<>()).isEmpty());
+        assertTrue(flightDAO.findAllWithIds(null).isEmpty());
+    }
+
+    @Test
+    public void testFindAllFlightsForPartner(){
+        Partner partner = entityManager().find(Partner.class, 1l);
+        assertEquals(1, flightDAO.findByPartner(partner).size());
+    }
+
+    @Test
+    public void testFindAllFlightsForPartnerWithNoFlights(){
+        Partner unknownPartner = entityManager().find(Partner.class, 3l);
+        flightDAO.findByPartner(unknownPartner);
+        flushAndClear();
+    }
 }

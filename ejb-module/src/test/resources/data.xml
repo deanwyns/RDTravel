@@ -29,6 +29,7 @@
 
     <partner id="1" name="JetAir" version="0" discountPercentage="7" ticketThresholdForDiscount="2"/>
     <partner id="2" name="RyanAir" version="0"/>
+    <partner id="3" name="NoFlightPartner" version="0"/>
 
     <airport id='1' altitude='5282' city='Goroka' daylightSavingsTime='U' iataFaa='GKA' icao='AYGA' latitude='-6.081689'
              longitude='145.391881' name='Goroka' timezone='10' timezoneTzFormat='Pacific/Port_Moresby' country_id='1'

@@ -3,8 +3,8 @@
     <trip>
         <name>New Fun Trip with invalid date (O instead of 0)</name>
         <pricePerDay>20.5</pricePerDay>
-        <startDate>2999-1O-15</startDate>
-        <endDate>2999-10-23</endDate>
+        <startDate>2999-10-15</startDate>
+        <endDate>2999-1O-23</endDate>
         <flights>
             <flightId>1</flightId>
             <flightId>2</flightId>
@@ -13,7 +13,7 @@
     <trip>
         <name>Best Trip Ever with invalid price (O instead of 0)</name>
         <pricePerDay>8O.5</pricePerDay>
-        <startDate>2999-10-14</startDate>
+        <startDate>2999-1O-14</startDate>
         <endDate>2999-10-25</endDate>
         <flights>
             <flightId>1</flightId>

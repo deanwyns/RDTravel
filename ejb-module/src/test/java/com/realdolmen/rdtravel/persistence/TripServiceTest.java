@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JSTAX29 on 10/10/2015.
@@ -21,8 +22,9 @@ import java.util.ArrayList;
 @RunWith(MockitoJUnitRunner.class)
 public class TripServiceTest extends DataSetPersistenceTest {
 
+    private TripDAO tripDao = new TripDAO();
     @Mock
-    private TripDAO tripDAO;
+    private TripDAO mockTripDao;
 
     @InjectMocks
     private TripService tripService;
@@ -32,9 +34,11 @@ public class TripServiceTest extends DataSetPersistenceTest {
         Airport airport = entityManager().find(Airport.class, 2L);
         Trip trip = entityManager().find(Trip.class, 1L);
 
-        Mockito.when(tripDAO.getEntityManager()).thenReturn(entityManager());
-        Mockito.when(tripDAO.findByDestinationAirport(airport)).thenCallRealMethod();
-        Mockito.when(tripDAO.findAll()).thenCallRealMethod();
+        Mockito.when(mockTripDao.getEntityManager()).thenReturn(entityManager());
+        Mockito.when(mockTripDao.findByDestinationAirport(airport)).thenCallRealMethod();
+        tripDao.setEntityManager(entityManager());
+        List<Trip> allTrips = tripDao.findAll();
+        Mockito.when(mockTripDao.findAll()).thenReturn(allTrips);
 
         Mockito.when(tripService.findById(1L)).thenReturn(trip);
     }
@@ -118,7 +122,7 @@ public class TripServiceTest extends DataSetPersistenceTest {
         LocalDate departurePick = LocalDate.of(2999, 10, 2);
         LocalDate returnPick = LocalDate.of(2999, 10, 8);
 
-        assertEquals(0, tripService.findBy(departurePick, returnPick, airport, 1).size());
+        assertEquals(0, tripService.findBy(departurePick, returnPick, airport, 2).size());
     }
 
     @Test(expected = IllegalArgumentException.class)

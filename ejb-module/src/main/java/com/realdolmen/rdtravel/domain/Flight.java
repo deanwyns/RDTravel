@@ -1,6 +1,5 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.XMLUtils.JAXBLocalDateTimeAdapter;
 import com.realdolmen.rdtravel.XMLUtils.JAXBLongAdapter;
 import com.realdolmen.rdtravel.util.LocalDateTimePersistenceConverter;
 
@@ -40,13 +39,11 @@ public class Flight {
     private Long id;
 
     @Convert(converter = LocalDateTimePersistenceConverter.class)
-    @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     @NotNull
     @Column(nullable = false)
     private LocalDateTime departureTime;
 
     @Convert(converter = LocalDateTimePersistenceConverter.class)
-    @XmlJavaTypeAdapter(JAXBLocalDateTimeAdapter.class)
     @NotNull
     @Column(nullable = false)
     private LocalDateTime arrivalTime;

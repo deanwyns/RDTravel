@@ -4,6 +4,7 @@ import com.realdolmen.rdtravel.domain.Country;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 
 /**
@@ -60,5 +61,38 @@ public class CountryCRUDTest extends DataSetPersistenceTest {
         country.setName("This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name. This is a long name.");
         countryDAO.update(country);
         flushAndClear();
+    }
+
+    @Test
+    public void testFindCountryByISO2(){
+        Country GN = entityManager().find(Country.class, 1);
+        assertEquals(GN, countryDAO.findByISO2("GN"));
+
+        Country GL = entityManager().find(Country.class, 2);
+        assertEquals(GL, countryDAO.findByISO2("GL"));
+    }
+
+    @Test
+    public void testFindCountryByISO3(){
+        Country GN = entityManager().find(Country.class, 1);
+        assertEquals(GN, countryDAO.findByISO3("GIN"));
+
+        Country GL = entityManager().find(Country.class, 2);
+        assertEquals(GL, countryDAO.findByISO3("GRL"));
+    }
+
+    @Test(expected = NoResultException.class)
+    public void testFindCountryByISO2NoneFound(){
+        countryDAO.findByISO2("XX");
+    }
+
+    @Test(expected = NoResultException.class)
+    public void testFindCountryByISO3NoneFound(){
+        countryDAO.findByISO3("XXX");
+    }
+
+    @Test
+    public void testFindAllCountries(){
+        assertEquals(2, countryDAO.findAll().size());
     }
 }

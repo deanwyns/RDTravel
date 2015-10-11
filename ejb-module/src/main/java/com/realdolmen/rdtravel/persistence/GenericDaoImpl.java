@@ -2,6 +2,7 @@ package com.realdolmen.rdtravel.persistence;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 
@@ -43,7 +44,8 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
 
     @Override
     public List<T> findAll() {
-        return getEntityManager().createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t", entityClass).getResultList();
+        TypedQuery<T> query = getEntityManager().createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t", entityClass);
+        return query.getResultList();
     }
 
     public abstract void setEntityManager(EntityManager entityManager);

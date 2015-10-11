@@ -142,5 +142,20 @@ public class AirportCRUDTest extends DataSetPersistenceTest {
         flushAndClear();
     }
 
+    @Test
+    public void testFindAllAirports(){
+        assertEquals(3, airportDAO.findAll().size());
+    }
 
+    @Test
+    public void testFindAirportsByCountryName(){
+        assertEquals(2, airportDAO.findByCountryName("Guinea").size());
+        assertEquals(1, airportDAO.findByCountryName("Greenland").size());
+    }
+
+    @Test
+    public void testFindAirportsByCountryISO2(){
+        assertEquals(2, airportDAO.findByCountryISO2("GN").size());
+        assertEquals(1, airportDAO.findByCountryISO2("GL").size());
+    }
 }

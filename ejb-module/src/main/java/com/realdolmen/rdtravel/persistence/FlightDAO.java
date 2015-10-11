@@ -34,6 +34,13 @@ public class FlightDAO extends GenericDaoImpl<Flight, Long> {
         em = entityManager;
     }
 
+    /**
+     * Finds all flights that have the id's from the parameter id list.
+     * If the list is empty or null, an empty list of flights will be returned.
+     * @param ids the list of ids to find flights
+     * @return the list of flights that have the ids
+     * @throws
+     */
     public List<Flight> findAllWithIds(List<Long> ids) {
         if(ids != null && !ids.isEmpty()){
             TypedQuery<Flight> flightTypedQuery = getEntityManager()

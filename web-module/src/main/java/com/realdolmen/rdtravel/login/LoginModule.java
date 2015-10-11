@@ -8,7 +8,6 @@ import com.realdolmen.rdtravel.principals.CustomerPrincipal;
 import com.realdolmen.rdtravel.principals.PartnerAdminPrincipal;
 import com.realdolmen.rdtravel.principals.RDTravelAdminPrincipal;
 import com.realdolmen.rdtravel.principals.UserPrincipal;
-import com.realdolmen.rdtravel.util.CdiHelper;
 import com.realdolmen.rdtravel.util.PasswordHash;
 import org.jboss.security.PicketBoxMessages;
 import org.jboss.security.SimpleGroup;

@@ -77,4 +77,18 @@ public class ContinentCRUDTest extends DataSetPersistenceTest {
         continentDAO.update(continent);
         flushAndClear();
     }
+
+    @Test
+    public void testFindContinentByISO2(){
+        Continent NA = entityManager().find(Continent.class, 1);
+        assertEquals(NA, continentDAO.findByISO2("NA"));
+
+        Continent AF = entityManager().find(Continent.class, 5);
+        assertEquals(AF, continentDAO.findByISO2("AF"));
+    }
+
+    @Test
+    public void testFindAllContinents(){
+        assertEquals(2, continentDAO.findAll().size());
+    }
 }

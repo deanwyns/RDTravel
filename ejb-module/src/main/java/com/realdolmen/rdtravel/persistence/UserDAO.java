@@ -31,9 +31,14 @@ public class UserDAO extends GenericDaoImpl<User, Long> {
         this.em = entityManager;
     }
 
+    /**
+     * Returns the user based on his email.
+     * @param email the email of the user to be found
+     * @return the user found by his email
+     * @throws javax.persistence.NoResultException when no user is found
+     */
     public User findByEmail(String email) {
-        TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_EMAIL, User.class).setParameter("email", email);
-
+        TypedQuery<User> query = getEntityManager().createNamedQuery(User.FIND_BY_EMAIL, User.class).setParameter("email", email);
         return query.getSingleResult();
     }
 }

@@ -117,7 +117,6 @@ public class ImportExportTripService {
         LocalDate returnDate = trip.getEndDate();
 
         if(departureDate != null && returnDate != null){
-
             //The departure was after the return date.
             if (departureDate.isAfter(returnDate))
                 throw new IllegalArgumentException("Departure date was after return date.");

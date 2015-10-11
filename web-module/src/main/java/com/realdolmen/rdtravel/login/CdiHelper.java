@@ -1,4 +1,4 @@
-package com.realdolmen.rdtravel.util;
+package com.realdolmen.rdtravel.login;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.AnnotatedType;

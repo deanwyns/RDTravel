@@ -8,7 +8,4 @@ public class FlightNotFoundException extends Exception {
         super(msg);
     }
 
-    public FlightNotFoundException() {
-        super("The flight was not found.");
-    }
 }
