@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.security.Principal;
 
 /**s
  * Created by DWSAX40 on 8/10/2015.
@@ -15,6 +16,10 @@ import java.io.Serializable;
 public class UserProducer implements Serializable {
     @Produces
     public User getUser() {
-        return ((UserPrincipal)FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal()).getUser();
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        if(principal == null)
+            return null;
+
+        return ((UserPrincipal)principal).getUser();
     }
 }
