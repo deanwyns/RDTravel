@@ -100,6 +100,12 @@ html, body {
     margin: 10px 25px;
 }
 
+.top-bar {
+    background-color: #459fe4;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
 .wrapper {
     width: 100%;
     min-height: 100%;
@@ -124,6 +130,15 @@ html, body {
 
 .ui-widget {
     font-family: 'Roboto', sans-serif;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    color: #cf676f;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #cf676f;
+    background-color: #cf676f;
 }
 
 .airport-popup {

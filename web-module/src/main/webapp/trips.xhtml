@@ -15,32 +15,45 @@
                          converter="com.realdolmen.LocalDateConverter" required="true"/>
         </f:metadata>
 
-        <p:dataTable style="table-layout: fixed;" var="trip" value="#{findTripOverviewView.trips}" id="tripTable"
-                     paginator="true" rows="10" emptyMessage="No trips were found.">
-            <p:column headerText="Name">
-                <h:outputText value="#{trip.name}"/>
-            </p:column>
+        <div class="top-bar">
+            <div class="container">
+                <h1>
+                    <h:outputText value="Trips to #{findTripOverviewView.airport.name} (#{findTripOverviewView.airport.country.name})" />
+                </h1>
+                <div class="details">
+                    <h:outputText value="From #{findTripOverviewView.departureDate} till #{findTripOverviewView.returnDate}" />
+                </div>
+            </div>
+        </div>
 
-            <p:column headerText="Price per day">
-                <h:outputText value="#{trip.pricePerDay}"/>
-            </p:column>
+        <div class="container">
+            <p:dataTable style="table-layout: fixed;" var="trip" value="#{findTripOverviewView.trips}" id="tripTable"
+                         paginator="true" rows="10" emptyMessage="No trips were found.">
+                <p:column headerText="Name">
+                    <h:outputText value="#{trip.name}"/>
+                </p:column>
 
-            <p:column headerText="Departure date">
-                <h:outputText value="#{trip.startDate}"/>
-            </p:column>
+                <p:column headerText="Price per day">
+                    <h:outputText value="#{trip.pricePerDay}"/>
+                </p:column>
 
-            <p:column headerText="Return date">
-                <h:outputText value="#{trip.endDate}"/>
-            </p:column>
+                <p:column headerText="Departure date">
+                    <h:outputText value="#{trip.startDate}"/>
+                </p:column>
 
-            <p:column>
-                <h:form>
-                    <h:commandButton value="Book" action="#{bookingController.book}">
-                        <f:param value="#{trip.id}" name="trip" />
-                    </h:commandButton>
-                </h:form>
-            </p:column>
-        </p:dataTable>
+                <p:column headerText="Return date">
+                    <h:outputText value="#{trip.endDate}"/>
+                </p:column>
+
+                <p:column>
+                    <h:form>
+                        <h:commandButton value="Book" action="#{bookingController.book}">
+                            <f:param value="#{trip.id}" name="trip" />
+                        </h:commandButton>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </div>
     </ui:define>
 </ui:composition>
 </html>
