@@ -4,79 +4,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
+<ui:composition template="/admin/container.xhtml">
+    <ui:define name="pageContent">
+        <div class="content">
+            <p:link value="Create flight" outcome="flight" />
 
-</h:head>
-<h:body>
-    <p:link value="Create flight" outcome="flight" />
-
-    <h:form>
-        <p:dataTable style="table-layout: fixed;" var="flight" value="#{flightOverviewView.flights}" id="flightTable" widgetVar="flightTable"
-                     selection="#{flightOverviewView.selectedFlights}" selectionMode="multiple"
-                     rowKey="#{flight.id}" paginator="true" rows="10"
-                     filteredValue="#{flightOverviewView.filteredFlights}" emptyMessage="No flights were found.">
-            <f:facet name="header">
-                <p:outputPanel>
-                    <p:inputText id="globalFilter" onkeyup="PF('flightTable').filter()" placeholder="Search"/>
-                </p:outputPanel>
-            </f:facet>
-
-            <p:column headerText="Id" filterBy="#{flight.id}" sortBy="#{flight.id}" filterMatchMode="contains">
-                <h:outputText value="#{flight.id}" />
-            </p:column>
-            <p:column headerText="Departure" filterBy="#{flight.departure.name} #{flight.departure.city}" filterMatchMode="contains">
-                <h:outputText value="#{flight.departure.name}" /><br />
-                <h:outputText value="#{flight.departure.city}" />
-            </p:column>
-            <p:column headerText="Departure Time" filterBy="#{flight.departureTime}"
-                      filterFunction="#{flightOverviewView.filterByTimeBefore}">
-                <f:facet name="filter">
-                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="departureCalendar">
-                        <p:ajax event="dateSelect" oncomplete="PF('flightTable').filter()" />
-                    </p:calendar>
-                </f:facet>
-                <f:facet name="header">
-                    Departure Time
-                    <p:button value="X" onclick="PF('departureCalendar').setDate(null)" />
-                </f:facet>
-                <h:outputText value="#{flight.departureTime}" />
-            </p:column>
-            <p:column headerText="Destination" filterBy="#{flight.destination.name} #{flight.destination.city}" filterMatchMode="contains">
-                <h:outputText value="#{flight.destination.name}" /><br />
-                <h:outputText value="#{flight.destination.city}" />
-            </p:column>
-            <p:column headerText="Arrival Time" filterBy="#{flight.arrivalTime}"
-                      filterFunction="#{flightOverviewView.filterByTimeAfter}">
-                <f:facet name="filter">
-                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="arrivalCalendar">
-                        <p:ajax event="dateSelect" oncomplete="PF('flightTable').filter()" />
-                    </p:calendar>
+            <h:form>
+                <p:dataTable style="table-layout: fixed;" var="flight" value="#{flightOverviewView.flights}" id="flightTable" widgetVar="flightTable"
+                             selection="#{flightOverviewView.selectedFlights}" selectionMode="multiple"
+                             rowKey="#{flight.id}" paginator="true" rows="10"
+                             filteredValue="#{flightOverviewView.filteredFlights}" emptyMessage="No flights were found.">
                     <f:facet name="header">
-                        Arrival Time
-                        <p:button value="X" onclick="PF('arrivalCalendar').setDate(null)" />
+                        <p:outputPanel>
+                            <p:inputText id="globalFilter" onkeyup="PF('flightTable').filter()" placeholder="Search"/>
+                        </p:outputPanel>
                     </f:facet>
-                </f:facet>
-                <h:outputText value="#{flight.arrivalTime}" />
-            </p:column>
-            <p:column headerText="Seats">
-                <h:outputText value="#{flight.occupiedSeats}/#{flight.maxSeats}" />
-            </p:column>
-            <p:column headerText="Price" sortBy="#{flight.price}" filterBy="#{flight.price}">
-                <h:outputText value="#{flight.price}">
-                    <f:convertNumber type="currency" />
-                </h:outputText>
-            </p:column>
-            <p:column>
-                <h:link outcome="flight" value="Edit">
-                    <f:param name="id" value="#{flight.id}" />
-                </h:link>
 
-                <h:commandLink action="#{flightOverviewView.delete(flight)}" value="Delete" update=":flightTable">
-                    <f:param name="id" value="#{flight.id}" />
-                </h:commandLink>
-            </p:column>
-        </p:dataTable>
-    </h:form>
-</h:body>
+                    <p:column headerText="Id" filterBy="#{flight.id}" sortBy="#{flight.id}" filterMatchMode="contains">
+                        <h:outputText value="#{flight.id}" />
+                    </p:column>
+                    <p:column headerText="Departure" filterBy="#{flight.departure.name} #{flight.departure.city}" filterMatchMode="contains">
+                        <h:outputText value="#{flight.departure.name}" /><br />
+                        <h:outputText value="#{flight.departure.city}" />
+                    </p:column>
+                    <p:column headerText="Departure Time" filterBy="#{flight.departureTime}"
+                              filterFunction="#{flightOverviewView.filterByTimeBefore}">
+                        <f:facet name="filter">
+                            <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="departureCalendar">
+                                <p:ajax event="dateSelect" oncomplete="PF('flightTable').filter()" />
+                            </p:calendar>
+                        </f:facet>
+                        <f:facet name="header">
+                            Departure Time
+                            <p:button value="X" onclick="PF('departureCalendar').setDate(null)" />
+                        </f:facet>
+                        <h:outputText value="#{flight.departureTime}" />
+                    </p:column>
+                    <p:column headerText="Destination" filterBy="#{flight.destination.name} #{flight.destination.city}" filterMatchMode="contains">
+                        <h:outputText value="#{flight.destination.name}" /><br />
+                        <h:outputText value="#{flight.destination.city}" />
+                    </p:column>
+                    <p:column headerText="Arrival Time" filterBy="#{flight.arrivalTime}"
+                              filterFunction="#{flightOverviewView.filterByTimeAfter}">
+                        <f:facet name="filter">
+                            <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" widgetVar="arrivalCalendar">
+                                <p:ajax event="dateSelect" oncomplete="PF('flightTable').filter()" />
+                            </p:calendar>
+                            <f:facet name="header">
+                                Arrival Time
+                                <p:button value="X" onclick="PF('arrivalCalendar').setDate(null)" />
+                            </f:facet>
+                        </f:facet>
+                        <h:outputText value="#{flight.arrivalTime}" />
+                    </p:column>
+                    <p:column headerText="Seats">
+                        <h:outputText value="#{flight.occupiedSeats}/#{flight.maxSeats}" />
+                    </p:column>
+                    <p:column headerText="Price" sortBy="#{flight.price}" filterBy="#{flight.price}">
+                        <h:outputText value="#{flight.price}">
+                            <f:convertNumber type="currency" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <h:link outcome="flight" value="Edit">
+                            <f:param name="id" value="#{flight.id}" />
+                        </h:link>
+
+                        <h:commandLink action="#{flightOverviewView.delete(flight)}" value="Delete" update=":flightTable">
+                            <f:param name="id" value="#{flight.id}" />
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>
