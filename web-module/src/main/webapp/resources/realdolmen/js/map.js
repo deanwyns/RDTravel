@@ -29,6 +29,25 @@
     var scalePromise = null;
     var backButton = null;
 
+    var regionStyle = {
+        initial: {
+            fill: '#1e8adf',
+            "fill-opacity": 1,
+            stroke: 'none',
+            "stroke-width": 0,
+            "stroke-opacity": 1
+        },
+        hover: {
+            "fill-opacity": 0.8,
+            cursor: 'pointer'
+        },
+        selected: {
+            fill: '#201858'
+        },
+        selectedHover: {
+        }
+    };
+
     $(document).ready(function() {
         window.getAirportsCallback = getAirportsCallback;
 
@@ -71,6 +90,8 @@
             zoomOnScroll: false,
             panOnDrag: false,
             regionsSelectable: false,
+            backgroundColor: '#f4f4f4',
+            regionStyle: regionStyle,
             onRegionClick: onContinentClick
         });
 
@@ -81,6 +102,8 @@
             zoomOnScroll: false,
             panOnDrag: false,
             regionsSelectableOne: true,
+            backgroundColor: '#f4f4f4',
+            regionStyle: regionStyle,
             onRegionClick: onCountryClick,
             onViewportChange: throttle(onViewportChange, 1000)
         });
@@ -175,13 +198,9 @@
         var deferred = $.Deferred();
         currentAirportPopup.country = country;
         currentAirportPopup.div = $('<div />').css({
-            position: 'absolute',
             left: x,
-            top: y,
-            background: '#eee',
-            overflow: 'auto',
-            'max-height': '30%'
-        });
+            top: y
+        }).addClass('airport-popup');
 
         getAirports(country).then(airportsResolved);
         function airportsResolved(airports) {

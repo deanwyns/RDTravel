@@ -4,7 +4,6 @@ import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.services.TripService;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by JSTAX29 on 10/10/2015.
