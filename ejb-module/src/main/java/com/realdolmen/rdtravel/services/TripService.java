@@ -30,13 +30,13 @@ public class TripService {
      * @param trip
      * @return least available seats
      */
-    public int getMaxSeatsForTrip(Trip trip) {
+    public int getAvailableSeatsForTrip(Trip trip) {
         List<Flight> flights = trip.getFlights();
         if(flights.size() == 0) {
             throw new IllegalArgumentException("The given trip doesn't have any flights.");
         }
 
-        return flights.stream().mapToInt(Flight::getMaxSeats).min().getAsInt();
+        return flights.stream().mapToInt(flight -> flight.getMaxSeats() - flight.getOccupiedSeats()).min().getAsInt();
     }
 
     /**
@@ -58,7 +58,7 @@ public class TripService {
 
         return tripDAO.findByDestinationAirport(airport).stream().filter(
                 // Filter all trips with enough available seats for the amount of travelers, and all trips within the given dates.
-                trip -> getMaxSeatsForTrip(trip) >= participantsAmount && departureDate.isBefore(trip.getStartDate()) && returnDate.isAfter(trip.getEndDate())
+                trip -> getAvailableSeatsForTrip(trip) >= participantsAmount && departureDate.isBefore(trip.getStartDate()) && returnDate.isAfter(trip.getEndDate())
         ).collect(Collectors.toList());
     }
 }

@@ -4,9 +4,7 @@ import com.realdolmen.rdtravel.domain.Airport;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.services.TripService;
-import junit.framework.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 /**
  * Created by JSTAX29 on 10/10/2015.
  */
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class TripServiceTest extends DataSetPersistenceTest {
 
@@ -32,19 +29,16 @@ public class TripServiceTest extends DataSetPersistenceTest {
 
     @Before
     public void initialize() {
-        Airport airport = entityManager().find(Airport.class, 2l);
+        Airport airport = entityManager().find(Airport.class, 2L);
+        Trip trip = entityManager().find(Trip.class, 1L);
 
         Mockito.when(tripDAO.getEntityManager()).thenReturn(entityManager());
         Mockito.when(tripDAO.findByDestinationAirport(airport)).thenCallRealMethod();
         Mockito.when(tripDAO.findAll()).thenCallRealMethod();
+
+        Mockito.when(tripService.findById(1L)).thenReturn(trip);
     }
 
-    @Test
-    public void testFindById(){
-        Trip trip = entityManager().find(Trip.class, 1l);
-        Mockito.when(tripDAO.read(1l)).thenReturn(trip);
-        assertEquals(trip, tripService.findById(1l));
-    }
 
     @Test
     public void testFindTripForGivenAirportWithinCorrectDates() {
@@ -61,7 +55,7 @@ public class TripServiceTest extends DataSetPersistenceTest {
         * Trip 1 has 2 flights. Flight 2 is the last flight of the trip and goes to airport 2.
         * When searching for a trip to airport 2, with a departure before the trip and return after the trip, one trip should be found.
         * */
-        Airport airport = entityManager().find(Airport.class, 2l);
+        Airport airport = entityManager().find(Airport.class, 2L);
 
         LocalDate departurePick = LocalDate.of(2999, 10, 2);
         LocalDate returnPick = LocalDate.of(2999, 10, 8);
@@ -128,18 +122,31 @@ public class TripServiceTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMaxSeatsForTripNoFlightsAvailable() {
+    public void testAvailableSeatsForTripNoFlightsAvailable() {
+        //The trip can't have empty flights due to the annotation.
         Trip trip = new Trip();
         trip.setFlights(new ArrayList<>());
 
-        tripService.getMaxSeatsForTrip(trip);
+        tripService.getAvailableSeatsForTrip(trip);
     }
 
     @Test
-    public void testMaxSeatsForTripReturnsSmallestMaxSeats() {
-        Assert.fail();
-        //Commentaar: Get the least available seats of all flights
-        //Methode: getMaxSeatsForTrip
-        //Wat?
+    public void testAvailableSeatsForTripReturnsSmallestMaxSeats() {
+        /*
+        * <trip id="1" name="Super fun trip" pricePerDay="25.20" startDate="2999-10-04" endDate="2999-10-07" version="0"/>
+        * <trip_flight Trip_id="1" flights_id="1"/>
+        * <trip_flight Trip_id="1" flights_id="2"/>
+        * <flight id='1' departureTime='2999-10-04 00:00:00' arrivalTime='2999-10-05 00:00:00' maxSeats='12' occupiedSeats='0'
+            price='12.00' version='0' departure_id='1' destination_id='3' partner_id="1" discount="1"
+            discountPercentage="10.85"/>
+        * <flight id='2' departureTime='2999-10-06 00:00:00' arrivalTime='2999-10-07 00:00:00' maxSeats='50' occupiedSeats='0'
+        *    price='100.90' version='0' departure_id='3' destination_id='2' partner_id="2" discount="0"/>
+        *
+        * Trip 1 has 2 flights. Flight 1 has a 12 seats available, flight 2 has 50.
+        * getAvailableSeatsForTrip should return the least available seats of all flights, thus it should return 12.
+        * */
+
+        Trip trip = entityManager().find(Trip.class, 1L);
+        assertEquals(12, tripService.getAvailableSeatsForTrip(trip));
     }
 }

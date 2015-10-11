@@ -17,53 +17,80 @@
             <p:remoteCommand name="selectAirport" actionListener="#{findTripView.selectAirportCommand}" process="@this" update="findTripForm" />
             <p:remoteCommand name="getAirports" actionListener="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
         </h:form>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <h:form id="findTripForm">
-            <p:outputLabel for="departureDate" />
-            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy"
-                        mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
-                <p:ajax event="dateSelect" update="returnDate" />
-            </p:calendar>
-            <p:messages for="departureDate" />
 
-            <p:outputLabel for="returnDate" />
-            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy"
-                        mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
-                <p:ajax event="dateSelect" update="departureDate" />
-            </p:calendar>
-            <p:messages for="returnDate" />
+        <div class="splash"></div>
 
-            <p:selectOneMenu id="continent" value="#{findTripView.selectedContinent}" converter="#{continentConverter}">
-                <p:ajax listener="#{findTripView.onContinentChange}" update="country airport" />
-                <f:selectItems value="#{findTripView.continents}" var="continent" itemLabel="#{continent.name}" itemValue="#{continent}" />
-            </p:selectOneMenu>
+        <div class="container">
+            <div class="search-form">
+                <span>Find a trip</span>
+                <h:form id="findTripForm">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <p:outputLabel styleClass="sr-only" for="continent" />
+                            <p:selectOneMenu id="continent" value="#{findTripView.selectedContinent}" converter="#{continentConverter}">
+                                <p:ajax listener="#{findTripView.onContinentChange}" update="country airport" />
+                                <f:selectItems value="#{findTripView.continents}" var="continent" itemLabel="#{continent.name}" itemValue="#{continent}" />
+                            </p:selectOneMenu>
+                        </div>
 
-            <p:selectOneMenu id="country" value="#{findTripView.selectedCountry}" converter="#{countryConverter}">
-                <p:ajax listener="#{findTripView.onCountryChange}" update="airport" />
-                <f:selectItems value="#{findTripView.countries}" var="country" itemLabel="#{country.name}" itemValue="#{country}" />
-            </p:selectOneMenu>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="sr-only" for="country" />
+                            <p:selectOneMenu id="country" value="#{findTripView.selectedCountry}" converter="#{countryConverter}">
+                                <p:ajax listener="#{findTripView.onCountryChange}" update="airport" />
+                                <f:selectItems value="#{findTripView.countries}" var="country" itemLabel="#{country.name}" itemValue="#{country}" />
+                            </p:selectOneMenu>
+                        </div>
 
-            <p:selectOneMenu id="airport" value="#{findTripView.selectedAirport}" converter="#{airportConverter}">
-                <f:selectItems value="#{findTripView.airports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
-            </p:selectOneMenu>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="sr-only" for="airport" />
+                            <p:selectOneMenu id="airport" value="#{findTripView.selectedAirport}" converter="#{airportConverter}">
+                                <f:selectItems value="#{findTripView.airports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
 
-            <p:outputLabel for="participants" />
-            <p:inputText id="participants" value="#{findTripView.participantsAmount}" />
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <p:outputLabel styleClass="sr-only" for="participants" value="Travelers" />
+                            <p:inputText id="participants" value="#{findTripView.participantsAmount}" placeholder="Travelers" />
+                        </div>
 
-            <p:commandButton ajax="false" action="#{findTripView.findTrips}" value="Find trips" validateClient="true" />
-        </h:form>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="sr-only" for="departureDate" value="Departure date" />
+                            <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy" placeholder="Departure date"
+                                        mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
+                                <p:ajax event="dateSelect" update="returnDate" />
+                            </p:calendar>
+                            <p:messages for="departureDate" />
+                        </div>
 
-        <div id="world-map"></div>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="sr-only" for="returnDate" value="Return date" />
+                            <p:calendar id="returnDate" value="#{findTripView.returnDate}" pattern="dd/MM/yyyy" placeholder="Return date"
+                                        mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
+                                <p:ajax event="dateSelect" update="departureDate" />
+                            </p:calendar>
+                            <p:messages for="returnDate" />
+                        </div>
+
+                        <div class="form-group">
+                            <p:commandButton ajax="false" action="#{findTripView.findTrips}" value="Find trips" validateClient="true" />
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="world-map"></div>
+        </div>
+
 
         <h:outputScript name="realdolmen/js/jvectormap/jquery-jvectormap-2.0.4.min.js" />
         <h:outputScript name="realdolmen/js/maps/jquery-jvectormap-continents-mill.js" />
         <h:outputScript name="realdolmen/js/maps/jquery-jvectormap-world-mill.js" />
         <h:outputScript name="realdolmen/js/map.js" />
+        <h:outputScript name="realdolmen/js/main.js" />
     </ui:define>
 </ui:composition>
 
