@@ -50,7 +50,7 @@ public class BookService {
             priceOfTrip = basePrice.subtract(discount);
         }
 
-        return priceOfTrip.setScale(2, BigDecimal.ROUND_UNNECESSARY);
+        return priceOfTrip.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     /**
@@ -91,9 +91,12 @@ public class BookService {
         //The departure was after the return date.
         if (departureDate.isAfter(returnDate))
             throw new IllegalArgumentException("Departure date was after return date.");
-        //Departure was before today
+        //Departure was before today.
         if (departureDate.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("The departure date has already passed.");
+        //A trip must be at least 1 full day.
+        if(departureDate.isEqual(returnDate))
+            throw new IllegalArgumentException("The departure date is on the same day as the return date.");
     }
 
 //    /**
@@ -103,6 +106,5 @@ public class BookService {
 //    public BigDecimal calculateMargin(Booking booking){
 //        We're not really sure how the margin is calculated atm
 //
-//        return BigDecimal.ZERO;
 //    }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../container.xhtml">
+    <h:head>
+
+    </h:head>
+        <ui:define name="pageContent">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <f:metadata>
+                <f:viewParam name="previousPage" value="#{bookingController.previousPage}" />
+            </f:metadata>
+            <h:form>
+                <h:panelGrid columns="2">
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Name of the trip: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.bookTripViewModel.trip.name}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Start date of the trip: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.bookTripViewModel.trip.startDate}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="End date of the trip: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.bookTripViewModel.trip.endDate}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Participants to be booked: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.bookTripViewModel.participants}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Price per day of the trip: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.bookTripViewModel.trip.pricePerDay}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Total price of the trip: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.totalPrice}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Total participants for this trip: "/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{bookingController.totalParticipants}"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+
+
+
+                <h:selectOneRadio id="paymentMethod" value="#{bookingController.bookTripViewModel.paymentMethod}">
+                    <f:selectItem itemLabel="CreditCard" itemValue="CreditCard"/>
+                    <f:selectItem itemLabel="Endorsement" itemValue="Endorsement"/>
+                    <f:ajax listener="#{bookingController.bookTripViewModel.definePaymentMethod('testValue')}"/>
+                </h:selectOneRadio>
+
+
+
+                <h:panelGroup id="creditCardDiv" layout="block" rendered="#{bookingController.bookTripViewModel.booking.paymentMethod.class == 'class com.realdolmen.rdtravel.domain.CreditCard'}">
+                    <h:inputText value="#{bookingController.bookTripViewModel.creditCard.number}">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
+                </h:panelGroup>
+
+
+
+                <h:commandLink value="Book" action="#{bookingController.bookTrip}">
+                    <f:param value="#{bookingController.bookTripViewModel.trip.name}" name="tripName"/>
+                </h:commandLink>
+
+                <h:commandLink value="Cancel" action="#{bookingController.cancel()}"/>
+
+                <p:button value="primefacesButton"/><h:button value="jsfButton"/>
+            </h:form>
+
+        </ui:define>
+</ui:composition>
+</html>

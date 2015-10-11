@@ -3,7 +3,7 @@
     <trip>
         <name>New Fun Trip</name>
         <pricePerDay>20.5</pricePerDay>
-        <startDate>2999-10-15</startDate>
+        <startDate>2999-10-01</startDate>
         <endDate>2999-10-23</endDate>
         <flights>
             <flightId>1</flightId>
@@ -13,8 +13,8 @@
     <trip>
         <name>Best Trip Ever</name>
         <pricePerDay>80.5</pricePerDay>
-        <startDate>2999-10-14</startDate>
-        <endDate>2999-10-25</endDate>
+        <startDate>2999-10-03</startDate>
+        <endDate>2999-10-10</endDate>
         <flights>
             <flightId>1</flightId>
         </flights>
@@ -22,8 +22,8 @@
     <trip>
         <name>Also a cool trip</name>
         <pricePerDay>10</pricePerDay>
-        <startDate>2999-10-22</startDate>
-        <endDate>2999-10-23</endDate>
+        <startDate>2999-10-05</startDate>
+        <endDate>2999-10-07</endDate>
         <flights>
             <flightId>2</flightId>
         </flights>

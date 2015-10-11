@@ -17,7 +17,12 @@
             <p:remoteCommand name="selectAirport" actionListener="#{findTripView.selectAirportCommand}" process="@this" update="findTripForm" />
             <p:remoteCommand name="getAirports" actionListener="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
         </h:form>
-
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <h:form id="findTripForm">
             <p:outputLabel for="departureDate" />
             <p:calendar id="departureDate" value="#{findTripView.departureDate}" pattern="dd/MM/yyyy"

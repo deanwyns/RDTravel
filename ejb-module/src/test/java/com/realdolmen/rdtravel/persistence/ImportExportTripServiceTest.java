@@ -1,5 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
+import com.realdolmen.rdtravel.domain.Booking;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.exceptions.FlightNotFoundException;
 import com.realdolmen.rdtravel.exceptions.FlightOutsideTripDateException;
@@ -22,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -63,8 +65,8 @@ public class ImportExportTripServiceTest extends DataSetPersistenceTest {
         java.net.URL url = this.getClass().getResource("/testing_trips/valid_trips.xml");
         importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
-        //Two are currently in the data.xml. Three are being added. So there should be 5.
-        assertEquals(5, tripDAO.findAll().size());
+        //Three are currently in the data.xml. Three are being added. So there should be 6.
+        assertEquals(6, tripDAO.findAll().size());
     }
 
     @Test
@@ -72,8 +74,17 @@ public class ImportExportTripServiceTest extends DataSetPersistenceTest {
         java.net.URL url = this.getClass().getResource("/testing_trips/valid_trips_updating.xml");
         importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
 
-        //Two are currently in the data.xml. Two are updated, one is added. There should be 3.
-        assertEquals(3, tripDAO.findAll().size());
+        //Three are currently in the data.xml. Two are updated, one is added. There should be 4.
+        assertEquals(4, tripDAO.findAll().size());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTripIsOnlyOneDay() throws URISyntaxException, IOException, JDOMException, XMLStreamException, FlightOutsideTripDateException, FlightNotFoundException, JAXBException {
+        java.net.URL url = this.getClass().getResource("/testing_trips/invalid_trip_dates.xml");
+        importExportTripService.parseAndPersistTrip(Files.readAllBytes(Paths.get(url.toURI())));
+
+        //Two are currently in the data.xml. All added trips should be rollbacked due to the error.
+        assertEquals(2, tripDAO.findAll().size());
     }
 
     @Test(expected = FlightNotFoundException.class)

@@ -1,7 +1,6 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.CreditCard;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.junit.Before;
 import org.junit.Test;
 

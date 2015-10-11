@@ -2,6 +2,7 @@ package com.realdolmen.rdtravel.services;
 
 import com.realdolmen.rdtravel.XMLUtils.JAXBWrapper;
 import com.realdolmen.rdtravel.XMLUtils.MarshallerUtil;
+import com.realdolmen.rdtravel.domain.Booking;
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.exceptions.FlightNotFoundException;
@@ -38,6 +39,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +78,9 @@ public class ImportExportTripService {
 
         for (int i = 0; i < tripList.size(); i++) {
             Trip trip = tripList.get(i);
+
+            validateDates(trip);
+
             List<Long> flightIdList = getIdsFromXml(fileContentAsString, (i + 1));
 
             //Find the flights in the database
@@ -104,6 +109,25 @@ public class ImportExportTripService {
             }
         }
 
+
+    }
+
+    private void validateDates(Trip trip) {
+        LocalDate departureDate = trip.getStartDate();
+        LocalDate returnDate = trip.getEndDate();
+
+        if(departureDate != null && returnDate != null){
+
+            //The departure was after the return date.
+            if (departureDate.isAfter(returnDate))
+                throw new IllegalArgumentException("Departure date was after return date.");
+            //Departure was before today.
+            if (departureDate.isBefore(LocalDate.now()))
+                throw new IllegalArgumentException("The departure date has already passed.");
+            //A trip must be at least 1 full day.
+            if(departureDate.isEqual(returnDate))
+                throw new IllegalArgumentException("The departure date is on the same day as the return date.");
+        }
 
     }
 

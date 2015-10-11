@@ -6,6 +6,7 @@ import com.realdolmen.rdtravel.domain.Trip;
 import com.realdolmen.rdtravel.services.TripService;
 import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by JSTAX29 on 10/10/2015.
  */
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class TripServiceTest extends DataSetPersistenceTest {
 
@@ -34,9 +36,15 @@ public class TripServiceTest extends DataSetPersistenceTest {
 
         Mockito.when(tripDAO.getEntityManager()).thenReturn(entityManager());
         Mockito.when(tripDAO.findByDestinationAirport(airport)).thenCallRealMethod();
-
+        Mockito.when(tripDAO.findAll()).thenCallRealMethod();
     }
 
+    @Test
+    public void testFindById(){
+        Trip trip = entityManager().find(Trip.class, 1l);
+        Mockito.when(tripDAO.read(1l)).thenReturn(trip);
+        assertEquals(trip, tripService.findById(1l));
+    }
 
     @Test
     public void testFindTripForGivenAirportWithinCorrectDates() {
@@ -121,7 +129,6 @@ public class TripServiceTest extends DataSetPersistenceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testMaxSeatsForTripNoFlightsAvailable() {
-        //The trip can't have empty flights due to the annotation.
         Trip trip = new Trip();
         trip.setFlights(new ArrayList<>());
 

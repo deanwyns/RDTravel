@@ -119,6 +119,19 @@ public class BookServiceTest extends DataSetPersistenceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void testTripIsOnlyOneDay(){
+        LocalDate startDate = trip.getStartDate();
+
+        trip.setEndDate(startDate);
+
+        Booking booking = new Booking(4, paymentMethod, trip);
+        booking.setTrip(trip);
+
+        bookService.calculatePrice(booking);
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
     public void testNoSeatsAvailable() {
         Flight flight = entityManager().find(Flight.class, 1l);
         //4 travelers in the booking, 3 seats are left on their flight.

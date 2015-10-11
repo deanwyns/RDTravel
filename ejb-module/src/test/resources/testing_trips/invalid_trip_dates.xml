@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <trips>
     <trip>
-        <id>1</id>
         <name>New Fun Trip</name>
         <pricePerDay>20.5</pricePerDay>
         <startDate>2999-10-01</startDate>
@@ -12,11 +11,10 @@
         </flights>
     </trip>
     <trip>
-        <id>2</id>
         <name>Best Trip Ever</name>
         <pricePerDay>80.5</pricePerDay>
         <startDate>2999-10-03</startDate>
-        <endDate>2999-10-10</endDate>
+        <endDate>2999-10-03</endDate>
         <flights>
             <flightId>1</flightId>
         </flights>

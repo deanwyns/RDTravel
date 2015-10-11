@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolationException;
-import java.time.LocalDate;
 
 /**
  * Created by JSTAX29 on 8/10/2015.
@@ -87,5 +86,11 @@ public class BookingCRUDTest extends DataSetPersistenceTest {
     public void testCountBookingCountForPartner(){
         assertEquals(3, bookingDAO.countBookingsForPartner(1l));
         assertEquals(2, bookingDAO.countBookingsForPartner(2l));
+    }
+
+    @Test
+    public void testCountParticipantsCountForTrip(){
+        assertEquals(8, bookingDAO.countBookedParticipantsForTrip(1l));
+        assertEquals(2, bookingDAO.countBookedParticipantsForTrip(2l));
     }
 }

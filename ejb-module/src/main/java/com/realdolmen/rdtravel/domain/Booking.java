@@ -1,6 +1,5 @@
 package com.realdolmen.rdtravel.domain;
 
-import com.realdolmen.rdtravel.domain.Trip;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -11,11 +10,13 @@ import javax.validation.constraints.NotNull;
  * An order of a trip.
  */
 @NamedQueries({
-        @NamedQuery(name = Booking.COUNT_TOTAL_BOOKINGS_FOR_PARTNER, query = "select count(b) from Booking b join b.trip.flights as f where f.partner.id = :pid")
+        @NamedQuery(name = Booking.COUNT_TOTAL_BOOKINGS_FOR_PARTNER, query = "select count(b) from Booking b join b.trip.flights as f where f.partner.id = :pid"),
+        @NamedQuery(name = Booking.COUNT_TOTAL_PARTICIPANTS_FOR_TRIP, query = "select (count(b) * b.numberOfTravelers) from Booking b where b.trip.id = :tid")
 })
 @Entity
 public class Booking {
     public static final String COUNT_TOTAL_BOOKINGS_FOR_PARTNER = "Booking.countTotalBookingsForPartner";
+    public static final String COUNT_TOTAL_PARTICIPANTS_FOR_TRIP = "Booking.countTotalParticipantsForTrip";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

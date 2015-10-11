@@ -13,6 +13,8 @@
                          converter="com.realdolmen.LocalDateConverter" required="true"/>
             <f:viewParam name="returnDate" value="#{findTripOverviewView.returnDate}"
                          converter="com.realdolmen.LocalDateConverter" required="true"/>
+            <f:viewParam name="participants" value="#{findTripOverviewView.participantsAmount}"
+                         converter="javax.faces.Integer" required="true"/>
         </f:metadata>
 
         <p:dataTable style="table-layout: fixed;" var="trip" value="#{findTripOverviewView.trips}" id="tripTable"
@@ -36,7 +38,9 @@
             <p:column>
                 <h:form>
                     <h:commandButton value="Book" action="#{bookingController.book}">
-                        <f:param value="#{trip.id}" name="trip" />
+                        <f:param name="previousPage" value="#{view.id}"/>
+                        <f:param value="#{trip.id}" name="trip"/>
+                        <f:param value="#{findTripOverviewView.participantsAmount}" name="participants"/>
                     </h:commandButton>
                 </h:form>
             </p:column>
