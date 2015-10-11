@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Map;
 
 /**
  * Created by JSTAX29 on 5/10/2015.
@@ -18,6 +19,7 @@ import java.security.Principal;
 public class LoginController {
     private String username;
     private String password;
+    private String redirect;
 
     public String getUsername() {
         return this.username;
@@ -35,30 +37,43 @@ public class LoginController {
         this.password = password;
     }
 
-    public String login () throws IOException {
+    public String getRedirect() {
+        return redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        this.redirect = redirect;
+    }
+
+    public String login() throws IOException {
 
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-
             request.login(this.username, this.password);
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage("Login failed."));
             return "error";
         }
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.getExternalContext().redirect("../index.xhtml");
 
         return "index";
     }
 
-    public void logout() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+    public void logout() throws IOException {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
         try {
             request.logout();
         } catch (ServletException e) {
-            context.addMessage(null, new FacesMessage("Logout failed."));
+            ctx.addMessage(null, new FacesMessage("Logout failed."));
+        }
+
+        Map<String, String> params = ctx.getExternalContext().getRequestParameterMap();
+        if(params.containsKey("redirect")) {
+            ctx.getExternalContext().redirect(params.get("redirect"));
         }
     }
 }

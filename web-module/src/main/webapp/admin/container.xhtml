@@ -29,15 +29,19 @@
                 <div class="col col-sm-10">
                     <div class="row">
                         <div class="col-sm-6 search-box">
-                            <input type="text" value="Search" />
+                            <input type="text" placeholder="Search" />
                         </div>
                         <div class="col-sm-6 user-box">
-                            Welcome, Jaims Lastname
+                            Welcome, <h:outputText value="#{currentUser.user.firstName} #{currentUser.user.lastName}" />
                         </div>
                     </div>
                 </div>
                 <div class="col col-sm-2">
-                    <button class="logout-button">Logout</button>
+                    <h:form >
+                        <h:commandButton styleClass="logout-button" value="Logout" type="submit" action="#{loginController.logout()}">
+                            <f:param name="redirect" value="#{request.contextPath}/security/login.xhtml" />
+                        </h:commandButton>
+                    </h:form>
                 </div>
             </div>
             <div class="row row-spacer">
