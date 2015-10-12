@@ -30,13 +30,14 @@ public class Booking implements Serializable {
     @Min(value = 1)
     private Integer numberOfTravelers;
 
+    @Valid
     @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private PaymentMethod paymentMethod;
 
     @Valid
     @NotNull
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     private Trip trip;
 
     @NotNull
