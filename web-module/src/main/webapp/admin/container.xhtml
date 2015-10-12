@@ -15,26 +15,22 @@
     <div class="container">
         <div class="navigation">
             <ul>
-                <li><a href="#"><i class="fa fa-globe"></i> Trips</a></li>
+                <li><a href="#"><i class="fa fa-tachometer"></i> Dashboard</a></li>
             </ul>
             <ul>
-                <li><a href="#"><i class="fa fa-globe"></i> Trips</a></li>
+                <li><h:link outcome="/admin/flights/overview.xhtml"><i class="fa fa-plane"></i> Flights</h:link></li>
             </ul>
             <ul>
-                <li><a href="#"><i class="fa fa-globe"></i> Trips</a></li>
+                <li><a href="#"><i class="fa fa-balance-scale"></i> Sales</a></li>
             </ul>
         </div>
         <div class="wrapper">
             <div class="row">
-                <div class="col col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-6 search-box">
-                            <input type="text" placeholder="Search" />
-                        </div>
-                        <div class="col-sm-6 user-box">
-                            Welcome, <h:outputText value="#{currentUser.user.firstName} #{currentUser.user.lastName}" />
-                        </div>
-                    </div>
+                <div class="col-sm-5 search-box">
+                    <input type="text" placeholder="Search" />
+                </div>
+                <div class="col-sm-5 user-box">
+                    Welcome, <h:outputText value="#{currentUser.user.firstName} #{currentUser.user.lastName}" />
                 </div>
                 <div class="col col-sm-2">
                     <h:form >
@@ -44,11 +40,7 @@
                     </h:form>
                 </div>
             </div>
-            <div class="row row-spacer">
-                <div class="col col-sm-12">
-                    <ui:insert name="pageContent" />
-                </div>
-            </div>
+            <ui:insert name="pageContent" />
         </div>
     </div>
 

@@ -2,31 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-        >
-<h:body>
-    <h:form id="registerForm">
-        <h:panelGrid columns="3">
-            <h:outputLabel value="First name:"/>
-            <h:inputText required="true" id="c_fname" value="#{customerController.customer.firstName}"/>
-            <h:message for="c_fname"/>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/container.xhtml">
+    <ui:define name="pageContent">
+        <div class="container">
+            <div class="row content">
+                <div class="col col-sm-12">
+                    <h1>Register</h1>
+                    <h:form styleClass="form-horizontal">
+                        <div class="form-group">
+                            <p:outputLabel styleClass="col-sm-2" for="c_fname" value="First name" />
+                            <div class="col-sm-10">
+                                <p:inputText required="true" id="c_fname" value="#{customerController.customer.firstName}"/>
+                                <p:message for="c_fname"/>
+                            </div>
+                        </div>
 
-            <h:outputLabel value="Last name:"/>
-            <h:inputText required="true" id="c_lname" value="#{customerController.customer.lastName}"/>
-            <h:message for="c_lname"/>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="col-sm-2" for="c_lname" value="Last name" />
+                            <div class="col-sm-10">
+                                <p:inputText required="true" id="c_lname" value="#{customerController.customer.lastName}"/>
+                                <p:message for="c_lname"/>
+                            </div>
+                        </div>
 
-            <h:outputLabel value="Email:"/>
-            <h:inputText required="true" id="c_email" value="#{customerController.customer.email}"/>
-            <h:message for="c_email"/>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="col-sm-2" for="c_email" value="Email address" />
+                            <div class="col-sm-10">
+                                <p:inputText required="true" id="c_email" value="#{customerController.customer.email}"/>
+                                <p:message for="c_email"/>
+                            </div>
+                        </div>
 
-            <h:outputLabel value="Password:"/>
-            <h:inputSecret required="true" id="c_pw" value="#{customerController.customer.plainPassword}"/>
-            <h:message for="c_pw"/>
+                        <div class="form-group">
+                            <p:outputLabel styleClass="col-sm-2" for="c_pw" value="Password" />
+                            <div class="col-sm-10">
+                                <p:password id="c_pw" required="true" value="#{customerController.customer.plainPassword}" />
+                                <p:message for="c_pw" />
+                            </div>
+                        </div>
 
-            <h:commandButton value="Register" action="#{customerController.createCustomer}">
-                <f:ajax render="@form" execute="@form"/>
-            </h:commandButton>
-        </h:panelGrid>
-    </h:form>
-</h:body>
-
+                        <div class="form-group">
+                            <div class="col col-sm-10 col-sm-offset-2">
+                                <p:commandButton value="Register" action="#{customerController.createCustomer}">
+                                    <f:ajax render="@form" execute="@form"/>
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>

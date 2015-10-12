@@ -5,7 +5,9 @@ import com.realdolmen.rdtravel.domain.PartnerAdmin;
 import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import java.io.Serializable;
  * Created by DWSAX40 on 5/10/2015.
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class FlightView implements Serializable {
     @Inject private FlightDAO flightDAO;
     @Inject private AirportSelectionView airportSelectionView;
@@ -28,9 +30,12 @@ public class FlightView implements Serializable {
     }
 
     public void setFlight(Flight flight) {
+        if(flight == null)
+            return;
+
         this.flight = flight;
 
-        if(flight != null && flight.getId() != null) {
+        if(flight.getId() != null) {
             getAirportSelectionView().setDepartureCountry(flight.getDeparture().getCountry().getName());
             getAirportSelectionView().setDestinationCountry(flight.getDestination().getCountry().getName());
             getAirportSelectionView().onDepartureCountryChange();
