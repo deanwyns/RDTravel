@@ -43,9 +43,9 @@
 
     <flight id='1' departureTime='2999-10-04 00:00:00' arrivalTime='2999-10-05 00:00:00' maxSeats='12' occupiedSeats='0'
             price='12.00' version='0' departure_id='1' destination_id='3' partner_id="1" discount="1"
-            discountPercentage="10.85"/>
+            discountPercentage="10.85" extraEndUserCost="0.6"/>
     <flight id='2' departureTime='2999-10-06 00:00:00' arrivalTime='2999-10-07 00:00:00' maxSeats='50' occupiedSeats='0'
-            price='100.90' version='0' departure_id='3' destination_id='2' partner_id="2" discount="0"/>
+            price='100.90' version='0' departure_id='3' destination_id='2' partner_id="2" discount="0" extraEndUserCost="5.05"/>
 
     <continent id="1" name="North America" ISO2="NA"/>
     <continent id="5" name="Africa" ISO2="AF"/>

@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -60,7 +61,7 @@ public class Flight {
 
     @Column(nullable = false)
     @Min(value = 0)
-    private Integer occupiedSeats;
+    private int occupiedSeats;
 
     @Valid
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -84,6 +85,12 @@ public class Flight {
     @Max(100)
     private BigDecimal discountPercentage;
 
+    @NotNull
+    @Column(nullable = false)
+    @Min(value = 0)
+    @Digits(fraction = 2, integer = 8)
+    private BigDecimal extraEndUserCost;
+
     @Version
     private long version;
 
@@ -94,6 +101,7 @@ public class Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = price;
+        setExtraEndUserCostByBasePrice(price);
         this.maxSeats = maxSeats;
         this.occupiedSeats = occupiedSeats;
         this.destination = destination;
@@ -127,6 +135,7 @@ public class Flight {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+        setExtraEndUserCostByBasePrice(price);
     }
 
     public Integer getMaxSeats() {
@@ -193,6 +202,18 @@ public class Flight {
         this.discountPercentage = discountPercentage;
     }
 
+    public void setOccupiedSeats(Integer occupiedSeats) {
+        this.occupiedSeats = occupiedSeats;
+    }
+
+    public BigDecimal getExtraEndUserCost() {
+        return extraEndUserCost;
+    }
+
+    public void setExtraEndUserCost(BigDecimal extraEndUserCost) {
+        this.extraEndUserCost = extraEndUserCost;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Flight{");
@@ -208,7 +229,6 @@ public class Flight {
         return sb.toString();
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -216,6 +236,7 @@ public class Flight {
 
         Flight flight = (Flight) o;
 
+        if (occupiedSeats != flight.occupiedSeats) return false;
         if (discount != flight.discount) return false;
         if (version != flight.version) return false;
         if (id != null ? !id.equals(flight.id) : flight.id != null) return false;
@@ -224,14 +245,14 @@ public class Flight {
         if (arrivalTime != null ? !arrivalTime.equals(flight.arrivalTime) : flight.arrivalTime != null) return false;
         if (price != null ? !price.equals(flight.price) : flight.price != null) return false;
         if (maxSeats != null ? !maxSeats.equals(flight.maxSeats) : flight.maxSeats != null) return false;
-        if (occupiedSeats != null ? !occupiedSeats.equals(flight.occupiedSeats) : flight.occupiedSeats != null)
-            return false;
         if (destination != null ? !destination.equals(flight.destination) : flight.destination != null) return false;
         if (departure != null ? !departure.equals(flight.departure) : flight.departure != null) return false;
         if (partner != null ? !partner.equals(flight.partner) : flight.partner != null) return false;
         if (seatsThresholdForDiscount != null ? !seatsThresholdForDiscount.equals(flight.seatsThresholdForDiscount) : flight.seatsThresholdForDiscount != null)
             return false;
-        return !(discountPercentage != null ? !discountPercentage.equals(flight.discountPercentage) : flight.discountPercentage != null);
+        if (discountPercentage != null ? !discountPercentage.equals(flight.discountPercentage) : flight.discountPercentage != null)
+            return false;
+        return !(extraEndUserCost != null ? !extraEndUserCost.equals(flight.extraEndUserCost) : flight.extraEndUserCost != null);
 
     }
 
@@ -242,14 +263,20 @@ public class Flight {
         result = 31 * result + (arrivalTime != null ? arrivalTime.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (maxSeats != null ? maxSeats.hashCode() : 0);
-        result = 31 * result + (occupiedSeats != null ? occupiedSeats.hashCode() : 0);
+        result = 31 * result + occupiedSeats;
         result = 31 * result + (destination != null ? destination.hashCode() : 0);
         result = 31 * result + (departure != null ? departure.hashCode() : 0);
         result = 31 * result + (partner != null ? partner.hashCode() : 0);
         result = 31 * result + (discount ? 1 : 0);
         result = 31 * result + (seatsThresholdForDiscount != null ? seatsThresholdForDiscount.hashCode() : 0);
         result = 31 * result + (discountPercentage != null ? discountPercentage.hashCode() : 0);
+        result = 31 * result + (extraEndUserCost != null ? extraEndUserCost.hashCode() : 0);
         result = 31 * result + (int) (version ^ (version >>> 32));
         return result;
+    }
+
+    private void setExtraEndUserCostByBasePrice(BigDecimal basePrice) {
+        if(basePrice != null)
+            this.extraEndUserCost = basePrice.multiply(BigDecimal.valueOf(0.05)).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }

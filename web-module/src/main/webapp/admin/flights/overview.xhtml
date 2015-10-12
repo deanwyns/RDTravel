@@ -71,7 +71,7 @@
                             <f:convertNumber type="currency" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column rendered="#{flightOverviewView.user.class == 'class com.realdolmen.rdtravel.domain.PartnerAdmin'}">
                         <h:link outcome="flight" value="Edit">
                             <f:param name="id" value="#{flight.id}" />
                         </h:link>
@@ -79,6 +79,15 @@
                         <h:commandLink action="#{flightOverviewView.delete(flight)}" value="Delete" update=":flightTable">
                             <f:param name="id" value="#{flight.id}" />
                         </h:commandLink>
+                    </p:column>
+                    <p:column rendered="#{flightOverviewView.user.class == 'class com.realdolmen.rdtravel.domain.RDTravelAdmin'}"
+                            headerText="Extra end user cost (default 5%)">
+                        <h:form>
+                            <p:inputText value="#{flight.extraEndUserCost}">
+                                <f:convertNumber type="currency"/>
+                            </p:inputText>
+                            <!-- TODO: set the value -->
+                        </h:form>
                     </p:column>
                 </p:dataTable>
             </h:form>

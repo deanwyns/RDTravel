@@ -13,7 +13,8 @@
                          id="bookingTable" widgetVar="bookingTable"
                          selection="#{bookingOverviewView.selectedBookings}" selectionMode="multiple"
                          rowKey="#{booking.id}" paginator="true" rows="10"
-                         filteredValue="#{bookingOverviewView.filteredBookings}" emptyMessage="No bookings were found.">
+                         filteredValue="#{bookingOverviewView.filteredBookings}"
+                         emptyMessage="No bookings were found.">
                 <f:facet name="header">
                     <p:outputPanel>
                         <p:inputText id="globalFilter" onkeyup="PF('bookingTable').filter()" placeholder="Search"/>
@@ -29,7 +30,7 @@
                 <p:column headerText="Start Time" filterBy="#{booking.trip.startDate}"
                           filterFunction="#{bookingOverviewView.filterByTimeBefore}">
                     <f:facet name="filter">
-                        <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter"
+                        <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateConverter"
                                     widgetVar="departureCalendar">
                             <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()"/>
                         </p:calendar>
@@ -46,7 +47,7 @@
                 <p:column headerText="End Time" filterBy="#{booking.trip.endDate}"
                           filterFunction="#{bookingOverviewView.filterByTimeAfter}">
                     <f:facet name="filter">
-                        <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter"
+                        <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateConverter"
                                     widgetVar="arrivalCalendar">
                             <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()"/>
                         </p:calendar>

@@ -45,7 +45,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>PartnerAdmin</web-resource-name>
-            <url-pattern>/admin/flights/*</url-pattern>
+            <url-pattern>/admin/flights/flight.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>PartnerAdmin</role-name>
@@ -54,8 +54,19 @@
 
     <security-constraint>
         <web-resource-collection>
+            <web-resource-name>PartnerAdmin</web-resource-name>
+            <url-pattern>/admin/flights/overview.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PartnerAdmin</role-name>
+            <role-name>RDTravelAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
             <web-resource-name>Admin</web-resource-name>
-            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/admin/bookings/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>RDTravelAdmin</role-name>

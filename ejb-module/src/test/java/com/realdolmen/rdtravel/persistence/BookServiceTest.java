@@ -2,6 +2,7 @@ package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.*;
 import com.realdolmen.rdtravel.services.BookService;
+import com.realdolmen.rdtravel.services.TripService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,6 +32,8 @@ public class BookServiceTest extends DataSetPersistenceTest {
 
     @Mock
     private BookingDAO bookingDAO;
+    @Mock
+    private TripService tripService;
 
     @InjectMocks
     private BookService bookService;
@@ -46,6 +49,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         trip = entityManager().find(Trip.class, 1l);
         paymentMethod = entityManager().find(PaymentMethod.class, 1l);
 
+        Mockito.when(tripService.getAvailableSeatsForTrip(trip)).thenCallRealMethod();
     }
 
     @Test

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class Endorsement extends PaymentMethod {
     //Validation of this number is out of the scope of the assignment
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 20)
     private String accountNumber;
 
     public Endorsement(String accountNumber) {

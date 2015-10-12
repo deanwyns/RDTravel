@@ -53,6 +53,14 @@ public class FlightCRUDTest extends DataSetPersistenceTest {
         flushAndClear();
     }
 
+//    @Test
+//    public void testDeleteFlight(){
+//        entityManager().remove(entityManager().merge(flight));
+//        flushAndClear();
+//        cri
+//        assertNull(flightDAO.read(1l));
+//    }
+
     @Test(expected = ConstraintViolationException.class)
     public void testDepartureTimeNull() {
         flight.setDepartureTime(null);

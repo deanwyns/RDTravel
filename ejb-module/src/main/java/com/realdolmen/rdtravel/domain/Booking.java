@@ -37,7 +37,7 @@ public class Booking implements Serializable {
 
     @Valid
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Trip trip;
 
     @NotNull

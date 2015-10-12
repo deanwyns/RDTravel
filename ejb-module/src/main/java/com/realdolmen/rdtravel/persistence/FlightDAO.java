@@ -4,6 +4,7 @@ import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Partner;
 
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by DWSAX40 on 5/10/2015.
  * An implementation of the generic DAO for flights.
  */
-@Stateless
+@Named
 public class FlightDAO extends GenericDaoImpl<Flight, Long> {
 
     @PersistenceContext
@@ -54,4 +55,5 @@ public class FlightDAO extends GenericDaoImpl<Flight, Long> {
     public List<Flight> findByPartner(Partner partner) {
         return em.createNamedQuery(Flight.FIND_BY_PARTNER, Flight.class).setParameter("partner", partner).getResultList();
     }
+
 }

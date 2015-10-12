@@ -2,6 +2,7 @@ package com.realdolmen.rdtravel.views;
 
 import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.PartnerAdmin;
+import com.realdolmen.rdtravel.domain.RDTravelAdmin;
 import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.persistence.FlightDAO;
 
@@ -30,7 +31,12 @@ public class FlightOverviewView implements Serializable {
 
     @PostConstruct
     public void init() {
-        flights = flightDAO.findByPartner(((PartnerAdmin)user).getPartner());
+        if(user instanceof PartnerAdmin)
+            flights = flightDAO.findByPartner(((PartnerAdmin)user).getPartner());
+        else{
+            if(user instanceof RDTravelAdmin)
+                flights = flightDAO.findAll();
+        }
     }
 
     public void delete(Flight flight) {
@@ -58,6 +64,10 @@ public class FlightOverviewView implements Serializable {
         LocalDateTime filterTime = LocalDateTime.parse(filter.toString());
 
         return filterTime.isAfter(valueTime);
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public List<Flight> getFlights() {
