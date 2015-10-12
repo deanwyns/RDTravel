@@ -23,6 +23,8 @@ public class BookService {
     @Inject
     private BookingDAO bookingDAO;
 
+    @Inject private TripService tripService;
+
     /**
      * Calculates the price for a booking based on its length, price per day, number of travelers and payment method which can give a discount.
      * Price = number of days * price per day * number of travelers - discount
@@ -58,16 +60,24 @@ public class BookService {
      * @throws ConstraintViolationException if the CreditCard details are invalid
      * @throws IllegalArgumentException     if the dates of the trip are invalid or when no more seats are available
      */
+    @Transactional
     public void createBooking(Booking booking) {
         validateDates(booking);
 
-        for (Flight flight : booking.getTrip().getFlights()) {
+        int availableSeats = tripService.getAvailableSeatsForTrip(booking.getTrip());
+        if(booking.getNumberOfTravelers() > availableSeats) {
+            throw new IllegalArgumentException(String.format("There were not enough seats available for trip %s", booking.getTrip()));
+        }
+
+        booking.getTrip().getFlights().stream().forEach(flight -> flight.setOccupiedSeats(flight.getOccupiedSeats() + booking.getNumberOfTravelers()));
+
+        /*for (Flight flight : booking.getTrip().getFlights()) {
             //Validate if there is enough space on the flight for the booking
             if (booking.getNumberOfTravelers() > (flight.getMaxSeats() - flight.getOccupiedSeats()))
                 throw new IllegalArgumentException(String.format("There were not enough seats available on flight %d. Required seats: %d, available seats: %d", flight.getId(), booking.getNumberOfTravelers(), (flight.getMaxSeats() - flight.getOccupiedSeats())));
             //Update the flight for the count of participants.
             flight.setOccupiedSeats(flight.getOccupiedSeats() + booking.getNumberOfTravelers());
-        }
+        }*/
         booking.setPaidPrice(calculatePrice(booking));
 
         //All was valid. Persist the booking to the database

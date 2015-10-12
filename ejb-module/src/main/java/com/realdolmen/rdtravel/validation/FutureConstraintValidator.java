@@ -15,6 +15,6 @@ public class FutureConstraintValidator implements ConstraintValidator<Future, Lo
 
     @Override
     public boolean isValid(LocalDate value, ConstraintValidatorContext context) {
-        return (value.isAfter(LocalDate.now()));
+        return (value != null && value.isAfter(LocalDate.now()));
     }
 }

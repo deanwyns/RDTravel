@@ -10,13 +10,18 @@ import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.BookService;
 import com.realdolmen.rdtravel.views.BookingViewModel;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -35,9 +40,10 @@ public class BookingController implements Serializable {
     private Conversation conversation;
 
     @Inject
+    @Valid
     private BookingViewModel vm;
 
-    private String selectedPayment;
+    private String selectedPayment = "CreditCard";
 
     private String previousPage;
     private String totalPrice;
@@ -59,13 +65,24 @@ public class BookingController implements Serializable {
         return "customer/book?faces-redirect=true";
     }
 
-    public String bookTrip(){
-        bookService.createBooking(vm.getBooking());
-        conversation.end();
-
-        return "customer/thankyoupage?faces-redirect=true";
+    public String bookTrip() {
+//        try {
+            bookService.createBooking(vm.getBooking());
+            conversation.end();
+            return "/customer/thank-you?faces-redirect=true";
+//        }
+//        catch (ConstraintViolationException e) {
+//            for(ConstraintViolation<?> constraintViolation : e.getConstraintViolations()){
+//                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Booking failed", constraintViolation.getMessage());
+//                FacesContext.getCurrentInstance().addMessage(null, message);
+//            }
+//        } catch (IllegalArgumentException e){
+//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Booking failed", e.getMessage());
+//            FacesContext.getCurrentInstance().addMessage(null, message);
+//        }
+//
+//        return "";
     }
-
 
     public String cancel() {
         conversation.end();
@@ -73,8 +90,7 @@ public class BookingController implements Serializable {
     }
 
     public void onPaymentMethodChange() {
-        System.out.println(selectedPayment);
-        switch(selectedPayment) {
+        switch (selectedPayment) {
             case "CreditCard":
                 vm.getBooking().setPaymentMethod(new CreditCard());
                 break;
@@ -108,5 +124,13 @@ public class BookingController implements Serializable {
 
     public void setSelectedPayment(String selectedPayment) {
         this.selectedPayment = selectedPayment;
+    }
+
+    public BookingViewModel getVm() {
+        return vm;
+    }
+
+    public void setVm(BookingViewModel vm) {
+        this.vm = vm;
     }
 }
