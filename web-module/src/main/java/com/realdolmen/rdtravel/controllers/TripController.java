@@ -59,7 +59,7 @@ public class TripController {
             }else{
                 throw e;
             }
-        }catch (FlightNotFoundException | FlightOutsideTripDateException e) {
+        }catch (FlightNotFoundException | FlightOutsideTripDateException | IllegalArgumentException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Persist failed", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException | JDOMException | XMLStreamException e) {

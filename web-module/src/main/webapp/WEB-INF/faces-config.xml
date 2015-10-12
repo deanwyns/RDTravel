@@ -10,4 +10,9 @@
             com.realdolmen.messages.validation
         </message-bundle>
     </application>
+    <factory>
+        <exception-handler-factory>
+            com.realdolmen.rdtravel.handlers.CustomExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
 </faces-config>
