@@ -114,6 +114,14 @@ html, body {
     box-sizing: border-box;
 }
 
+.content {
+    background-color: #fdfdfd;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    padding: 20px 10px;
+    margin: 15px 0;
+}
+
 #world-map {
     width: 100%;
     min-height: 600px;
