@@ -10,6 +10,7 @@ import com.realdolmen.rdtravel.persistence.TripDAO;
 import com.realdolmen.rdtravel.services.BookService;
 
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ import java.math.BigDecimal;
  * Created by JSTAX29 on 9/10/2015.
  */
 @Named
-@ViewScoped
+@ConversationScoped
 public class BookingController implements Serializable {
     @Inject
     private BookService bookService;
@@ -30,9 +31,10 @@ public class BookingController implements Serializable {
     @Inject
     private TripDAO tripDAO;
     @Inject
-    private BookTripViewModel bookTripViewModel;
-    @Inject
     private Conversation conversation;
+
+    private Booking booking;
+    private String selectedPayment;
 
     private String previousPage;
     private String totalPrice;
@@ -40,21 +42,22 @@ public class BookingController implements Serializable {
     public String book() {
         conversation.begin();
 
+        booking = new Booking();
+        booking.setPaymentMethod(new CreditCard());
+
         String participants = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("participants");
         int numberParticipants = Integer.parseInt(participants);
-        bookTripViewModel.setParticipants(numberParticipants);
+        booking.setNumberOfTravelers(numberParticipants);
 
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("trip");
         Trip tripById = tripDAO.read(Long.parseLong(id));
-        bookTripViewModel.setTrip(tripById);
-
-        bookTripViewModel.setBooking(new Booking(numberParticipants, new CreditCard(), tripById));
+        booking.setTrip(tripById);
 
         return "customer/book?faces-redirect=true";
     }
 
     public String bookTrip(){
-
+        conversation.end();
         return "customer/thankyoupage?faces-redirect=true";
     }
 
@@ -63,25 +66,41 @@ public class BookingController implements Serializable {
         return previousPage + "?faces-redirect=true&includeViewParams=true";
     }
 
-    public BookTripViewModel getBookTripViewModel() {
-        return bookTripViewModel;
+    public void onPaymentMethodChange() {
+        System.out.println(selectedPayment);
+        switch(selectedPayment) {
+            case "CreditCard":
+                booking.setPaymentMethod(new CreditCard());
+                break;
+
+            case "Endorsement":
+                booking.setPaymentMethod(new Endorsement());
+                break;
+        }
     }
 
-    public void setBookTripViewModel(BookTripViewModel bookTripViewModel) {
-        this.bookTripViewModel = bookTripViewModel;
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public String getPreviousPage() {
         return previousPage;
     }
 
-    public String getTotalParticipants() {
-        Long participants = bookingDAO.countBookedParticipantsForTrip(bookTripViewModel.getTrip().getId());
-        return participants.toString();
+    public String getTotalPrice() {
+        BigDecimal bigDecimal = bookService.calculatePrice(booking);
+        return bigDecimal.toPlainString();
     }
 
-    public String getTotalPrice() {
-        BigDecimal bigDecimal = bookService.calculatePrice(bookTripViewModel.getBooking());
-        return bigDecimal.toPlainString();
+    public String getSelectedPayment() {
+        return selectedPayment;
+    }
+
+    public void setSelectedPayment(String selectedPayment) {
+        this.selectedPayment = selectedPayment;
     }
 }

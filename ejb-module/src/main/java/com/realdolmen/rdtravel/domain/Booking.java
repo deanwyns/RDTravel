@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = Booking.COUNT_TOTAL_PARTICIPANTS_FOR_TRIP, query = "select (count(b) * b.numberOfTravelers) from Booking b where b.trip.id = :tid")
 })
 @Entity
-public class Booking {
+public class Booking implements Serializable {
     public static final String COUNT_TOTAL_BOOKINGS_FOR_PARTNER = "Booking.countTotalBookingsForPartner";
     public static final String COUNT_TOTAL_PARTICIPANTS_FOR_TRIP = "Booking.countTotalParticipantsForTrip";
 
@@ -39,7 +40,7 @@ public class Booking {
     @Version
     private long version;
 
-    protected Booking(){}
+    public Booking() {}
 
     public Booking(int numberOfTravelers, PaymentMethod paymentMethod, Trip trip) {
         this.numberOfTravelers = numberOfTravelers;

@@ -49,11 +49,10 @@
 
                 <p:column>
                     <h:form>
-                        <h:commandButton value="Book" action="#{bookingController.book}">
+                        <p:commandButton value="Book" action="#{bookingController.book}">
                             <f:param value="#{trip.id}" name="trip" />
-                            <f:param value="#{trip.id}" name="trip"/>
                             <f:param value="#{findTripOverviewView.participantsAmount}" name="participants"/>
-                        </h:commandButton>
+                        </p:commandButton>
                     </h:form>
                 </p:column>
             </p:dataTable>

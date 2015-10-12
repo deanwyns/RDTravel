@@ -70,5 +70,10 @@
         </form-login-config>
     </login-config>
 
+    <error-page>
+        <error-code>403</error-code>
+        <location>/index.xhtml</location>
+    </error-page>
+
     <!--END LOGIN AND SECURITY-->
 </web-app>

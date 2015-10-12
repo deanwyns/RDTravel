@@ -1,9 +1,6 @@
 package com.realdolmen.rdtravel.views;
 
-import com.realdolmen.rdtravel.domain.Booking;
-import com.realdolmen.rdtravel.domain.CreditCard;
-import com.realdolmen.rdtravel.domain.Endorsement;
-import com.realdolmen.rdtravel.domain.Trip;
+import com.realdolmen.rdtravel.domain.*;
 import com.realdolmen.rdtravel.persistence.BookingDAO;
 import com.realdolmen.rdtravel.services.BookService;
 
@@ -26,7 +23,8 @@ public class BookTripViewModel implements Serializable{
     private CreditCard creditCard;
     private Endorsement endorsement;
     private String definePaymentMethod;
-    private String paymentMethod;
+    private PaymentMethod paymentMethod;
+    private String selectedPayment;
 
     public Trip getTrip() {
         return trip;
@@ -74,17 +72,19 @@ public class BookTripViewModel implements Serializable{
         }
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        System.out.println("----------------SET------------------");
-        System.out.println(paymentMethod);
-        System.out.println("-----------------SET----------------");
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getPaymentMethod() {
-        System.out.println("----------------GET------------------");
-        System.out.println(paymentMethod);
-        System.out.println("-----------------GET----------------");
-        return paymentMethod;
+    public void setSelectedPayment(String selectedPayment) {
+        this.selectedPayment = selectedPayment;
+    }
+
+    public String getSelectedPayment() {
+        return selectedPayment;
     }
 }

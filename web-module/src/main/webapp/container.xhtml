@@ -32,10 +32,6 @@
         </div>
     </nav>
     <div class="wrapper">
-        <!--<div>
-            <h:link rendered="#{empty request.remoteUser}" outcome="/security/login" value="Login"/> <h:link rendered="#{empty request.remoteUser}" outcome="/security/register" value="Register"/>
-            <h:form ><h:commandLink rendered="#{not empty request.remoteUser}" value="Logout" type="submit" action="#{loginController.logout()}"/> </h:form>
-        </div>-->
         <ui:insert name="pageContent">
             Content goes here.
         </ui:insert>
