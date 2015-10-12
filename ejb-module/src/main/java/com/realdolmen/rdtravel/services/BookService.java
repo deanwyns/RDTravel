@@ -61,7 +61,6 @@ public class BookService {
     public void createBooking(Booking booking) {
         validateDates(booking);
 
-        //todo: find out if there may be concurrency issues when editing flights that were retrieved before.
         for (Flight flight : booking.getTrip().getFlights()) {
             //Validate if there is enough space on the flight for the booking
             if (booking.getNumberOfTravelers() > (flight.getMaxSeats() - flight.getOccupiedSeats()))

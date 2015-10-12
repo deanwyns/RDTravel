@@ -14,6 +14,7 @@ import javax.persistence.TypedQuery;
 @Named
 @RequestScoped
 public class BookingDAO extends GenericDaoImpl<Booking, Long> {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -52,4 +53,5 @@ public class BookingDAO extends GenericDaoImpl<Booking, Long> {
         TypedQuery<Long> typedQuery = getEntityManager().createNamedQuery(Booking.COUNT_TOTAL_PARTICIPANTS_FOR_TRIP, Long.class).setParameter("tid", tripId);
         return typedQuery.getSingleResult();
     }
+
 }

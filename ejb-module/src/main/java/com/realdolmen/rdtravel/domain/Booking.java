@@ -50,10 +50,11 @@ public class Booking implements Serializable {
 
     public Booking() {}
 
-    public Booking(int numberOfTravelers, PaymentMethod paymentMethod, Trip trip) {
+    public Booking(Integer numberOfTravelers, PaymentMethod paymentMethod, Trip trip, BigDecimal paidPrice) {
         this.numberOfTravelers = numberOfTravelers;
         this.paymentMethod = paymentMethod;
         this.trip = trip;
+        this.paidPrice = paidPrice;
     }
 
     public Long getId() {

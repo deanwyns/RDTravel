@@ -112,7 +112,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         trip.setEndDate(startDate);
         trip.setStartDate(endDate);
 
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
         booking.setTrip(trip);
 
         bookService.createBooking(booking);
@@ -124,7 +124,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
 
         trip.setEndDate(startDate);
 
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
         booking.setTrip(trip);
 
         bookService.createBooking(booking);
@@ -138,7 +138,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         flight.setOccupiedSeats(flight.getMaxSeats() - 3);
         flushAndClear();
 
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
         bookService.createBooking(booking);
     }
 
@@ -148,7 +148,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         Flight flight2 = entityManager().find(Flight.class, 2l);
         flushAndClear();
 
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
         bookService.createBooking(booking);
 
         assertEquals(4, flight1.getOccupiedSeats());
@@ -158,7 +158,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
     @Test
     public void testValidBookingCreatesBookings() {
         PaymentMethod paymentMethod = entityManager().find(PaymentMethod.class, 1l);
-        Booking booking = new Booking(2, paymentMethod, trip);
+        Booking booking = new Booking(2, paymentMethod, trip, BigDecimal.valueOf(0));
 
         Mockito.when(bookingDAO.getEntityManager()).thenReturn(entityManager());
         Mockito.when(bookingDAO.create(booking)).thenCallRealMethod();
@@ -177,7 +177,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         Trip trip = entityManager().find(Trip.class, 1l);
         PaymentMethod paymentMethod = entityManager().find(PaymentMethod.class, 1l);
 
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
         Mockito.when(bookingDAO.getEntityManager()).thenReturn(entityManager());
         Mockito.when(bookingDAO.create(booking)).thenCallRealMethod();
         //Trip 1 has 2 flights. Flight 1 has 12 available seats, flight 2 has 50.
@@ -195,7 +195,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidBookingTripHasPassed(){
         trip.setStartDate(LocalDate.now().minusDays(1));
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
 
         bookService.createBooking(booking);
     }
@@ -212,7 +212,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         flushAndClear();
 
         //When booking a trip it should not persist to the database and notify with an error
-        Booking booking = new Booking(4, paymentMethod, trip);
+        Booking booking = new Booking(4, paymentMethod, trip, BigDecimal.valueOf(0));
         Mockito.when(bookingDAO.getEntityManager()).thenReturn(entityManager());
         Mockito.when(bookingDAO.create(booking)).thenCallRealMethod();
         bookService.createBooking(booking);
