@@ -5,12 +5,14 @@ import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.PartnerAdmin;
 import com.realdolmen.rdtravel.domain.User;
 import com.realdolmen.rdtravel.persistence.BookingDAO;
+import com.realdolmen.rdtravel.services.BookService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -21,9 +23,12 @@ import java.util.Locale;
 @Named
 @ViewScoped
 public class BookingOverviewView implements Serializable {
-    @Inject private BookingDAO bookingDAO;
-
-    @Inject private User user;
+    @Inject
+    private BookingDAO bookingDAO;
+    @Inject
+    private BookService bookService;
+    @Inject
+    private User user;
 
     private List<Booking> bookings;
     private List<Booking> filteredBookings;
@@ -35,7 +40,7 @@ public class BookingOverviewView implements Serializable {
     }
 
     public boolean filterByTimeBefore(Object value, Object filter, Locale locale) {
-        if(filter == null) {
+        if (filter == null) {
             return true;
         }
 
@@ -46,7 +51,7 @@ public class BookingOverviewView implements Serializable {
     }
 
     public boolean filterByTimeAfter(Object value, Object filter, Locale locale) {
-        if(filter == null) {
+        if (filter == null) {
             return true;
         }
 
@@ -54,6 +59,10 @@ public class BookingOverviewView implements Serializable {
         LocalDateTime filterTime = LocalDateTime.parse(filter.toString());
 
         return filterTime.isAfter(valueTime);
+    }
+
+    public BigDecimal bookingPrice(Booking booking) {
+        return bookService.calculatePrice(booking);
     }
 
     public List<Booking> getBookings() {

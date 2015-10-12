@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../container.xhtml">
-        <ui:define name="pageContent">
+    <ui:define name="pageContent">
             <div class="container">
                 <h:form>
                     <h:panelGrid columns="2">
@@ -65,6 +65,8 @@
                             <p:inputText value="#{bookingController.selectedPayment}" />
                         </p:outputPanel>
                     </p:outputPanel>
+
+                    <h:commandLink value="Book this trip!" action="#{bookingController.bookTrip}"/>
 
                 </h:form>
             </div>

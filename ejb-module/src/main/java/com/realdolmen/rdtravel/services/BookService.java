@@ -36,8 +36,6 @@ public class BookService {
         LocalDate departureDate = bookingTrip.getStartDate();
         LocalDate returnDate = bookingTrip.getEndDate();
 
-        validateDates(booking);
-
         long lengthOfTrip = DAYS.between(departureDate, returnDate);
 
         BigDecimal basePrice = bookingTrip.getPricePerDay().multiply(BigDecimal.valueOf(booking.getNumberOfTravelers())).multiply(BigDecimal.valueOf(lengthOfTrip));
@@ -63,7 +61,6 @@ public class BookService {
     public void createBooking(Booking booking) {
         validateDates(booking);
 
-        //todo: find out if there may be concurrency issues when editing flights that were retrieved before.
         for (Flight flight : booking.getTrip().getFlights()) {
             //Validate if there is enough space on the flight for the booking
             if (booking.getNumberOfTravelers() > (flight.getMaxSeats() - flight.getOccupiedSeats()))
@@ -71,6 +68,7 @@ public class BookService {
             //Update the flight for the count of participants.
             flight.setOccupiedSeats(flight.getOccupiedSeats() + booking.getNumberOfTravelers());
         }
+        booking.setPaidPrice(calculatePrice(booking));
 
         //All was valid. Persist the booking to the database
         bookingDAO.create(booking);

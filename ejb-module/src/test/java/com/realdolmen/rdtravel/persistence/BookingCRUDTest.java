@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolationException;
+import java.math.BigDecimal;
 
 /**
  * Created by JSTAX29 on 8/10/2015.
@@ -25,7 +26,7 @@ public class BookingCRUDTest extends DataSetPersistenceTest {
     public void testCreateBooking() {
         PaymentMethod paymentMethod = entityManager().find(PaymentMethod.class, 1l);
         Trip trip = entityManager().find(Trip.class, 1l);
-        Booking booking = new Booking(3, paymentMethod, trip);
+        Booking booking = new Booking(3, paymentMethod, trip, BigDecimal.valueOf(0));
         assertNull(booking.getId());
         bookingDAO.create(booking);
         flushAndClear();

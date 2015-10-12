@@ -2,9 +2,11 @@ package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -37,15 +39,22 @@ public class Booking implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Trip trip;
 
+    @NotNull
+    @Column(nullable = false)
+    @Min(value = 0)
+    @Digits(fraction = 2, integer = 8)
+    private BigDecimal paidPrice;
+
     @Version
     private long version;
 
     public Booking() {}
 
-    public Booking(int numberOfTravelers, PaymentMethod paymentMethod, Trip trip) {
+    public Booking(Integer numberOfTravelers, PaymentMethod paymentMethod, Trip trip, BigDecimal paidPrice) {
         this.numberOfTravelers = numberOfTravelers;
         this.paymentMethod = paymentMethod;
         this.trip = trip;
+        this.paidPrice = paidPrice;
     }
 
     public Long getId() {
@@ -74,5 +83,13 @@ public class Booking implements Serializable {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
+    }
+
+    public BigDecimal getPaidPrice() {
+        return paidPrice;
+    }
+
+    public void setPaidPrice(BigDecimal paidPrice) {
+        this.paidPrice = paidPrice;
     }
 }
