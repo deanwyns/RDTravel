@@ -54,6 +54,7 @@ public class Flight {
     @Digits(fraction = 2, integer = 8)
     private BigDecimal price;
 
+    @NotNull
     @Column(nullable = false)
     @Min(value = 1)
     private Integer maxSeats;

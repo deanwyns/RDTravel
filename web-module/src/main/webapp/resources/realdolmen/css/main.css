@@ -130,25 +130,6 @@ html, body {
     position: relative;
 }
 
-.ui-inputfield {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-.ui-widget {
-    font-family: 'Roboto', sans-serif;
-}
-
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-    color: #cf676f;
-}
-
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-    border: 1px solid #cf676f;
-    background-color: #cf676f;
-}
-
 .airport-popup {
     position: absolute;
     background: #eee;
@@ -180,4 +161,26 @@ html, body {
     text-align: center;
 
     background-color: #bababa;
+}
+
+/***************************************************
+** Primefaces overriding                           *
+***************************************************/
+.ui-inputfield {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.ui-widget {
+    font-family: 'Roboto', sans-serif;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    color: #cf676f;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #cf676f;
+    background-color: #cf676f;
 }
