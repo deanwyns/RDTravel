@@ -2,8 +2,10 @@ package com.realdolmen.rdtravel.domain;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * Created by JSTAX29 on 2/10/2015.
@@ -35,6 +37,12 @@ public class Booking {
     @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Trip trip;
+
+    @NotNull
+    @Column(nullable = false)
+    @Min(value = 0)
+    @Digits(fraction = 2, integer = 8)
+    private BigDecimal paidPrice;
 
     @Version
     private long version;
@@ -73,5 +81,13 @@ public class Booking {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
+    }
+
+    public BigDecimal getPaidPrice() {
+        return paidPrice;
+    }
+
+    public void setPaidPrice(BigDecimal paidPrice) {
+        this.paidPrice = paidPrice;
     }
 }

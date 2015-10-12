@@ -53,8 +53,9 @@ public class BookingController implements Serializable {
         return "customer/book?faces-redirect=true";
     }
 
-    public String bookTrip(){
-
+    public String bookTrip() {
+        bookService.createBooking(bookTripViewModel.getBooking());
+        conversation.end();
         return "customer/thankyoupage?faces-redirect=true";
     }
 

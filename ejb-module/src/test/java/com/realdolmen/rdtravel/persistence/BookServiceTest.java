@@ -115,7 +115,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         Booking booking = new Booking(4, paymentMethod, trip);
         booking.setTrip(trip);
 
-        bookService.calculatePrice(booking);
+        bookService.createBooking(booking);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -127,7 +127,7 @@ public class BookServiceTest extends DataSetPersistenceTest {
         Booking booking = new Booking(4, paymentMethod, trip);
         booking.setTrip(trip);
 
-        bookService.calculatePrice(booking);
+        bookService.createBooking(booking);
     }
 
 

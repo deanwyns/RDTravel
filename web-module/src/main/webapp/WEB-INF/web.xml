@@ -69,6 +69,10 @@
             <form-error-page>/security/forwardlogin.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-
     <!--END LOGIN AND SECURITY-->
+
+    <!-- All errors will go to error.xhtml -->
+    <!--<error-page>-->
+        <!--<location>/error.xhtml</location>-->
+    <!--</error-page>-->
 </web-app>

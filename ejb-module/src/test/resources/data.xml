@@ -8,9 +8,9 @@
     <paymentmethod id="1"/>
     <paymentmethod id="2"/>
 
-    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="2" trip_id="1"/>
-    <booking id="2" numberOfTravelers="4" version="0" paymentMethod_id="1" trip_id="1"/>
-    <booking id="3" numberOfTravelers="2" version="0" paymentMethod_id="1" trip_id="2"/>
+    <booking id="1" numberOfTravelers="4" version="0" paymentMethod_id="2" trip_id="1" paidPrice="302.4"/>
+    <booking id="2" numberOfTravelers="4" version="0" paymentMethod_id="1" trip_id="1" paidPrice="272.16"/>
+    <booking id="3" numberOfTravelers="2" version="0" paymentMethod_id="1" trip_id="2" paidPrice="0"/>
 
     <user DTYPE="Customer" id="1" email="johnny@info.com" firstName="Johnny" lastName="Johnson"
           password="1000:70f40ef34b77323d3ceb956d6962b2f743be9624c56f4233:cf59bda3995c701fb45ecc0e58162f059543d1d63c9870e3" version="0"/>
