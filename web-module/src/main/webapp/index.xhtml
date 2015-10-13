@@ -18,11 +18,7 @@
             <p:remoteCommand name="getAirports" actionListener="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
         </h:form>
 
-        <div class="splash">
-            <div class="container">
-                <h1 class="splash-content">RD Travel, the company that flies with you.</h1>
-            </div>
-        </div>
+        <div class="splash"></div>
 
         <div class="container">
             <div class="search-form">
@@ -65,7 +61,7 @@
                                         mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
                                 <p:ajax event="dateSelect" update="returnDate" />
                             </p:calendar>
-                            <p:messages for="departureDate" />
+                            <p:message for="departureDate" />
                         </div>
 
                         <div class="form-group">
@@ -74,7 +70,7 @@
                                         mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
                                 <p:ajax event="dateSelect" update="departureDate" />
                             </p:calendar>
-                            <p:messages for="returnDate" />
+                            <p:message for="returnDate" />
                         </div>
 
                         <div class="form-group">

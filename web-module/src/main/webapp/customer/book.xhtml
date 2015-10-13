@@ -23,41 +23,70 @@
             <div class="row content">
                 <div class="col col-sm-12">
                     <dl class="dl-horizontal">
+                        <dt>Trip</dt>
+                        <dd><h:outputText value="#{bookingController.booking.trip.name}#" /></dd>
+                        <dt>Period</dt>
+                        <dd>From <h:outputText value="#{bookingController.booking.trip.startDate} till #{bookingController.booking.trip.endDate}" /></dd>
+                        <dt>Number of travelers</dt>
+                        <dd><h:outputText value="#{bookingController.booking.numberOfTravelers}" /></dd>
                         <dt>Price per day</dt>
                         <dd><h:outputText value="#{bookingController.booking.trip.pricePerDay}" /></dd>
                         <dt>Total price</dt>
-                        <dd><h:outputText id="totalPrice" value="#{bookingController.totalPrice}"/> <h:outputText rendered="#{bookingController.selectedPayment == 'CreditCard'}" value="(10% CreditCard Discount included!)"/></dd>
+                        <dd>
+                            <h:panelGroup id="totalPrice">
+                                <h:outputText value="#{bookingController.totalPrice}"/>&nbsp;<h:outputText rendered="#{bookingController.selectedPayment == 'CreditCard'}" value="(10% CreditCard Discount included!)"/>
+                            </h:panelGroup>
+                        </dd>
                     </dl>
 
-                    <h:form>
-                        <p:selectOneRadio id="paymentMethod" value="#{bookingController.selectedPayment}">
-                            <f:selectItem itemLabel="Credit Card (10% discount)" itemValue="CreditCard"/>
-                            <f:selectItem itemLabel="Endorsement" itemValue="Endorsement"/>
-                            <p:ajax listener="#{bookingController.onPaymentMethodChange}" update="payment-info totalPrice" />
-                        </p:selectOneRadio>
-                        <p:message for="paymentMethod" />
+                    <h:form styleClass="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Payment information</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <p:outputLabel styleClass="col-sm-2" for="paymentMethod" value="Payment method" />
+                                    <div class="col-sm-10">
+                                        <p:selectOneRadio id="paymentMethod" value="#{bookingController.selectedPayment}" layout="pageDirection">
+                                            <f:selectItem itemLabel="Credit Card (10% discount)" itemValue="CreditCard" />
+                                            <f:selectItem itemLabel="Endorsement" itemValue="Endorsement" />
+                                            <p:ajax listener="#{bookingController.onPaymentMethodChange}" update="paymentInfo totalPrice" />
+                                        </p:selectOneRadio>
+                                        <p:message for="paymentMethod" />
+                                    </div>
+                                </div>
 
-                        <p:outputPanel id="payment-info">
-                            <p:outputPanel rendered="#{bookingController.selectedPayment == 'CreditCard'}">
-                                <p:outputLabel value="Creditcard Number: "/>
-                                <p:inputText id="creditCardNr" value="#{bookingController.vm.creditCard.number}" />
-                                <p:message for="creditCardNr" />
+                                <h:panelGroup id="paymentInfo">
+                                    <h:panelGroup rendered="#{bookingController.selectedPayment == 'CreditCard'}">
+                                        <div class="form-group">
+                                            <p:outputLabel for="creditCardNr" styleClass="col-sm-2" value="Creditcard number"/>
+                                            <div class="col-sm-10">
+                                                <p:inputText id="creditCardNr" value="#{bookingController.vm.creditCard.number}" />
+                                                <p:message for="creditCardNr" />
+                                            </div>
+                                        </div>
 
-                                <br/>
-                                <p:outputLabel value="ExpirationDate:"/>
-                                <p:inputMask id="creditCardDate" mask="99-99" placeholder="mm-yy" converter="com.realdolmen.YearMonthConverter" value="#{bookingController.vm.creditCard.expirationDate}"/>
-                                <p:message for="creditCardDate"/>
-                            </p:outputPanel>
+                                        <div class="form-group">
+                                            <p:outputLabel for="creditCardDate" styleClass="col-sm-2" value="Expiration date" />
+                                            <div class="col-sm-10">
+                                                <p:inputMask id="creditCardDate" mask="99-99" placeholder="mm-yy" converter="com.realdolmen.YearMonthConverter" value="#{bookingController.vm.creditCard.expirationDate}"/>
+                                                <p:message for="creditCardDate"/>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{bookingController.selectedPayment == 'Endorsement'}">
+                                        <div class="form-group">
+                                            <p:outputLabel for="endorsementNr" styleClass="col-sm-2" value="Endorsement number"/>
+                                            <div class="col-sm-10">
+                                                <p:inputText id="endorsementNr" value="#{bookingController.vm.endorsement.accountNumber}" />
+                                                <p:message for="endorsementNr" />
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </div>
+                        </div>
 
-                            <p:outputPanel rendered="#{bookingController.selectedPayment == 'Endorsement'}">
-                                <p:outputLabel value="Endorsement number: "/>
-                                <p:inputText id="endorsementNr" value="#{bookingController.vm.endorsement.accountNumber}" />
-                                <p:message for="endorsementNr" />
-                            </p:outputPanel>
-                        </p:outputPanel>
-
-                        <h:commandLink value="Book this trip!" action="#{bookingController.bookTrip()}" update="@form"/>
-
+                        <h:commandButton value="Continue" action="#{bookingController.bookTrip()}" update="@form"/>
                     </h:form>
                 </div>
             </div>

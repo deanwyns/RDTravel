@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <p:inputText id="availableSeats" value="#{flightView.flight.maxSeats}" />
-                                <p:messages for="availableSeats" />
+                                <p:message for="availableSeats" />
                             </div>
                         </div>
 
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <p:inputText id="price" value="#{flightView.flight.price}" />
-                                <p:messages for="price" />
+                                <p:message for="price" />
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@
                                 <p:selectBooleanCheckbox id="volumeDiscount" value="#{flightView.flight.discount}">
                                     <p:ajax event="change" update="volumeDiscountGroup" />
                                 </p:selectBooleanCheckbox>
-                                <p:messages for="volumeDiscount" />
+                                <p:message for="volumeDiscount" />
                             </div>
                         </div>
 
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <p:inputText id="seatsThreshold" value="#{flightView.flight.seatsThresholdForDiscount}" />
-                                            <p:messages for="seatsThreshold" />
+                                            <p:message for="seatsThreshold" />
                                         </div>
                                     </div>
 
@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <p:inputText id="discountPerc" value="#{flightView.flight.discountPercentage}" />
-                                            <p:messages for="discountPerc" />
+                                            <p:message for="discountPerc" />
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <p:calendar id="departureTime" value="#{flightView.flight.departureTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
-                                <p:messages for="departureTime" />
+                                <p:message for="departureTime" />
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <p:calendar id="arrivalTime" value="#{flightView.flight.arrivalTime}" pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateTimeConverter" />
-                                <p:messages for="arrivalTime" />
+                                <p:message for="arrivalTime" />
                             </div>
                         </div>
 
@@ -124,7 +124,7 @@
                                 <p:selectOneMenu id="departureAirport" value="#{flightView.flight.departure}" converter="#{airportConverter}">
                                     <f:selectItems value="#{flightView.airportSelectionView.departureAirports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                                 </p:selectOneMenu>
-                                <p:messages for="departureAirport" />
+                                <p:message for="departureAirport" />
                             </div>
                         </div>
 
@@ -149,7 +149,7 @@
                                 <p:selectOneMenu id="destinationAirport" value="#{flightView.flight.destination}" converter="#{airportConverter}">
                                     <f:selectItems value="#{flightView.airportSelectionView.destinationAirports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                                 </p:selectOneMenu>
-                                <p:messages for="destinationAirport" />
+                                <p:message for="destinationAirport" />
                             </div>
                         </div>
 

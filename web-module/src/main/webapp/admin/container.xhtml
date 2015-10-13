@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>RDTravel</title>
 
@@ -27,7 +28,7 @@
         <div class="wrapper">
             <div class="row">
                 <div class="col-sm-5 search-box">
-                    <input type="text" placeholder="Search" />
+                    <p:inputText placeholder="Search" />
                 </div>
                 <div class="col-sm-5 user-box">
                     Welcome, <h:outputText value="#{currentUser.user.firstName} #{currentUser.user.lastName}" />

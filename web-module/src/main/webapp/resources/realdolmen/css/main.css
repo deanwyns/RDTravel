@@ -86,14 +86,6 @@ html, body {
     margin-bottom: 10px;
 }
 
-.splash-content {
-    font-size: 48px;
-    line-height: 48px;
-    margin: 0;
-    color: #fff;
-    text-transform: uppercase;
-}
-
 .search-form {
     background-color: #a6373f;
     border: 2px solid #7c151d;
@@ -198,4 +190,20 @@ html, body {
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     border: 1px solid #cf676f;
     background-color: #cf676f;
+}
+
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
+    border: 1px solid #cf676f;
+}
+
+.ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
