@@ -70,7 +70,7 @@
         backButton.click(function() {
             worldMap.continent = null;
             worldMap.container.css('z-index', '');
-            worldMap.map.setSelectedRegions([]);
+            worldMap.map.clearSelectedRegions();
             worldMap.map.reset();
 
             currentAirportPopup.country = null;
@@ -216,11 +216,16 @@
                             { name: 'continent', value: worldMap.continent },
                             { name: 'airport', value: airports[i].id }
                         ]);
+                        currentAirportPopup.country = null;
                         currentAirportPopup.div.remove();
-                        worldMap.map.setSelectedRegions([]);
+                        worldMap.map.clearSelectedRegions();
                     });
                     $listItem.appendTo($list);
                 })(i);
+            }
+
+            if(airports.length === 0) {
+                currentAirportPopup.div.append($('<span>No airports</span>'));
             }
 
             $list.appendTo(currentAirportPopup.div);

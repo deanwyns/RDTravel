@@ -24,8 +24,6 @@
             <div class="search-form">
                 <h2 class="content-title">Find a trip</h2>
                 <h:form id="findTripForm">
-                    <p:messages />
-
                     <div class="form-inline">
                         <div class="form-group">
                             <p:outputLabel styleClass="sr-only" for="continent" />
@@ -48,6 +46,7 @@
                             <p:selectOneMenu id="airport" value="#{findTripView.selectedAirport}" converter="#{airportConverter}">
                                 <f:selectItems value="#{findTripView.airports}" var="airport" itemLabel="#{airport.name}" itemValue="#{airport}" />
                             </p:selectOneMenu>
+                            <p:message for="airport" />
                         </div>
                     </div>
 
@@ -55,6 +54,7 @@
                         <div class="form-group">
                             <p:outputLabel styleClass="sr-only" for="participants" value="Travelers" />
                             <p:inputText id="participants" value="#{findTripView.participantsAmount}" placeholder="Travelers" />
+                            <p:message for="participants" />
                         </div>
 
                         <div class="form-group">
@@ -63,6 +63,7 @@
                                         mindate="#{findTripView.departureDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
                                 <p:ajax event="dateSelect" update="returnDate" />
                             </p:calendar>
+                            <p:message for="departureDate" />
                         </div>
 
                         <div class="form-group">
@@ -71,6 +72,7 @@
                                         mindate="#{findTripView.returnDateRestriction()}" converter="com.realdolmen.LocalDateConverter">
                                 <p:ajax event="dateSelect" update="departureDate" />
                             </p:calendar>
+                            <p:message for="returnDate" />
                         </div>
 
                         <div class="form-group">
