@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FutureConstraintValidator.class)
 public @interface Future {
-    String message() default "{value} was not a date in the future.";
+    String message() default "This was not a date in the future.";
 
     Class<?>[] groups() default {};
 

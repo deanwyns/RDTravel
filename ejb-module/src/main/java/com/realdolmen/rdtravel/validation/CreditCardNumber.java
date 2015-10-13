@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CreditCardNumberValidator.class)
 public @interface CreditCardNumber {
-    String message() default "{value} was not a valid credit card number.";
+    String message() default "This number was not a valid credit card number.";
 
     Class<?>[] groups() default {};
 

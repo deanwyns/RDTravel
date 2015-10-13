@@ -1,6 +1,7 @@
 package com.realdolmen.rdtravel.persistence;
 
 import com.realdolmen.rdtravel.domain.Booking;
+import com.realdolmen.rdtravel.domain.Trip;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -55,4 +56,9 @@ public class BookingDAO extends GenericDaoImpl<Booking, Long> {
         return typedQuery.getSingleResult();
     }
 
+    public Booking create(Booking booking){
+        Trip merge = getEntityManager().merge(booking.getTrip());
+        booking.setTrip(merge);
+        return super.create(booking);
+    }
 }

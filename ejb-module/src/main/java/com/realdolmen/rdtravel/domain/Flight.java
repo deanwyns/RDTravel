@@ -80,7 +80,7 @@ public class Flight {
     private Partner partner;
 
     private boolean discount;
-    @Min(1)
+    @Min(0)
     private Integer seatsThresholdForDiscount;
     @Min(0)
     @Max(100)
