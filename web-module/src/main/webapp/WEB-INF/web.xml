@@ -73,6 +73,17 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>PartnerAdmin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PartnerAdmin</role-name>
+            <role-name>RDTravelAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
@@ -82,8 +93,13 @@
     </login-config>
     <!--END LOGIN AND SECURITY-->
 
-    <!-- All errors will go to error.xhtml -->
-    <!--<error-page>-->
-        <!--<location>/error.xhtml</location>-->
-    <!--</error-page>-->
+    <error-page>
+        <location>/index.xhtml</location>
+        <error-code>403</error-code>
+    </error-page>
+
+    <error-page>
+        <location>/404.xhtml</location>
+        <error-code>404</error-code>
+    </error-page>
 </web-app>

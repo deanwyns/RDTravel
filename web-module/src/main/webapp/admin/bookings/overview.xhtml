@@ -13,61 +13,76 @@
                 <div class="content">
                     <h1>Bookings overview</h1>
 
-                    <p:dataTable style="table-layout: fixed;" var="booking" value="#{bookingOverviewView.bookings}"
-                                 id="bookingTable" widgetVar="bookingTable"
-                                 selection="#{bookingOverviewView.selectedBookings}" selectionMode="multiple"
-                                 rowKey="#{booking.id}" paginator="true" rows="10"
-                                 filteredValue="#{bookingOverviewView.filteredBookings}"
-                                 emptyMessage="No bookings were found.">
-                        <f:facet name="header">
-                            <p:outputPanel>
-                                <p:inputText id="globalFilter" onkeyup="PF('bookingTable').filter()" placeholder="Search"/>
-                            </p:outputPanel>
-                        </f:facet>
+                    <h:form>
+                        <p:dataTable var="booking" value="#{bookingOverviewView.bookings}"
+                                     id="bookingTable" widgetVar="bookingTable"
+                                     selection="#{bookingOverviewView.selectedBookings}" selectionMode="multiple"
+                                     rowKey="#{booking.id}" paginator="true" rows="10"
+                                     filteredValue="#{bookingOverviewView.filteredBookings}"
+                                     emptyMessage="No bookings were found." resizableColumns="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+                            <f:facet name="{Exporters}">
+                                <h:commandLink>
+                                    <p:graphicImage name="realdolmen/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="bookingTable" fileName="bookings" />
+                                </h:commandLink>
 
-                        <p:column headerText="Id" filterBy="#{booking.id}" sortBy="#{booking.id}" filterMatchMode="contains">
-                            <h:outputText value="#{booking.id}"/>
-                        </p:column>
-                        <p:column headerText="Trip" filterBy="#{booking.trip.name}" filterMatchMode="contains">
-                            <h:outputText value="#{booking.trip.name}"/>
-                        </p:column>
-                        <p:column headerText="Start Time" filterBy="#{booking.trip.startDate}"
-                                  filterFunction="#{bookingOverviewView.filterByTimeBefore}">
-                            <f:facet name="filter">
-                                <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateConverter"
-                                            widgetVar="departureCalendar">
-                                    <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()"/>
-                                </p:calendar>
+                                <h:commandLink>
+                                    <p:graphicImage name="realdolmen/images/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="bookingTable" fileName="bookings"/>
+                                </h:commandLink>
                             </f:facet>
+
                             <f:facet name="header">
-                                Start Time
-                                <p:button value="X" onclick="PF('departureCalendar').setDate(null)"/>
+                                <p:outputPanel>
+                                    <p:inputText id="globalFilter" onkeyup="PF('bookingTable').filter()" placeholder="Search"/>
+                                </p:outputPanel>
                             </f:facet>
-                            <h:outputText value="#{booking.trip.startDate}"/>
-                        </p:column>
-                        <p:column headerText="Particpants" filterBy="#{booking.numberOfTravelers}" filterMatchMode="contains">
-                            <h:outputText value="#{booking.numberOfTravelers}"/>
-                        </p:column>
-                        <p:column headerText="End Time" filterBy="#{booking.trip.endDate}"
-                                  filterFunction="#{bookingOverviewView.filterByTimeAfter}">
-                            <f:facet name="filter">
-                                <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateConverter"
-                                            widgetVar="arrivalCalendar">
-                                    <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()"/>
-                                </p:calendar>
-                                <f:facet name="header">
-                                    End Time
-                                    <p:button value="X" onclick="PF('arrivalCalendar').setDate(null)"/>
+
+                            <p:column headerText="Id" filterBy="#{booking.id}" sortBy="#{booking.id}" filterMatchMode="contains">
+                                <h:outputText value="#{booking.id}"/>
+                            </p:column>
+                            <p:column headerText="Trip" filterBy="#{booking.trip.name}" filterMatchMode="contains">
+                                <h:outputText value="#{booking.trip.name}"/>
+                            </p:column>
+                            <p:column headerText="Start Time" filterBy="#{booking.trip.startDate}"
+                                      filterFunction="#{bookingOverviewView.filterByTimeBefore}">
+                                <f:facet name="filter">
+                                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateConverter"
+                                                widgetVar="departureCalendar">
+                                        <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()"/>
+                                    </p:calendar>
                                 </f:facet>
-                            </f:facet>
-                            <h:outputText value="#{booking.trip.endDate}"/>
-                        </p:column>
-                        <p:column headerText="Booking Price" sortBy="#{booking.paidPrice}"
-                                  filterBy="#{booking.paidPrice}">
-                            <h:outputText value="#{booking.paidPrice}"
-                                          converter="javax.faces.BigDecimal"/>
-                        </p:column>
-                    </p:dataTable>
+                                <f:facet name="header">
+                                    Start Time
+                                    <p:button value="X" onclick="PF('departureCalendar').setDate(null)"/>
+                                </f:facet>
+                                <h:outputText value="#{booking.trip.startDate}"/>
+                            </p:column>
+                            <p:column headerText="Particpants" filterBy="#{booking.numberOfTravelers}" filterMatchMode="contains">
+                                <h:outputText value="#{booking.numberOfTravelers}"/>
+                            </p:column>
+                            <p:column headerText="End Time" filterBy="#{booking.trip.endDate}"
+                                      filterFunction="#{bookingOverviewView.filterByTimeAfter}">
+                                <f:facet name="filter">
+                                    <p:calendar pattern="dd/MM/yyyy HH:mm" converter="com.realdolmen.LocalDateConverter"
+                                                widgetVar="arrivalCalendar">
+                                        <p:ajax event="dateSelect" oncomplete="PF('bookingTable').filter()"/>
+                                    </p:calendar>
+                                    <f:facet name="header">
+                                        End Time
+                                        <p:button value="X" onclick="PF('arrivalCalendar').setDate(null)"/>
+                                    </f:facet>
+                                </f:facet>
+                                <h:outputText value="#{booking.trip.endDate}"/>
+                            </p:column>
+                            <p:column headerText="Booking Price" sortBy="#{booking.paidPrice}"
+                                      filterBy="#{booking.paidPrice}">
+                                <h:outputText value="#{booking.paidPrice}"
+                                              converter="javax.faces.BigDecimal"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </div>
         </div>

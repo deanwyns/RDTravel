@@ -17,6 +17,7 @@
                             <p:outputLabel for="j_username" value="Username" styleClass="col-sm-2" />
                             <div class="col-sm-10">
                                 <p:inputText id="j_username" required="true" value="#{loginController.username}" />
+                                <p:message for="j_username" />
                             </div>
                         </div>
 
@@ -24,6 +25,7 @@
                             <p:outputLabel for="j_password" value="Password" styleClass="col-sm-2" />
                             <div class="col-sm-10">
                                 <p:password id="j_password" required="true" value="#{loginController.password}" />
+                                <p:message for="j_password" />
                             </div>
                         </div>
 

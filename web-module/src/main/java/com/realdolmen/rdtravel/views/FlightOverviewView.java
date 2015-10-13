@@ -33,9 +33,8 @@ public class FlightOverviewView implements Serializable {
     public void init() {
         if(user instanceof PartnerAdmin)
             flights = flightDAO.findByPartner(((PartnerAdmin)user).getPartner());
-        else{
-            if(user instanceof RDTravelAdmin)
-                flights = flightDAO.findAll();
+        else if(user instanceof RDTravelAdmin) {
+            flights = flightDAO.findAll();
         }
     }
 

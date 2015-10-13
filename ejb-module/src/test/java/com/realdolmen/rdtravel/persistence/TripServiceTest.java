@@ -153,4 +153,9 @@ public class TripServiceTest extends DataSetPersistenceTest {
         Trip trip = entityManager().find(Trip.class, 1L);
         assertEquals(12, tripService.getAvailableSeatsForTrip(trip));
     }
+
+    @Test
+    public void testFindAll() {
+        assertEquals(3, tripService.findAll().size());
+    }
 }

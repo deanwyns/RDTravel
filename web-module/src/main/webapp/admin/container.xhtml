@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
     <title>RDTravel</title>
 
@@ -17,12 +18,11 @@
         <div class="navigation">
             <ul>
                 <li><h:link outcome="/admin/dashboard"><i class="fa fa-tachometer"></i> Dashboard</h:link></li>
-            </ul>
-            <ul>
                 <li><h:link outcome="/admin/flights/overview"><i class="fa fa-plane"></i> Flights</h:link></li>
-            </ul>
-            <ul>
-                <li><h:link outcome="/admin/bookings/overview"><i class="fa fa-balance-scale"></i> Bookings</h:link></li>
+                <c:if test="#{request.isUserInRole('RDTravelAdmin')}">
+                    <li><h:link outcome="/admin/trips/overview"><i class="fa fa-globe"></i> Trips</h:link></li>
+                    <li><h:link outcome="/admin/bookings/overview"><i class="fa fa-balance-scale"></i> Bookings</h:link></li>
+                </c:if>
             </ul>
         </div>
         <div class="wrapper">

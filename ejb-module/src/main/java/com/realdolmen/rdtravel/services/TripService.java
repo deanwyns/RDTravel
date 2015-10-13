@@ -25,6 +25,8 @@ public class TripService {
         return tripDAO.read(id);
     }
 
+    public List<Trip> findAll() { return tripDAO.findAll(); }
+
     /**
      * Get the least available seats of all flights.
      * @param trip

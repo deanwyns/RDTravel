@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/admin/container.xhtml">
+    <ui:define name="pageContent">
+        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+            <p:graphicImage name="/realdolmen/images/filling_ring.gif" />
+        </p:dialog>
+
+        <div class="row row-spacer">
+            <div class="col-sm-12">
+                <div class="content">
+                    <h1>Trip overview</h1>
+
+                    <h:form>
+                            <p:dataTable var="trip" value="#{tripOverviewView.trips}" id="tripTable" widgetVar="tripTable"
+                                     selection="#{tripOverviewView.selectedTrips}" selectionMode="multiple"
+                                     rowKey="#{trip.id}" paginator="true" rows="10" resizableColumns="true"
+                                     filteredValue="#{tripOverviewView.filteredTrips}" emptyMessage="No trips were found."
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+                            <f:facet name="{Exporters}">
+                                <h:commandLink>
+                                    <p:graphicImage name="realdolmen/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="tripTable" fileName="trips" />
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage name="realdolmen/images/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="tripTable" fileName="trips"/>
+                                </h:commandLink>
+                            </f:facet>
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <p:inputText id="globalFilter" onkeyup="PF('tripTable').filter()" placeholder="Search"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column headerText="Id" filterBy="#{trip.id}" sortBy="#{trip.id}" filterMatchMode="contains">
+                                <h:outputText value="#{trip.id}" />
+                            </p:column>
+                            <p:column headerText="Name" filterBy="#{trip.name}" sortBy="#{trip.name}" filterMatchMode="contains">
+                                <h:outputText value="#{trip.name}" />
+                            </p:column>
+                            <p:column headerText="Period" filterBy="#{trip.startDate} #{trip.endDate}" filterMatchMode="contains">
+                                <h:outputText value="#{trip.startDate} - #{trip.endDate}" />
+                            </p:column>
+                            <p:column headerText="Flights" filterBy="#{trip.flights.size()}" sortBy="#{trip.flights.size()}">
+                                <h:outputText value="#{trip.flights.size()}" />
+                            </p:column>
+                            <p:column headerText="Destination" filterBy="#{trip.lastFlight.destination.name}" filterMatchMode="contains">
+                                <h:outputText value="#{trip.lastFlight.destination.name}" />
+                            </p:column>
+                            <p:column headerText="Available seats" sortBy="#{tripOverviewView.getAvailableSeats(trip)}"
+                                      filterBy="#{tripOverviewView.getAvailableSeats(trip)}" filterMatchMode="contains">
+                                <h:outputText value="#{tripOverviewView.getAvailableSeats(trip)}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-spacer">
+            <div class="col-sm-4">
+                <div class="content">
+                    <div class="content-title content-title-blue">Import XML</div>
+                    <h:form enctype="multipart/form-data">
+                        <p:growl id="messages" showDetail="true" />
+
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" />
+                        <p:commandButton value="Submit" ajax="false" actionListener="#{fileUploadView.upload()}" />
+                    </h:form>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="content">
+                    <div class="content-title content-title-orange">Export XML</div>
+                    <h:form>
+                        <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                            <p:fileDownload value="#{fileDownloadView.file}" />
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function start() {
+                PF('statusDialog').show();
+            }
+
+            function stop() {
+                PF('statusDialog').hide();
+            }
+        </script>
+    </ui:define>
+</ui:composition>
+</html>
