@@ -1,24 +1,47 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-        >
-<h:body>
-    <h:form>
-        <h:outputLabel for="usernameInput">
-            Username:
-        </h:outputLabel>
-        <h:inputText id="usernameInput" value="#{loginController.username}"
-                     required="true" />
-        <br />
-        <h:outputLabel for="passwordInput">
-            Password:
-        </h:outputLabel>
-        <h:inputSecret id="passwordInput" value="#{loginController.password}"
-                       required="true" />
-        <br />
-        <h:commandButton value="Login"
-                         action="#{loginController.login()}" />
-    </h:form>
-</h:body>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/container.xhtml">
+    <ui:define name="pageContent">
+        <div class="container">
+            <div class="row content">
+                <div class="col col-sm-12">
+                    <h1>Please log in</h1>
+                    <h:form styleClass="form-horizontal">
+                        <div class="form-group">
+                            <p:outputLabel for="j_username" value="Username" styleClass="col-sm-2" />
+                            <div class="col-sm-10">
+                                <p:inputText id="j_username" required="true" value="#{loginController.username}" />
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <p:outputLabel for="j_password" value="Password" styleClass="col-sm-2" />
+                            <div class="col-sm-10">
+                                <p:password id="j_password" required="true" value="#{loginController.password}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col col-sm-10 col-sm-offset-2">
+                                <p:commandButton ajax="false" value="Login" action="#{loginController.login()}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col col-sm-10 col-sm-offset-2">
+                                <p:link value="Register" outcome="/security/register" />
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>

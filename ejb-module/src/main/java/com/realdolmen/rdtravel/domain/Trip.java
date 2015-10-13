@@ -124,6 +124,13 @@ public class Trip {
         this.flights = flights;
     }
 
+    public Flight getLastFlight() {
+        if(getFlights().size() < 0)
+            return null;
+
+        return getFlights().get(getFlights().size() - 1);
+    }
+
     @Override
     public String toString() {
         String toString = "Trip{" +

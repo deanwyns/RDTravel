@@ -18,11 +18,15 @@
             <p:remoteCommand name="getAirports" actionListener="#{findTripView.getAirportsCommand}" oncomplete="getAirportsCallback(xhr, status, args);" />
         </h:form>
 
-        <div class="splash"></div>
+        <div class="splash">
+            <div class="container">
+                <h1 class="splash-content">RD Travel, the company that flies with you.</h1>
+            </div>
+        </div>
 
         <div class="container">
             <div class="search-form">
-                <span>Find a trip</span>
+                <h2 class="content-title">Find a trip</h2>
                 <h:form id="findTripForm">
                     <div class="form-inline">
                         <div class="form-group">

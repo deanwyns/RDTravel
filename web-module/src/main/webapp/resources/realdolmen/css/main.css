@@ -86,14 +86,29 @@ html, body {
     margin-bottom: 10px;
 }
 
+.splash-content {
+    font-size: 48px;
+    line-height: 48px;
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+}
+
 .search-form {
     background-color: #a6373f;
     border: 2px solid #7c151d;
     border-radius: 5px;
     padding: 10px;
-    margin-bottom: 10px;
 
     color: #fff;
+
+    position: relative;
+    top: -60px;
+    margin-bottom: -50px;
+}
+
+.content-title {
+    margin-top: 0;
 }
 
 .search-form form {
@@ -115,8 +130,8 @@ html, body {
 }
 
 .content {
-    background-color: #fdfdfd;
-    border: 1px solid #dedede;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px 10px;
     margin: 15px 0;

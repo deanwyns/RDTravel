@@ -70,6 +70,7 @@
         backButton.click(function() {
             worldMap.continent = null;
             worldMap.container.css('z-index', '');
+            worldMap.map.setSelectedRegions([]);
             worldMap.map.reset();
 
             currentAirportPopup.country = null;
@@ -215,6 +216,8 @@
                             { name: 'continent', value: worldMap.continent },
                             { name: 'airport', value: airports[i].id }
                         ]);
+                        currentAirportPopup.div.remove();
+                        worldMap.map.setSelectedRegions([]);
                     });
                     $listItem.appendTo($list);
                 })(i);

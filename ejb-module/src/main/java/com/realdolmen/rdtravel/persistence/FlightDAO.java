@@ -4,6 +4,7 @@ import com.realdolmen.rdtravel.domain.Flight;
 import com.realdolmen.rdtravel.domain.Partner;
 
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +17,7 @@ import java.util.List;
  * An implementation of the generic DAO for flights.
  */
 @Named
+@RequestScoped
 public class FlightDAO extends GenericDaoImpl<Flight, Long> {
 
     @PersistenceContext

@@ -43,7 +43,7 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
 
         return trips.stream().filter(t -> {
                     int amount = t.getFlights().size();
-                    return amount != 0 && t.getFlights().get(amount - 1).getDestination().getCountry().equals(country);
+                    return amount != 0 && t.getLastFlight().getDestination().getCountry().equals(country);
                 }
         ).collect(Collectors.toList());
     }
@@ -58,7 +58,7 @@ public class TripDAO extends GenericDaoImpl<Trip, Long> {
 
         return trips.stream().filter(t -> {
                     int amount = t.getFlights().size();
-                    return amount != 0 && t.getFlights().get(amount - 1).getDestination().equals(airport);
+                    return amount != 0 && t.getLastFlight().getDestination().equals(airport);
                 }
         ).collect(Collectors.toList());
     }
