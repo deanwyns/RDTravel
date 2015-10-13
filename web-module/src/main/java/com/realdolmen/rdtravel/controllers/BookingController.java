@@ -86,7 +86,7 @@ public class BookingController implements Serializable {
 
     public String cancel() {
         conversation.end();
-        return previousPage + "?faces-redirect=true&includeViewParams=true";
+        return "/index?faces-redirect=true";
     }
 
     public void onPaymentMethodChange() {
