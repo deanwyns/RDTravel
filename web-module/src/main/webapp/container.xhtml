@@ -26,26 +26,28 @@
                 </button>
                 <h:link styleClass="navbar-brand" outcome="/index">RD Travel</h:link>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <c:if test="#{request.isUserInRole('RDTravelAdmin')}">
+            <h:form styleClass="display: inline;">
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <c:if test="#{request.isUserInRole('RDTravelAdmin')}">
+                            <li>
+                                <h:link outcome="/admin/dashboard">Admin</h:link>
+                            </li>
+                        </c:if>
+                        <c:if test="#{request.isUserInRole('PartnerAdmin')}">
+                            <li>
+                                <h:link outcome="/admin/dashboard">Partner</h:link>
+                            </li>
+                        </c:if>
                         <li>
-                            <h:link outcome="/admin/dashboard">Admin</h:link>
+                            <h:link rendered="#{empty request.remoteUser}" outcome="/security/login.xhtml">Login</h:link>
                         </li>
-                    </c:if>
-                    <c:if test="#{request.isUserInRole('PartnerAdmin')}">
                         <li>
-                            <h:link outcome="/admin/dashboard">Partner</h:link>
+                            <h:commandLink rendered="#{not empty request.remoteUser}" ajax="false" action="#{loginController.logout}" value="Logout" />
                         </li>
-                    </c:if>
-                    <li>
-                        <h:link rendered="#{empty request.remoteUser}" outcome="/security/login.xhtml">Login</h:link>
-                        <h:form rendered="#{not empty request.remoteUser}">
-                            <p:commandLink action="#{loginController.logout}" value="Logout" />
-                        </h:form>
-                    </li>
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            </h:form>
         </div>
     </nav>
     <div class="wrapper">

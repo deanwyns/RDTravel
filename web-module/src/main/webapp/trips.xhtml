@@ -35,6 +35,10 @@
                     <h:outputText value="#{trip.name}"/>
                 </p:column>
 
+                <p:column headerText="Departure">
+                    <h:outputText value="#{trip.flights.get(0).departure.city} (#{trip.flights.get(0).departure.country.name})"/>
+                </p:column>
+
                 <p:column headerText="Price per day">
                     <h:outputText value="#{trip.pricePerDay}"/>
                 </p:column>
