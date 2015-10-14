@@ -8,11 +8,13 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/admin/container.xhtml">
     <ui:define name="pageContent">
-        <div class="row row-spacer">
-            <div class="col-sm-2">
-                <p:link styleClass="button default-button" value="Create flight" outcome="flight" />
+        <h:panelGroup rendered="#{flightOverviewView.user.class == 'class com.realdolmen.rdtravel.domain.PartnerAdmin'}">
+            <div class="row row-spacer">
+                <div class="col-sm-2">
+                    <p:link styleClass="button default-button" value="Create flight" outcome="flight" />
+                </div>
             </div>
-        </div>
+        </h:panelGroup>
 
         <div class="row row-spacer">
             <div class="col-sm-12">

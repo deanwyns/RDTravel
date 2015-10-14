@@ -66,22 +66,22 @@ public class BookingController implements Serializable {
     }
 
     public String bookTrip() {
-//        try {
+        try {
             bookService.createBooking(vm.getBooking());
             conversation.end();
             return "/customer/thank-you?faces-redirect=true";
-//        }
-//        catch (ConstraintViolationException e) {
-//            for(ConstraintViolation<?> constraintViolation : e.getConstraintViolations()){
-//                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Booking failed", constraintViolation.getMessage());
-//                FacesContext.getCurrentInstance().addMessage(null, message);
-//            }
-//        } catch (IllegalArgumentException e){
-//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Booking failed", e.getMessage());
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-//        }
-//
-//        return "";
+        }
+        catch (ConstraintViolationException e) {
+            for(ConstraintViolation<?> constraintViolation : e.getConstraintViolations()){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Booking failed", constraintViolation.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        } catch (IllegalArgumentException e){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Booking failed", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+        return "";
     }
 
     public String cancel() {
