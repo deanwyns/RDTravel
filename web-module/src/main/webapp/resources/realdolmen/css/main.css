@@ -170,6 +170,10 @@ html, body {
     background-color: #bababa;
 }
 
+.jvectormap-tip {
+    z-index: 9999;
+}
+
 /***************************************************
 ** Primefaces overriding                           *
 ***************************************************/
